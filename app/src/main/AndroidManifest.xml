@@ -26,6 +26,8 @@
 
         <activity android:name=".activities.SignInActivity" />
         <activity android:name=".activities.SignInAsGuestActivity" />
+        <activity android:name=".TagsActivity" />
+        <activity android:name=".UsersActivity" />
 
     </application>
 
