@@ -1,13 +1,9 @@
 package com.endava.myendava.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
@@ -17,6 +13,8 @@ import com.endava.myendava.views.fragments.HomeView;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -51,12 +49,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mUnbinder.unbind();
-    }
-
-    @Override
-    public void testViewReference() {
-        Log.d(getClass().getName(), "Called from Presenter in Fragment");
+        super.onDestroy();
     }
 }

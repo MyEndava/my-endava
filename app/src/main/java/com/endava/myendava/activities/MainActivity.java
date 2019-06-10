@@ -3,54 +3,36 @@ package com.endava.myendava.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
-
+import com.endava.myendava.ProfileFragment;
 import com.endava.myendava.R;
-import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.presenters.activities.MainPresenter;
-import com.endava.myendava.views.activities.MainView;
+import com.endava.myendava.TagsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import javax.inject.Inject;
-
+import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements MainView {
+public class MainActivity extends AppCompatActivity {
 
-    @Inject
-    MainPresenter mPresenter;
-
-    @BindView(R.id.nav_view)
+    @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
 
     private Unbinder mUnbinder;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
-        NavHostFragment nav = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment);
-        int currentFragment = nav.getNavController().getCurrentDestination().getId();
         switch (item.getItemId()) {
             case R.id.navigation_home:
-                if (currentFragment != R.id.home_screen) {
-                    Navigation.findNavController(findViewById(R.id.nav_host_fragment))
-                            .navigate(R.id.action_global_home_screen);
-                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        ProfileFragment.newInstance()).commit();
                 return true;
             case R.id.navigation_dashboard:
-                if (currentFragment != R.id.dashboard_screen) {
-                    Navigation.findNavController(findViewById(R.id.nav_host_fragment))
-                            .navigate(R.id.action_global_dashboard_screen);
-                }
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        TagsFragment.newInstance()).commit();
                 return true;
             case R.id.navigation_notifications:
-                if (currentFragment != R.id.notifications_screen) {
-                    Navigation.findNavController(findViewById(R.id.nav_host_fragment))
-                            .navigate(R.id.action_global_notifications_screen);
-                }
+
                 return true;
         }
         return false;
@@ -69,28 +51,13 @@ public class MainActivity extends AppCompatActivity implements MainView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
-        setupModule();
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-    }
-
-    private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getApplication();
-        locator.getMainComponent(this).inject(this);
-        informPresenterViewReady();
-    }
-
-    private void informPresenterViewReady() {
-        mPresenter.viewReady();
-    }
-
-    @Override
-    public void onBackPressed(){
-        finish();
+        mNavigationView.setSelectedItemId(R.id.navigation_home);
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         mUnbinder.unbind();
+        super.onDestroy();
     }
 }
