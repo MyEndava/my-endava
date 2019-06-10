@@ -20,5 +20,4 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowBackground">@color/endava_orange</item>
     </style>
-
 </resources>
