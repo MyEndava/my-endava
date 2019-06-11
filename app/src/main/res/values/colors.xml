@@ -3,4 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="endava_orange">#DE411B</color>
+    <color name="endava_dark_orange">#C83A30</color>
+    <color name="endava_light_orange">#E47327</color>
+    <color name="endava_grey">#50585A</color>
+    <color name="white">#FFFFFF</color>
+    <color name="cardboard_gray">#F7F7F7</color>
 </resources>

@@ -1,7 +1,6 @@
 package com.endava.myendava.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.presenters.fragments.BaseFragment;
 import com.endava.myendava.presenters.fragments.HomePresenter;
 import com.endava.myendava.views.fragments.HomeView;
+
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -45,7 +46,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
+        ApplicationServiceLocator locator = (ApplicationServiceLocator) Objects.requireNonNull(getActivity()).getApplicationContext();
         locator.getHomeComponent(this).inject(this);
     }
 
@@ -53,10 +54,5 @@ public class HomeFragment extends BaseFragment implements HomeView {
     public void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
-    }
-
-    @Override
-    public void testViewReference() {
-        Log.d(getClass().getName(), "Called from Presenter in Fragment");
     }
 }

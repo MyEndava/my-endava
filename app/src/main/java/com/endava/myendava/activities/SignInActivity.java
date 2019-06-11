@@ -3,6 +3,7 @@ package com.endava.myendava.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +30,9 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     @BindView(R.id.sign_in_as_guest_button)
     Button mSignInAsGuestButton;
 
+    @BindView(R.id.password)
+    EditText mPasswordEditText;
+
     private Unbinder mUnbinder;
 
     public static void start(SplashActivity activity) {
@@ -37,6 +41,7 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         mUnbinder = ButterKnife.bind(this);
