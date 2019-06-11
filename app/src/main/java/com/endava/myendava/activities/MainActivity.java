@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import com.endava.myendava.ProfileFragment;
 import com.endava.myendava.R;
+import com.endava.myendava.Tag;
 import com.endava.myendava.TagsFragment;
+import com.endava.myendava.UsersActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener {
 
     @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
@@ -59,5 +61,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         mUnbinder.unbind();
         super.onDestroy();
+    }
+
+    @Override
+    public void onTagSelected(Tag tag) {
+        Intent intent = new Intent(MainActivity.this, UsersActivity.class);
+        intent.putExtra(UsersActivity.ARG_TAG, tag);
+        startActivity(intent);
     }
 }
