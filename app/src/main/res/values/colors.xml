@@ -3,6 +3,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="white">#fff</color>
     <color name="technical_tags">#0E4C92</color>
     <color name="interested_tags">#8D021F</color>
     <color name="soft_skills_tags">#2E8B57</color>

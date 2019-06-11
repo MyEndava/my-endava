@@ -5,26 +5,41 @@
     android:id="@+id/navigation_graph.xml"
     app:startDestination="@id/home_screen">
 
-    <fragment android:id="@+id/home_screen"
+    <fragment
+        android:id="@+id/home_screen"
         android:name="com.endava.myendava.fragments.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home">
-    </fragment>
+        tools:layout="@layout/fragment_home"/>
 
-    <fragment android:id="@+id/dashboard_screen"
+    <fragment
+        android:id="@+id/dashboard_screen"
         android:name="com.endava.myendava.fragments.DashboardFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard">
-    </fragment>
+        tools:layout="@layout/fragment_dashboard"/>
 
-    <fragment android:id="@+id/notifications_screen"
+    <fragment
+        android:id="@+id/notifications_screen"
         android:name="com.endava.myendava.fragments.NotificationsFragment"
         android:label="Notifications"
-        tools:layout="@layout/fragment_notifications">
-    </fragment>
+        tools:layout="@layout/fragment_notifications"/>
 
-    <action android:id="@+id/action_global_home_screen" app:destination="@id/home_screen"/>
-    <action android:id="@+id/action_global_dashboard_screen" app:destination="@id/dashboard_screen"/>
-    <action android:id="@+id/action_global_notifications_screen" app:destination="@id/notifications_screen"/>
+    <fragment
+        android:id="@+id/faq_screen"
+        android:name="com.endava.myendava.fragments.FaqFragment"
+        android:label="Faq"
+        tools:layout="@layout/fragment_faq"/>
+
+    <action
+        android:id="@+id/action_global_home_screen"
+        app:destination="@id/home_screen" />
+    <action
+        android:id="@+id/action_global_dashboard_screen"
+        app:destination="@id/dashboard_screen" />
+    <action
+        android:id="@+id/action_global_notifications_screen"
+        app:destination="@id/notifications_screen" />
+    <action
+        android:id="@+id/action_global_faq_screen"
+        app:destination="@id/faq_screen" />
 
 </navigation>

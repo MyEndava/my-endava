@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.endava.myendava.app.MyEndavaApplication;
 import com.endava.myendava.di.FragmentsDi.DashboardComponent;
+import com.endava.myendava.di.FragmentsDi.FaqComponent;
 import com.endava.myendava.di.FragmentsDi.HomeComponent;
 import com.endava.myendava.di.FragmentsDi.NotificationsComponent;
 import com.endava.myendava.di.activitiesDi.MainComponent;
@@ -18,7 +19,8 @@ import dagger.Module;
 import dagger.Provides;
 
 @Module(subcomponents = {SplashComponent.class, SignInComponent.class, SignInAsGuestComponent.class,
-        MainComponent.class, HomeComponent.class, DashboardComponent.class, NotificationsComponent.class})
+        MainComponent.class, HomeComponent.class, DashboardComponent.class, NotificationsComponent.class,
+        FaqComponent.class})
 public class MyEndavaApplicationModule {
 
     private final MyEndavaApplication mApplication;

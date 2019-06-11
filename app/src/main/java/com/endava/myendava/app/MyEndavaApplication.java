@@ -9,6 +9,8 @@ import com.endava.myendava.activities.SplashActivity;
 import com.endava.myendava.di.DaggerMyEndavaApplicationComponent;
 import com.endava.myendava.di.FragmentsDi.DashboardComponent;
 import com.endava.myendava.di.FragmentsDi.DashboardModule;
+import com.endava.myendava.di.FragmentsDi.FaqComponent;
+import com.endava.myendava.di.FragmentsDi.FaqModule;
 import com.endava.myendava.di.FragmentsDi.HomeComponent;
 import com.endava.myendava.di.FragmentsDi.HomeModule;
 import com.endava.myendava.di.FragmentsDi.NotificationsComponent;
@@ -23,13 +25,14 @@ import com.endava.myendava.di.activitiesDi.SignInModule;
 import com.endava.myendava.di.activitiesDi.SplashComponent;
 import com.endava.myendava.di.activitiesDi.SplashModule;
 import com.endava.myendava.fragments.DashboardFragment;
+import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.fragments.HomeFragment;
 import com.endava.myendava.fragments.NotificationsFragment;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 
-public class MyEndavaApplication extends Application implements ApplicationServiceLocator{
+public class MyEndavaApplication extends Application implements ApplicationServiceLocator {
 
     @Inject
     Provider<SplashComponent.Builder> mSplashComponentProvider;
@@ -51,6 +54,9 @@ public class MyEndavaApplication extends Application implements ApplicationServi
 
     @Inject
     Provider<DashboardComponent.Builder> mDashboardComponentProvider;
+
+    @Inject
+    Provider<FaqComponent.Builder> mFaqComponentProvider;
 
     @Override
     public void onCreate() {
@@ -111,6 +117,13 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     public NotificationsComponent getNotificationsComponent(NotificationsFragment fragment) {
         return mNotificationsComponentProvider.get()
                 .notificationsBuilder(new NotificationsModule(fragment))
+                .build();
+    }
+
+    @Override
+    public FaqComponent getFaqComponent(FaqFragment fragment) {
+        return mFaqComponentProvider.get()
+                .faqBuilder(new FaqModule(fragment))
                 .build();
     }
 }
