@@ -41,7 +41,6 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_NoActionBar);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         mUnbinder = ButterKnife.bind(this);

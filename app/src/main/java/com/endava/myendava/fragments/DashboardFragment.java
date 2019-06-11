@@ -39,6 +39,10 @@ public class DashboardFragment extends BaseFragment implements DashboardView {
 
     private Unbinder mUnbinder;
 
+    public static DashboardFragment newInstance() {
+        return new DashboardFragment();
+    }
+
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard, parent, false);

@@ -3,19 +3,22 @@ package com.endava.myendava.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.endava.myendava.ProfileFragment;
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
 import com.endava.myendava.TagsFragment;
 import com.endava.myendava.UsersActivity;
+import com.endava.myendava.fragments.DashboardFragment;
+import com.endava.myendava.fragments.FaqFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener {
 
     @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
@@ -25,16 +28,21 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
         switch (item.getItemId()) {
-            case R.id.navigation_home:
+            case R.id.navigation_dashboard:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        DashboardFragment.newInstance()).commit();
+                return true;
+            case R.id.navigation_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                         ProfileFragment.newInstance()).commit();
                 return true;
-            case R.id.navigation_dashboard:
+            case R.id.navigation_tags:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                         TagsFragment.newInstance()).commit();
                 return true;
-            case R.id.navigation_notifications:
-
+            case R.id.navigation_faq:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        FaqFragment.newInstance()).commit();
                 return true;
         }
         return false;
@@ -54,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mNavigationView.setSelectedItemId(R.id.navigation_home);
+        mNavigationView.setSelectedItemId(R.id.navigation_dashboard);
     }
 
     @Override
