@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.endava.myendava.fragments.FaqFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener {
 
@@ -30,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                                 TagsFragment.newInstance()).commit();
                         return true;
                     case R.id.navigation_notifications:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                                FaqFragment.newInstance()).commit();
                         return true;
                 }
                 return false;

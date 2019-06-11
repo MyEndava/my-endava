@@ -3,19 +3,21 @@ package com.endava.myendava.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.endava.myendava.ProfileFragment;
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
 import com.endava.myendava.TagsFragment;
 import com.endava.myendava.UsersActivity;
+import com.endava.myendava.fragments.FaqFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener {
 
     @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                         TagsFragment.newInstance()).commit();
                 return true;
             case R.id.navigation_notifications:
-
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        FaqFragment.newInstance()).commit();
                 return true;
         }
         return false;

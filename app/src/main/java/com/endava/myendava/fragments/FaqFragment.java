@@ -1,5 +1,6 @@
 package com.endava.myendava.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.endava.myendava.OnChipClickedListener;
 import com.endava.myendava.R;
+import com.endava.myendava.Tag;
 import com.endava.myendava.adapters.FaqRecyclerAdapter;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.presenters.fragments.BaseFragment;
@@ -23,17 +26,21 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FaqFragment extends BaseFragment implements FaqView {
-
-    @Inject
-    FaqPresenter mPresenter;
-
-    private Unbinder mUnbinder;
+public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedListener {
 
     @BindView(R.id.faq_recycler_view)
     RecyclerView mFaqRecycler;
 
-    FaqRecyclerAdapter mFaqAdapter;
+    @Inject
+    FaqPresenter mPresenter;
+
+    private FaqRecyclerAdapter mFaqAdapter;
+    private Unbinder mUnbinder;
+    private OnFaqFragmentInteractionListener mListener;
+
+    public static FaqFragment newInstance() {
+        return new FaqFragment();
+    }
 
     @Override
     public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -52,7 +59,8 @@ public class FaqFragment extends BaseFragment implements FaqView {
     private void setupRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mFaqRecycler.setLayoutManager(layoutManager);
-        mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getMockData());
+        mFaqRecycler.setItemAnimator(null);
+        mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getMockData(), this);
         mFaqRecycler.setAdapter(mFaqAdapter);
     }
 
@@ -66,8 +74,35 @@ public class FaqFragment extends BaseFragment implements FaqView {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof OnFaqFragmentInteractionListener) {
+            mListener = (OnFaqFragmentInteractionListener) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        mListener = null;
+        super.onDetach();
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+    }
+
+    @Override
+    public void onChipClicked(Tag tag) {
+        if (mListener != null) {
+            mListener.onTagSelected(tag);
+        }
+    }
+
+    public interface OnFaqFragmentInteractionListener {
+
+        void onTagSelected(Tag tag);
     }
 }

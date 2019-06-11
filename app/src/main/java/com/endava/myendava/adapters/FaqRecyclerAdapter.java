@@ -1,24 +1,24 @@
 package com.endava.myendava.adapters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ValueAnimator;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.TransitionManager;
 
+import com.endava.myendava.OnChipClickedListener;
 import com.endava.myendava.R;
+import com.endava.myendava.Tag;
+import com.endava.myendava.TagColorManager;
 import com.endava.myendava.adapters.model.FaqItem;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
 
@@ -28,9 +28,12 @@ import butterknife.ButterKnife;
 public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.FaqViewHolder> {
 
     private List<FaqItem> mItemsList;
+    private OnChipClickedListener mListener;
+    private RecyclerView mRecyclerView;
 
-    public FaqRecyclerAdapter(List<FaqItem> faqItems) {
+    public FaqRecyclerAdapter(List<FaqItem> faqItems, OnChipClickedListener listener) {
         mItemsList = faqItems;
+        mListener = listener;
     }
 
     @NonNull
@@ -41,12 +44,48 @@ public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.
     }
 
     @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        mRecyclerView = null;
+    }
+
+    @Override
     public void onBindViewHolder(@NonNull FaqViewHolder holder, int position) {
-        FaqItem item = mItemsList.get(position);
-        holder.mAnswerTextView.setText(item.getmAnswer());
-        holder.mQuestionTextView.setText(item.getmQuestion());
+        FaqItem item = mItemsList.get(holder.getAdapterPosition());
+        holder.mAnswerTextView.setText(item.getAnswer());
+        holder.mQuestionTextView.setText(item.getQuestion());
         holder.mAnswerContainer.setVisibility(item.isExpanded() ? View.VISIBLE : View.GONE);
-        holder.mExpandArrowImageView.setRotationX(item.isExpanded() ? 180 : 0);
+        holder.mExpandArrowImageView.setRotation(item.isExpanded() ? 180 : 0);
+        holder.mTagsChipGroup.removeAllViews();
+        for (Tag tag : item.getTags()) {
+            holder.mTagsChipGroup.addView(createChip(tag, holder.mTagsChipGroup.getContext()));
+        }
+        holder.mQuestionContainer.setOnClickListener(view -> {
+            if (!item.isExpanded()) {
+                holder.mAnswerContainer.setVisibility(View.VISIBLE);
+                item.setExpanded(true);
+            } else {
+                holder.mAnswerContainer.setVisibility(View.GONE);
+                item.setExpanded(false);
+            }
+            TransitionManager.beginDelayedTransition(mRecyclerView);
+            notifyItemChanged(holder.getAdapterPosition());
+        });
+    }
+
+    private Chip createChip(Tag tag, Context context) {
+        Chip chip = new Chip(context);
+        chip.setText(tag.getTitle());
+        chip.setChipBackgroundColorResource(TagColorManager.getColor(tag.getTagGroup().getName()));
+        chip.setTextColor(context.getResources().getColor(android.R.color.white));
+        chip.setOnClickListener(v -> mListener.onChipClicked(tag));
+        return chip;
     }
 
     @Override
@@ -66,67 +105,12 @@ public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.
         TextView mAnswerTextView;
         @BindView(R.id.expand_arrow)
         ImageView mExpandArrowImageView;
+        @BindView(R.id.tags_chip_group)
+        ChipGroup mTagsChipGroup;
 
         FaqViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            mQuestionContainer.setOnClickListener(view -> {
-                FaqItem item = mItemsList.get(getAdapterPosition());
-                if (item.isExpanded()) {
-                    animateCollapseAnswer();
-                    animateArrowRotation(180, 0);
-                    item.setExpanded(false);
-
-                } else {
-                    animateExpandAnswer();
-                    animateArrowRotation(0, 180);
-                    item.setExpanded(true);
-                }
-            });
-        }
-
-        private void animateExpandAnswer() {
-            mAnswerContainer.setVisibility(View.VISIBLE);
-            mAnswerContainer.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
-            int height = mAnswerContainer.getMeasuredHeight();
-            ValueAnimator slideAnimator = ValueAnimator.ofInt(0, height)
-                    .setDuration(200);
-            slideAnimator.addUpdateListener(animator -> {
-                mAnswerContainer.getLayoutParams().height = (Integer) animator.getAnimatedValue();
-                mAnswerContainer.requestLayout();
-            });
-            AnimatorSet set = new AnimatorSet();
-            set.play(slideAnimator);
-            set.setInterpolator(new LinearInterpolator());
-            set.start();
-        }
-
-        private void animateCollapseAnswer() {
-            ValueAnimator slideAnimator = ValueAnimator.ofInt(mAnswerContainer.getMeasuredHeight(), 0)
-                    .setDuration(200);
-            slideAnimator.addUpdateListener(animator -> {
-                mAnswerContainer.getLayoutParams().height = (Integer) animator.getAnimatedValue();
-                mAnswerContainer.requestLayout();
-            });
-            slideAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                    mAnswerContainer.setVisibility(View.GONE);
-                }
-            });
-            AnimatorSet set = new AnimatorSet();
-            set.play(slideAnimator);
-            set.setInterpolator(new LinearInterpolator());
-            set.start();
-        }
-
-        private void animateArrowRotation(int startAngle, int endAngle) {
-            Animation animation = new RotateAnimation(startAngle, endAngle, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-            animation.setDuration(200);
-            animation.setFillAfter(true);
-            animation.setInterpolator(new LinearInterpolator());
-            mExpandArrowImageView.startAnimation(animation);
         }
     }
 }

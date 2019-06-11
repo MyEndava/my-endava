@@ -81,9 +81,4 @@ public class ChipsAdapter extends RecyclerView.Adapter<ChipsAdapter.TagsViewHold
             chipGroup.addView(chip);
         }
     }
-
-    public interface OnChipClickedListener {
-
-        void onChipClicked(Tag tag);
-    }
 }
