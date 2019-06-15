@@ -5,6 +5,7 @@ import com.endava.myendava.activities.SignInActivity;
 import com.endava.myendava.activities.SignInAsGuestActivity;
 import com.endava.myendava.activities.SplashActivity;
 import com.endava.myendava.di.FragmentsDi.DashboardComponent;
+import com.endava.myendava.di.FragmentsDi.FaqComponent;
 import com.endava.myendava.di.FragmentsDi.HomeComponent;
 import com.endava.myendava.di.FragmentsDi.NotificationsComponent;
 import com.endava.myendava.di.activitiesDi.MainComponent;
@@ -12,6 +13,7 @@ import com.endava.myendava.di.activitiesDi.SignInAsGuestComponent;
 import com.endava.myendava.di.activitiesDi.SignInComponent;
 import com.endava.myendava.di.activitiesDi.SplashComponent;
 import com.endava.myendava.fragments.DashboardFragment;
+import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.fragments.HomeFragment;
 import com.endava.myendava.fragments.NotificationsFragment;
 
@@ -30,4 +32,6 @@ public interface ApplicationServiceLocator {
     DashboardComponent getDashboardComponent(DashboardFragment fragment);
 
     NotificationsComponent getNotificationsComponent(NotificationsFragment fragment);
+
+    FaqComponent getFaqComponent(FaqFragment fragment);
 }
