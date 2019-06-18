@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class TagsFragment extends Fragment {
+public class TagsFragment extends Fragment implements TagsAdapter.OnTagClickListener {
 
     private TagsAdapter adapter;
 
@@ -38,7 +38,12 @@ public class TagsFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new TagsAdapter(getContext(), TagsGenerator.generateTagsList());
+        adapter = new TagsAdapter(getContext(), TagsGenerator.generateTagsList(), this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onTagClicked(Tag tag) {
+
     }
 }

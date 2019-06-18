@@ -26,15 +26,16 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             = item -> {
         switch (item.getItemId()) {
             case R.id.navigation_home:
+                return true;
+            case R.id.navigation_dashboard:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                         ProfileFragment.newInstance()).commit();
                 return true;
-            case R.id.navigation_dashboard:
+            case R.id.navigation_tags:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                         TagsFragment.newInstance()).commit();
                 return true;
             case R.id.navigation_notifications:
-
                 return true;
         }
         return false;
