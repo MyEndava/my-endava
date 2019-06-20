@@ -2,6 +2,7 @@ package com.endava.myendava.di.FragmentsDi;
 
 import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.presenters.fragments.FaqPresenter;
+import com.endava.myendava.utils.MySharedPreferences;
 import com.endava.myendava.views.fragments.FaqView;
 
 import dagger.Module;
@@ -17,8 +18,8 @@ public class FaqModule {
     }
 
     @Provides
-    FaqPresenter provideFaqPresenter() {
-        FaqPresenter presenter = new FaqPresenter();
+    FaqPresenter provideFaqPresenter(MySharedPreferences mySharedPreferences) {
+        FaqPresenter presenter = new FaqPresenter(mySharedPreferences);
         presenter.setView((FaqView) mFragment);
         return presenter;
     }

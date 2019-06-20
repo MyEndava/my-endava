@@ -30,10 +30,12 @@ public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.
     private List<FaqItem> mItemsList;
     private OnChipClickedListener mListener;
     private RecyclerView mRecyclerView;
+    private boolean mIsLoggedInAsGuest;
 
-    public FaqRecyclerAdapter(List<FaqItem> faqItems, OnChipClickedListener listener) {
+    public FaqRecyclerAdapter(List<FaqItem> faqItems, OnChipClickedListener listener, boolean isGuest) {
         mItemsList = faqItems;
         mListener = listener;
+        mIsLoggedInAsGuest = isGuest;
     }
 
     @NonNull
@@ -61,11 +63,17 @@ public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.
         holder.mAnswerTextView.setText(item.getAnswer());
         holder.mQuestionTextView.setText(item.getQuestion());
         holder.mAnswerContainer.setVisibility(item.isExpanded() ? View.VISIBLE : View.GONE);
-        holder.mExpandArrowImageView.setRotation(item.isExpanded() ? 180 : 0);
-        holder.mTagsChipGroup.removeAllViews();
-        for (Tag tag : item.getTags()) {
-            holder.mTagsChipGroup.addView(createChip(tag, holder.mTagsChipGroup.getContext()));
+        holder.mExpandArrowImageView.setRotation(item.isExpanded() ? 0 : 180);
+
+        if(!mIsLoggedInAsGuest){
+            holder.mTagsChipGroup.removeAllViews();
+            for (Tag tag : item.getTags()) {
+                holder.mTagsChipGroup.addView(createChip(tag, holder.mTagsChipGroup.getContext()));
+            }
+        } else {
+            holder.mTagsChipGroup.setVisibility(View.GONE);
         }
+
         holder.mQuestionContainer.setOnClickListener(view -> {
             if (!item.isExpanded()) {
                 holder.mAnswerContainer.setVisibility(View.VISIBLE);

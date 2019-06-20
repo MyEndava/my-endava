@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.presenters.activities.SignInPresenter;
+import com.endava.myendava.utils.MySharedPreferences;
 import com.endava.myendava.views.activities.SignInView;
 
 import javax.inject.Inject;
@@ -23,6 +24,9 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
     @Inject
     SignInPresenter mPresenter;
+
+    @Inject
+    MySharedPreferences mSharedPreferences;
 
     @BindView(R.id.sign_in_button)
     Button mSignInButton;
@@ -70,6 +74,7 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     }
 
     private void showMainScreen() {
+        mSharedPreferences.setUserAsEmployee();
         MainActivity.start(this);
         finish();
     }
