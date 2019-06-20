@@ -5,9 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.presenters.fragments.BaseFragment;
@@ -18,6 +15,8 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -52,7 +51,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         mUnbinder.unbind();
+        super.onDestroy();
     }
 }
