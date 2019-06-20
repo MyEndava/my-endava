@@ -6,7 +6,7 @@
     android:layout_height="72dp"
     android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.github.ivbaranov.mli.MaterialLetterIcon
         android:id="@+id/tag_group_image_view"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -14,6 +14,9 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:mli_letter_color="@android:color/white"
+        app:mli_letters_number="1"
+        app:mli_shape_type="circle"
         tools:src="@color/colorAccent" />
 
     <TextView

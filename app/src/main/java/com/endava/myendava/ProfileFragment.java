@@ -44,33 +44,7 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        Map<String, List<Tag>> tagsMap = new LinkedHashMap<>();
-        for (Tag tag : TagsGenerator.generateTagsListForUser()) {
-            if (!"Interested".equals(tag.getTagPurpose().getPurpose())) {
-                if (tagsMap.containsKey(tag.getTagGroup().getName())) {
-                    List<Tag> tags = tagsMap.get(tag.getTagGroup().getName());
-                    tags.add(tag);
-                    tagsMap.put(tag.getTagGroup().getName(), tags);
-                } else {
-                    List<Tag> tags = new ArrayList<>();
-                    tags.add(tag);
-                    tagsMap.put(tag.getTagGroup().getName(), tags);
-                }
-            }
-
-            if ("Interested".equals(tag.getTagPurpose().getPurpose())) {
-                if (tagsMap.containsKey(tag.getTagPurpose().getPurpose())) {
-                    List<Tag> tags = tagsMap.get(tag.getTagPurpose().getPurpose());
-                    tags.add(tag);
-                    tagsMap.put(tag.getTagGroup().getName(), tags);
-                } else {
-                    List<Tag> tags = new ArrayList<>();
-                    tags.add(tag);
-                    tagsMap.put(tag.getTagPurpose().getPurpose(), tags);
-                }
-            }
-        }
-        adapter = new ChipsAdapter(getContext(), tagsMap, this);
+        adapter = new ChipsAdapter(getContext(), TagsGenerator.generateTagsListForUser(), this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -92,12 +66,16 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
     @Override
     public void onChipClicked(Tag tag) {
         if (listener != null) {
-            listener.onTagSelected(tag);
+            if ("Contact".equals(tag.getTagGroup().getName()) || "Project".equals(tag.getTagGroup().getName())) {
+                // no implementation
+            } else {
+                listener.onSkillSelected(tag);
+            }
         }
     }
 
     public interface OnProfileFragmentInteractionListener {
 
-        void onTagSelected(Tag tag);
+        void onSkillSelected(Tag tag);
     }
 }

@@ -6,20 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
 
     private final Context context;
     private final List<User> users;
+    private final OnUserClickListener listener;
 
-    public UsersAdapter(Context context, List<User> users) {
+    public UsersAdapter(Context context, List<User> users, OnUserClickListener listener) {
         this.context = context;
         this.users = users;
+        this.listener = listener;
     }
 
     @NonNull
@@ -31,9 +34,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        holder.photoImageView.setImageDrawable(context.getDrawable(users.get(position).getPhotoId()));
-        holder.nameTextView.setText(users.get(position).getName());
-        holder.gradeTextView.setText(users.get(position).getGrade());
+        holder.bind(users.get(position), listener);
     }
 
     @Override
@@ -41,17 +42,31 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         return users.size();
     }
 
-    public class UserViewHolder extends RecyclerView.ViewHolder {
+    class UserViewHolder extends RecyclerView.ViewHolder {
 
-        public CircleImageView photoImageView;
-        public TextView nameTextView;
-        public TextView gradeTextView;
+        View itemView;
+        CircleImageView photoImageView;
+        TextView nameTextView;
+        TextView gradeTextView;
 
-        public UserViewHolder(@NonNull View itemView) {
+        UserViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.itemView = itemView;
             photoImageView = itemView.findViewById(R.id.user_photo_image_view);
             nameTextView = itemView.findViewById(R.id.user_name_text_view);
             gradeTextView = itemView.findViewById(R.id.user_grade_text_view);
         }
+
+        void bind(User user, OnUserClickListener listener) {
+            photoImageView.setImageDrawable(context.getDrawable(user.getPhotoId()));
+            nameTextView.setText(user.getName());
+            gradeTextView.setText(user.getGrade());
+            itemView.setOnClickListener(view -> listener.onUserClicked(user));
+        }
+    }
+
+    public interface OnUserClickListener {
+
+        void onUserClicked(User user);
     }
 }

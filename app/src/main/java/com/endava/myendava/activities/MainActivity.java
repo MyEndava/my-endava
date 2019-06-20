@@ -19,7 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener
+        TagsFragment.OnTagsFragmentInteractionListener {
 
     @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
@@ -73,9 +74,15 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     }
 
     @Override
-    public void onTagSelected(Tag tag) {
+    public void onSkillSelected(Tag tag) {
         Intent intent = new Intent(MainActivity.this, UsersActivity.class);
         intent.putExtra(UsersActivity.ARG_TAG, tag);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onAddSkillClicked() {
+        Intent intent = new Intent(MainActivity.this, AddTagActivity.class);
         startActivity(intent);
     }
 }

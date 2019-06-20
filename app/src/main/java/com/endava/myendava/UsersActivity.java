@@ -1,5 +1,6 @@
 package com.endava.myendava;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,7 +8,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class UsersActivity extends AppCompatActivity {
+import com.endava.myendava.activities.ProfileActivity;
+
+public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnUserClickListener {
 
     public static final String ARG_TAG = "arg_tag_name";
 
@@ -30,7 +33,13 @@ public class UsersActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new UsersAdapter(this, UsersGenerator.generateUsers());
+        adapter = new UsersAdapter(this, UsersGenerator.generateUsers(), this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onUserClicked(User user) {
+        Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
+        startActivity(intent);
     }
 }
