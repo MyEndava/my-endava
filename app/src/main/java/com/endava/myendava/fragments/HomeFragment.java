@@ -11,6 +11,8 @@ import com.endava.myendava.presenters.fragments.BaseFragment;
 import com.endava.myendava.presenters.fragments.HomePresenter;
 import com.endava.myendava.views.fragments.HomeView;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
@@ -43,7 +45,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
+        ApplicationServiceLocator locator = (ApplicationServiceLocator) Objects.requireNonNull(getActivity()).getApplicationContext();
         locator.getHomeComponent(this).inject(this);
     }
 

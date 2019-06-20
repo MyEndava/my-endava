@@ -3,6 +3,7 @@ package com.endava.myendava.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,9 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
     @BindView(R.id.sign_in_as_guest_button)
     Button mSignInAsGuestButton;
+
+    @BindView(R.id.password)
+    EditText mPasswordEditText;
 
     private Unbinder mUnbinder;
 

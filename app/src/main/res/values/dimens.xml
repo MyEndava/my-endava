@@ -1,5 +1,31 @@
 <resources>
-    <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- Sign In Activities -->
+    <dimen name="sign_in_logo_size">160dp</dimen>
+    <dimen name="sign_in_background_height">240dp</dimen>
+    <dimen name="sign_in_logo_margin">8dp</dimen>
+    <dimen name="sign_in_button_height">45dp</dimen>
+    <dimen name="sign_in_input_drawable_padding">5dp</dimen>
+    <dimen name="sign_in_email_horizontal_margins">24dp</dimen>
+    <dimen name="sign_in_email_top_margin">24dp</dimen>
+    <dimen name="sign_in_password_horizontal_margins">24dp</dimen>
+    <dimen name="sign_in_password_top_margin">8dp</dimen>
+    <dimen name="sign_in_buttons_horizontal_margins">24dp</dimen>
+    <dimen name="sign_in_button_bottom_margin">16dp</dimen>
+    <dimen name="sign_in_guest_button_bottom_margin">24dp</dimen>
+    <dimen name="sign_in_as_guest_horizontal_margins">24dp</dimen>
+    <dimen name="sign_in_as_guest_code_margins">24dp</dimen>
+    <dimen name="sign_in_button_corners_radius">20dp</dimen>
+    <dimen name="sign_in_button_stroke_width">3dp</dimen>
+
+    <!-- Project Card Item -->
+    <dimen name="project_card_margins">8dp</dimen>
+    <dimen name="project_card_elevation">4dp</dimen>
+    <dimen name="project_card_name_size">20sp</dimen>
+    <dimen name="project_card_name_padding">4dp</dimen>
+    <dimen name="project_card_description_margins">8dp</dimen>
+    <dimen name="project_card_description_padding">8dp</dimen>
+
+    <!-- Splash Screen -->
+    <dimen name="splash_logo_width">320dp</dimen>
+
 </resources>

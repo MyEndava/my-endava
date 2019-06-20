@@ -1,6 +1,8 @@
 package com.endava.myendava.activities;
 
 import android.os.Bundle;
+import android.view.animation.AlphaAnimation;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,7 @@ import com.endava.myendava.views.activities.SplashView;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -19,6 +22,9 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Inject
     SplashPresenter mPresenter;
+
+    @BindView(R.id.logo)
+    ImageView mLogo;
 
     private Unbinder mUnbinder;
 
@@ -44,6 +50,13 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     public void showSignInScreen() {
         SignInActivity.start(this);
         finish();
+    }
+
+    @Override
+    public void startAnimation() {
+        AlphaAnimation animation = new AlphaAnimation(0.2f, 1f);
+        animation.setDuration(600);
+        mLogo.startAnimation(animation);
     }
 
     @Override

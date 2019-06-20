@@ -22,15 +22,15 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.navigation_home:
+                    case R.id.navigation_dashboard:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                                 ProfileFragment.newInstance()).commit();
                         return true;
-                    case R.id.navigation_dashboard:
+                    case R.id.navigation_profile:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                                 TagsFragment.newInstance()).commit();
                         return true;
-                    case R.id.navigation_notifications:
+                    case R.id.navigation_tags:
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                                 FaqFragment.newInstance()).commit();
                         return true;
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                 return false;
             }
         });
-        bottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
     }
 
     @Override
