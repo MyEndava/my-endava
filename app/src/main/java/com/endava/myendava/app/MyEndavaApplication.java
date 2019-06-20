@@ -11,6 +11,8 @@ import com.endava.myendava.di.FragmentsDi.DashboardComponent;
 import com.endava.myendava.di.FragmentsDi.DashboardModule;
 import com.endava.myendava.di.FragmentsDi.FaqComponent;
 import com.endava.myendava.di.FragmentsDi.FaqModule;
+import com.endava.myendava.di.FragmentsDi.GuestInfoComponent;
+import com.endava.myendava.di.FragmentsDi.GuestInfoModule;
 import com.endava.myendava.di.FragmentsDi.HomeComponent;
 import com.endava.myendava.di.FragmentsDi.HomeModule;
 import com.endava.myendava.di.FragmentsDi.NotificationsComponent;
@@ -26,6 +28,7 @@ import com.endava.myendava.di.activitiesDi.SplashComponent;
 import com.endava.myendava.di.activitiesDi.SplashModule;
 import com.endava.myendava.fragments.DashboardFragment;
 import com.endava.myendava.fragments.FaqFragment;
+import com.endava.myendava.fragments.GuestInfoFragment;
 import com.endava.myendava.fragments.HomeFragment;
 import com.endava.myendava.fragments.NotificationsFragment;
 
@@ -57,6 +60,9 @@ public class MyEndavaApplication extends Application implements ApplicationServi
 
     @Inject
     Provider<FaqComponent.Builder> mFaqComponentProvider;
+
+    @Inject
+    Provider<GuestInfoComponent.Builder> mGuestInfoComponentProvider;
 
     @Override
     public void onCreate() {
@@ -124,6 +130,12 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     public FaqComponent getFaqComponent(FaqFragment fragment) {
         return mFaqComponentProvider.get()
                 .faqBuilder(new FaqModule(fragment))
+                .build();
+    }
+
+    public GuestInfoComponent getGuestInfoComponent(GuestInfoFragment fragment) {
+        return mGuestInfoComponentProvider.get()
+                .guestInfoBuilder(new GuestInfoModule(fragment))
                 .build();
     }
 }
