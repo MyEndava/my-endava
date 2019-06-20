@@ -8,7 +8,7 @@ import com.endava.myendava.views.activities.SplashView;
 
 public class SplashPresenter extends BasePresenter<SplashView> {
 
-    private static final long SPLASH_LENGTH = 2000;
+    private static final long SPLASH_LENGTH = 1500;
 
     private MySharedPreferences mSharedPreferences;
 
@@ -21,7 +21,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
 
     @Override
     public void viewReady() {
-
+        mViewRef.get().startAnimation();
     }
 
     public void onResume() {
