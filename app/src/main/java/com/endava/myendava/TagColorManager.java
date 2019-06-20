@@ -10,6 +10,10 @@ public class TagColorManager {
                 return R.color.soft_skills_tags;
             case "Interested":
                 return R.color.interested_tags;
+            case "Contact":
+                return R.color.contact_tags;
+            case "Project":
+                return R.color.project_tags;
             default:
                 return R.color.colorPrimary;
         }

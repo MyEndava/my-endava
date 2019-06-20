@@ -90,7 +90,7 @@ public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.
     private Chip createChip(Tag tag, Context context) {
         Chip chip = new Chip(context);
         chip.setText(tag.getTitle());
-        chip.setChipBackgroundColorResource(TagColorManager.getColor(tag.getTagGroup().getName()));
+        chip.setChipBackgroundColorResource(TagColorManager.getColor(tag.getTagGroup().getSpecialization()));
         chip.setTextColor(context.getResources().getColor(android.R.color.white));
         chip.setOnClickListener(v -> mListener.onChipClicked(tag));
         return chip;

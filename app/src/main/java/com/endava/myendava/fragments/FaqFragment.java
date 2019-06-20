@@ -101,12 +101,12 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
     @Override
     public void onChipClicked(Tag tag) {
         if (mListener != null) {
-            mListener.onTagSelected(tag);
+            mListener.onSkillSelected(tag);
         }
     }
 
     public interface OnFaqFragmentInteractionListener {
 
-        void onTagSelected(Tag tag);
+        void onSkillSelected(Tag tag);
     }
 }

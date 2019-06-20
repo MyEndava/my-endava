@@ -6,12 +6,10 @@ public class Tag implements Serializable {
 
     private String title;
     private TagGroup tagGroup;
-    private TagPurpose tagPurpose;
 
-    public Tag(String title, TagGroup tagGroup, TagPurpose tagPurpose) {
+    public Tag(String title, TagGroup tagGroup) {
         this.title = title;
         this.tagGroup = tagGroup;
-        this.tagPurpose = tagPurpose;
     }
 
     public String getTitle() {
@@ -20,9 +18,5 @@ public class Tag implements Serializable {
 
     public TagGroup getTagGroup() {
         return tagGroup;
-    }
-
-    public TagPurpose getTagPurpose() {
-        return tagPurpose;
     }
 }

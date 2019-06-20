@@ -23,7 +23,7 @@
                     android:id="@+id/profile_picture_iamge_view"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@color/colorAccent"
+                    android:src="@drawable/richard_madden"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:scaleType="fitXY"
