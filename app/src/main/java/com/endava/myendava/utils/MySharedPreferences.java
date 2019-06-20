@@ -12,4 +12,16 @@ public class MySharedPreferences {
     public MySharedPreferences(SharedPreferences sharedPreferences) {
         mSharedPreferences = sharedPreferences;
     }
+
+    public boolean isLoggedInAsGuest(){
+        return mSharedPreferences.getBoolean("is_logged_in_as_guest", false);
+    }
+
+    public void setUserAsGuest(){
+        mSharedPreferences.edit().putBoolean("is_logged_in_as_guest", true).apply();
+    }
+
+    public void setUserAsEmployee(){
+        mSharedPreferences.edit().putBoolean("is_logged_in_as_guest", false).apply();
+    }
 }

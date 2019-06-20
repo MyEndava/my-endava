@@ -52,15 +52,19 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
-        setupRecyclerView();
         informPresenterViewReady();
     }
 
-    private void setupRecyclerView() {
+    @Override
+    public void setupRecyclerView(boolean isUserLoggedInAsGuest) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mFaqRecycler.setLayoutManager(layoutManager);
         mFaqRecycler.setItemAnimator(null);
-        mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getMockData(), this);
+        if(isUserLoggedInAsGuest){
+            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getGuestsData(), this, true);
+        }else{
+            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getEmployeesData(), this, false);
+        }
         mFaqRecycler.setAdapter(mFaqAdapter);
     }
 
