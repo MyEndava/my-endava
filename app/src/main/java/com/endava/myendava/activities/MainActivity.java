@@ -12,14 +12,13 @@ import com.endava.myendava.TagsFragment;
 import com.endava.myendava.UsersActivity;
 import com.endava.myendava.fragments.DashboardFragment;
 import com.endava.myendava.fragments.FaqFragment;
-import com.endava.myendava.fragments.GuestInfoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
         TagsFragment.OnTagsFragmentInteractionListener {
 
     @BindView(R.id.navigation_view)
