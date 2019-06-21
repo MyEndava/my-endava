@@ -11,63 +11,125 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        app:title="Info"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="Info"
         app:titleTextColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/wifi_password_title_textview"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/wifi_cardview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/wifi_password_title"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="48dp">
+
+            <TextView
+                android:id="@+id/wifi_password_title_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="@string/wifi_password_title"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/wifi_password_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/wifi_password_title_textview">
+
+                <TextView
+                    android:id="@+id/wifi_password_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="?attr/colorPrimary"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    tools:text="krmawelkrmklawmr" />
+
+                <FrameLayout
+                    android:id="@+id/copy_framelayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp">
+
+                    <ImageView
+                        android:id="@+id/copy_clipboard_imageview"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_copy" />
+
+                    <ImageView
+                        android:id="@+id/copy_success_overlay"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="end"
+                        android:src="@drawable/ic_check_circle_black_24dp"
+                        android:visibility="gone" />
+                </FrameLayout>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/badge_cardview"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/wifi_password_title_textview">
+        app:layout_constraintTop_toBottomOf="@id/wifi_cardview">
 
-        <TextView
-            android:id="@+id/wifi_password_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:textSize="16sp"
-            tools:text="krmawelkrmklawmr" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:id="@+id/copy_framelayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical">
+            <TextView
+                android:id="@+id/visitor_card_title_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:text="@string/visitor_card_number"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/copy_clipboard_imageview"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_copy" />
-
-            <ImageView
-                android:id="@+id/copy_success_overlay"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_check_circle_black_24dp"
-                android:visibility="gone" />
-        </FrameLayout>
-    </LinearLayout>
-
+            <TextView
+                android:id="@+id/visitor_card_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="48dp"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="48sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/visitor_card_title_textview" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
