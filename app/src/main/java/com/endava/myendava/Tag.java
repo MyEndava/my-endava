@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 public class Tag implements Serializable {
 
-    @SerializedName("category")
+    @SerializedName("tag_category")
     @Expose
     private String category;
-    @SerializedName("subcategory")
+    @SerializedName("tag_subcategory")
     @Expose
     private String subcategory;
     @SerializedName("tag_data")
@@ -86,5 +86,17 @@ public class Tag implements Serializable {
 
     public void setTagDescription(String tagDescription) {
         this.tagDescription = tagDescription;
+    }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "category='" + category + '\'' +
+                ", subcategory='" + subcategory + '\'' +
+                ", tagData='" + tagData + '\'' +
+                ", tagId=" + tagId +
+                ", tagName='" + tagName + '\'' +
+                ", tagDescription='" + tagDescription + '\'' +
+                '}';
     }
 }

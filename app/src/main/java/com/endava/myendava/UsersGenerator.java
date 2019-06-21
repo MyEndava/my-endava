@@ -9,22 +9,22 @@ public class UsersGenerator {
         List<User> users = new ArrayList<>();
         User user;
         user = new User("Alex", "Graur", "Endava",
-                "alex.graur@endava.com", "Senior Android Developer", R.drawable.richard_madden);
+                "alex.graur@endava.com", "Senior Android Developer", "");
         users.add(user);
         user = new User("Gabriel", "Blaj", "Endava",
-                "gabriel.blaj@endava.com", "Junior Android Developer", R.drawable.pedro_pascal);
+                "gabriel.blaj@endava.com", "Junior Android Developer", "");
         users.add(user);
         user = new User("Marius", "Olenici", "Endava",
-                "marius.olenici@endava.com", "Android Developer", R.drawable.kit_harrington);
+                "marius.olenici@endava.com", "Android Developer", "");
         users.add(user);
         user = new User("Mihai", "Rosu", "Endava",
-                "mihai.rosu@endava.com", "Android Developer", R.drawable.aiden_gillen);
+                "mihai.rosu@endava.com", "Android Developer", "");
         users.add(user);
         user = new User("Paula", "Suciu", "Endava",
-                "alex.graur@endava.com", "Tester", R.drawable.sophie_turner);
+                "alex.graur@endava.com", "Tester", "");
         users.add(user);
         user = new User("Simina", "Popescu", "Endava",
-                "alex.graur@endava.com", "iOS Developer", R.drawable.emilia_clarke);
+                "alex.graur@endava.com", "iOS Developer", "");
         users.add(user);
         return users;
     }

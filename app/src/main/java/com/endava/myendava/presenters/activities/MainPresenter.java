@@ -8,4 +8,9 @@ public class MainPresenter extends BasePresenter<MainView> {
     public void viewReady() {
 
     }
+
+    @Override
+    public void viewGone() {
+
+    }
 }

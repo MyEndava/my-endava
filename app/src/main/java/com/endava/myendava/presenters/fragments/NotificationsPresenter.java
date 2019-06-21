@@ -8,4 +8,9 @@ public class NotificationsPresenter extends BasePresenter<NotificationsView> {
     public void viewReady() {
 
     }
+
+    @Override
+    public void viewGone() {
+
+    }
 }

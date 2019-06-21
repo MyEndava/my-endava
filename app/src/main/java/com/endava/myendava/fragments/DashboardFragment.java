@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,11 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.OnChipClickedListener;
+import com.endava.myendava.Project;
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
 import com.endava.myendava.adapters.ProjectsAdapter;
 import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.models.ProjectModel;
 import com.endava.myendava.presenters.fragments.BaseFragment;
 import com.endava.myendava.presenters.fragments.DashboardPresenter;
 import com.endava.myendava.views.fragments.DashboardView;
@@ -70,11 +71,19 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
 
     @Override
     public void setupAdapter(boolean isUserLoggedInAsGuest) {
-        mAdapter = new ProjectsAdapter(getContext(), this, isUserLoggedInAsGuest);
+        mAdapter = new ProjectsAdapter(getContext(), mPresenter.getProjects(), this, isUserLoggedInAsGuest);
         mItemsRecyclerView.setAdapter(mAdapter);
         mItemsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        List<ProjectModel> mItemsList = mPresenter.getItemsList(getContext());
-        mAdapter.setData(mItemsList);
+    }
+
+    @Override
+    public void showProjects(List<Project> projects) {
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

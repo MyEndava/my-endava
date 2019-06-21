@@ -8,4 +8,9 @@ public class GuestInfoPresenter extends BasePresenter<GuestInfoView> {
     @Override
     public void viewReady() {
     }
+
+    @Override
+    public void viewGone() {
+
+    }
 }
