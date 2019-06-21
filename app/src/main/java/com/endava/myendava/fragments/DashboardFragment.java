@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.endava.myendava.OnChipClickedListener;
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
-import com.endava.myendava.TagGroup;
 import com.endava.myendava.adapters.ProjectsAdapter;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.models.ProjectModel;
@@ -100,8 +99,9 @@ public class DashboardFragment extends BaseFragment implements DashboardView, On
     }
 
     private void onProjectClicked(String projectName) {
-        if(mListener != null) {
-            mListener.onSkillSelected(new Tag(projectName, new TagGroup("Project", null)));
+        if (mListener != null) {
+            mListener.onSkillSelected(new Tag("Project", "Project", null,
+                    -1, projectName, ""));
         }
     }
 

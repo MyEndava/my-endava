@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
-import com.endava.myendava.TagGroup;
 import com.endava.myendava.models.ProjectModel;
 
 import java.util.ArrayList;
@@ -21,9 +20,9 @@ public class MockedProjectsGenerator {
         homeAssistant.setDescription(context.getResources().getString(R.string.lorem_ipsum));
         homeAssistant.setImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.home_assistant));
         List<Tag> tags2 = new ArrayList<>();
-        tags2.add(new Tag("ITS", new TagGroup("Skill", "Soft")));
-        tags2.add(new Tag("RxJava", new TagGroup("Skill", "Technical")));
-        tags2.add(new Tag("FrontDesk", new TagGroup("Skill", "Soft")));
+        tags2.add(new Tag("Skill", "Soft", null, -1, "ITS", ""));
+        tags2.add(new Tag("Skill", "Technical", null, -1, "RxJava", ""));
+        tags2.add(new Tag("Skill", "Soft", null, -1, "FrontDesk", ""));
         homeAssistant.setTags(tags2);
         projectsList.add(homeAssistant);
 
@@ -32,9 +31,9 @@ public class MockedProjectsGenerator {
         superSdk.setDescription(context.getResources().getString(R.string.lorem_ipsum));
         superSdk.setImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.super_sdk));
         List<Tag> tags3 = new ArrayList<>();
-        tags3.add(new Tag("ITS", new TagGroup("Skill", "Soft")));
-        tags3.add(new Tag("RxJava", new TagGroup("Skill", "Technical")));
-        tags3.add(new Tag("FrontDesk", new TagGroup("Skill", "Soft")));
+        tags3.add(new Tag("Skill", "Soft", null, -1, "ITS", ""));
+        tags3.add(new Tag("Skill", "Technical", null, -1, "RxJava", ""));
+        tags3.add(new Tag("Skill", "Soft", null, -1, "FrontDesk", ""));
         superSdk.setTags(tags3);
         projectsList.add(superSdk);
 
@@ -43,9 +42,9 @@ public class MockedProjectsGenerator {
         bestConnectivity.setDescription(context.getResources().getString(R.string.lorem_ipsum));
         bestConnectivity.setImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.best_connectivity));
         List<Tag> tags4 = new ArrayList<>();
-        tags4.add(new Tag("ITS", new TagGroup("Skill", "Soft")));
-        tags4.add(new Tag("RxJava", new TagGroup("Skill", "Technical")));
-        tags4.add(new Tag("FrontDesk", new TagGroup("Skill", "Soft")));
+        tags4.add(new Tag("Skill", "Soft", null, -1, "ITS", ""));
+        tags4.add(new Tag("Skill", "Technical", null, -1, "RxJava", ""));
+        tags4.add(new Tag("Skill", "Soft", null, -1, "FrontDesk", ""));
         bestConnectivity.setTags(tags4);
         projectsList.add(bestConnectivity);
 
@@ -54,9 +53,9 @@ public class MockedProjectsGenerator {
         smartPay.setDescription(context.getResources().getString(R.string.lorem_ipsum));
         smartPay.setImage(BitmapFactory.decodeResource(context.getResources(), R.drawable.smart_pay));
         List<Tag> tags1 = new ArrayList<>();
-        tags1.add(new Tag("ITS", new TagGroup("Skill", "Soft")));
-        tags1.add(new Tag("RxJava", new TagGroup("Skill", "Technical")));
-        tags1.add(new Tag("FrontDesk", new TagGroup("Skill", "Soft")));
+        tags1.add(new Tag("Skill", "Soft", null, -1, "ITS", ""));
+        tags1.add(new Tag("Skill", "Technical", null, -1, "RxJava", ""));
+        tags1.add(new Tag("Skill", "Soft", null, -1, "FrontDesk", ""));
         smartPay.setTags(tags1);
         projectsList.add(smartPay);
 
