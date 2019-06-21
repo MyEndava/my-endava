@@ -9,10 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
@@ -21,10 +17,13 @@ import com.endava.myendava.presenters.fragments.GuestInfoPresenter;
 import com.endava.myendava.utils.AnimationHelper;
 import com.endava.myendava.views.fragments.GuestInfoView;
 
+import java.util.Random;
 import java.util.UUID;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -34,7 +33,8 @@ public class GuestInfoFragment extends BaseFragment implements GuestInfoView {
 
     @BindView(R.id.wifi_password_textview)
     TextView mPasswordTextView;
-
+    @BindView(R.id.visitor_card_textview)
+    TextView mVisitorCardTextView;
     @BindView(R.id.copy_success_overlay)
     ImageView mCopySuccessOverlay;
 
@@ -60,7 +60,9 @@ public class GuestInfoFragment extends BaseFragment implements GuestInfoView {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
-        mPasswordTextView.setText(UUID.randomUUID().toString());
+        mPasswordTextView.setText(UUID.randomUUID().toString().substring(0, 16));
+        Random random = new Random();
+        mVisitorCardTextView.setText(String.valueOf(random.nextInt(100)));
         informPresenterViewReady();
     }
 
