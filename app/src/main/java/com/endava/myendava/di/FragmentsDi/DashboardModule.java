@@ -2,6 +2,7 @@ package com.endava.myendava.di.FragmentsDi;
 
 import com.endava.myendava.fragments.DashboardFragment;
 import com.endava.myendava.presenters.fragments.DashboardPresenter;
+import com.endava.myendava.utils.MySharedPreferences;
 import com.endava.myendava.views.fragments.DashboardView;
 
 import dagger.Module;
@@ -17,8 +18,8 @@ public class DashboardModule {
     }
 
     @Provides
-    DashboardPresenter provideDashboardPresenter() {
-        DashboardPresenter presenter = new DashboardPresenter();
+    DashboardPresenter provideDashboardPresenter(MySharedPreferences mySharedPreferences) {
+        DashboardPresenter presenter = new DashboardPresenter(mySharedPreferences);
         presenter.setView((DashboardView) mFragment);
         return presenter;
     }

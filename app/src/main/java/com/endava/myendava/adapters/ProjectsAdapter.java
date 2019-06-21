@@ -12,8 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.endava.myendava.OnChipClickedListener;
 import com.endava.myendava.R;
+import com.endava.myendava.Tag;
+import com.endava.myendava.TagColorManager;
 import com.endava.myendava.models.ProjectModel;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +29,16 @@ import butterknife.ButterKnife;
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHolder> {
 
     private final List<ProjectModel> mProjectsList;
-
     private OnMyItemClickListener mItemListener;
-
+    private OnChipClickedListener mChipListener;
     private Context mContext;
+    private boolean mIsLoggedInAsGuest;
 
-    public ProjectsAdapter(Context context) {
+    public ProjectsAdapter(Context context,OnChipClickedListener listener, boolean isGuest) {
         mProjectsList = new ArrayList<>();
         mContext = context;
+        mChipListener = listener;
+        mIsLoggedInAsGuest = isGuest;
     }
 
     @NonNull
@@ -72,6 +79,9 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
         @BindView(R.id.description)
         TextView mDescription;
 
+        @BindView(R.id.tags_chip_group)
+        ChipGroup mTagsChipGroup;
+
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -81,15 +91,32 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             mName.setText(item.getName());
             mDescription.setText(item.getDescription());
             mImage.setImageDrawable(new BitmapDrawable(mContext.getResources(), item.getImage()));
-            mView.setOnClickListener(v -> mItemListener.onMyItemClickListener(item));
+            mView.setOnClickListener(v -> mItemListener.onMyItemClickListener(item.getName()));
+            if(!mIsLoggedInAsGuest){
+                mTagsChipGroup.removeAllViews();
+                for (Tag tag : item.getTags()) {
+                    mTagsChipGroup.addView(createChip(tag, mTagsChipGroup.getContext()));
+                }
+            } else {
+                mTagsChipGroup.setVisibility(View.GONE);
+            }
         }
     }
 
     public interface OnMyItemClickListener {
-        void onMyItemClickListener(ProjectModel item);
+        void onMyItemClickListener(String projectName);
     }
 
     public void setOnMyItemClickListener(OnMyItemClickListener listener) {
         mItemListener = listener;
+    }
+
+    private Chip createChip(Tag tag, Context context) {
+        Chip chip = new Chip(context);
+        chip.setText(tag.getTitle());
+        chip.setChipBackgroundColorResource(TagColorManager.getColor(tag.getTagGroup().getSpecialization()));
+        chip.setTextColor(context.getResources().getColor(android.R.color.white));
+        chip.setOnClickListener(v -> mChipListener.onChipClicked(tag));
+        return chip;
     }
 }

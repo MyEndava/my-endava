@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
-        TagsFragment.OnTagsFragmentInteractionListener {
+        TagsFragment.OnTagsFragmentInteractionListener, DashboardFragment.OnDashboardFragmentInteractionListener {
 
     @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
@@ -50,10 +50,6 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     };
 
     public static void start(SignInActivity activity) {
-        activity.startActivity(new Intent(activity, MainActivity.class));
-    }
-
-    public static void start(SignInAsGuestActivity activity) {
         activity.startActivity(new Intent(activity, MainActivity.class));
     }
 
