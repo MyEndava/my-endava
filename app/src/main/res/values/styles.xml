@@ -4,9 +4,9 @@
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/endava_orange</item>
         <item name="colorPrimaryDark">@color/endava_dark_orange</item>
-        <item name="colorAccent">@color/endava_light_orange</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
-        <item name="android:statusBarColor">@color/endava_orange</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
 
@@ -33,4 +33,8 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="ToolbarStyle" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlActivated">@color/white</item>
+    </style>
 </resources>

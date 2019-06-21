@@ -59,7 +59,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
         void bind(User user, OnUserClickListener listener) {
             photoImageView.setImageDrawable(context.getDrawable(user.getPhotoId()));
-            nameTextView.setText(user.getName());
+            nameTextView.setText(new StringBuilder().append(user.getFirstName()).append(" ")
+                    .append(user.getLastName()).toString());
             gradeTextView.setText(user.getGrade());
             itemView.setOnClickListener(view -> listener.onUserClicked(user));
         }

@@ -60,9 +60,9 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
 
         public void bind(Tag tag, OnTagClickListener listener) {
             groupImageView.setShapeColor(context.getResources()
-                    .getColor(TagColorManager.getColor(tag.getTagGroup().getSpecialization())));
-            groupImageView.setLetter(tag.getTagGroup().getSpecialization().substring(0, 1));
-            titleTextView.setText(tag.getTitle());
+                    .getColor(TagColorManager.getColor(tag.getSubcategory())));
+            groupImageView.setLetter(tag.getSubcategory().substring(0, 1));
+            titleTextView.setText(tag.getTagName());
             Random random = new Random();
             String users = random.nextInt(2) == 1 ? "You and " : "";
             users += random.nextInt(100) + " others are using this tag.";

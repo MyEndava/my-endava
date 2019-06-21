@@ -12,11 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 
 public class ProfileFragment extends Fragment implements OnChipClickedListener {
 
@@ -66,11 +61,7 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
     @Override
     public void onChipClicked(Tag tag) {
         if (listener != null) {
-            if ("Contact".equals(tag.getTagGroup().getName()) || "Project".equals(tag.getTagGroup().getName())) {
-                // no implementation
-            } else {
-                listener.onSkillSelected(tag);
-            }
+            listener.onSkillSelected(tag);
         }
     }
 

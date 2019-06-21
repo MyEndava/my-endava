@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
     @Override
     public void onAddSkillClicked() {
-        Intent intent = new Intent(MainActivity.this, AddTagActivity.class);
+        Intent intent = new Intent(MainActivity.this, SuggestTagActivity.class);
         startActivity(intent);
     }
 }
