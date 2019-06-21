@@ -11,8 +11,10 @@
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="240dp"
+            app:collapsedTitleTextAppearance="@style/AppTheme.Toolbar.Title"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleGravity="top"
+            app:expandedTitleTextAppearance="@style/TransparentText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,6 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:title="Profile"
                 app:titleTextAppearance="@style/AppTheme.Toolbar.Title" />
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
