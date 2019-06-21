@@ -24,6 +24,11 @@ public class SplashPresenter extends BasePresenter<SplashView> {
         mViewRef.get().startAnimation();
     }
 
+    @Override
+    public void viewGone() {
+
+    }
+
     public void onResume() {
         mHandler.postDelayed(() -> mViewRef.get().showSignInScreen(), SPLASH_LENGTH);
     }

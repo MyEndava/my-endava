@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -59,10 +61,14 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
     public void setupRecyclerView(boolean isUserLoggedInAsGuest) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mFaqRecycler.setLayoutManager(layoutManager);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mFaqRecycler.getContext(),
+                DividerItemDecoration.VERTICAL);
+        mFaqRecycler.setHasFixedSize(true);
+        mFaqRecycler.addItemDecoration(dividerItemDecoration);
         mFaqRecycler.setItemAnimator(null);
-        if(isUserLoggedInAsGuest){
+        if (isUserLoggedInAsGuest) {
             mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getGuestsData(), this, true);
-        }else{
+        } else {
             mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getEmployeesData(), this, false);
         }
         mFaqRecycler.setAdapter(mFaqAdapter);

@@ -3,6 +3,7 @@ package com.endava.myendava;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -73,6 +75,7 @@ public class TagsFragment extends Fragment implements TagsAdapter.OnTagClickList
                     this.tags.addAll(tags);
                     adapter.notifyDataSetChanged();
                 }, throwable -> {
+                    Log.e("Tags", throwable.getLocalizedMessage());
                     Toast.makeText(getContext(), "Ooops! something wet wrong ...", Toast.LENGTH_SHORT).show();
                     this.tags.clear();
                     this.tags.addAll(TagsGenerator.generateTagsList());

@@ -22,6 +22,11 @@ public class FaqPresenter extends BasePresenter<FaqView> {
         mViewRef.get().setupRecyclerView(mSharedPreferences.isLoggedInAsGuest());
     }
 
+    @Override
+    public void viewGone() {
+
+    }
+
     public List<FaqItem> getEmployeesData() {
         List<FaqItem> list = new ArrayList<>();
         List<Tag> tags = new ArrayList<>();
@@ -29,7 +34,7 @@ public class FaqPresenter extends BasePresenter<FaqView> {
         tags.add(new Tag("Skill", "Technical", null, -1, "RxJava", ""));
         tags.add(new Tag("Skill", "Soft", null, -1, "FrontDesk", ""));
         for (int i = 0; i < 30; i = i + 2) {
-            list.add(new FaqItem("Questioning question " + i, "Answering answer " + i, tags));
+            list.add(new FaqItem("Cupcake ipsum dolor sit amet sugar plum. Dessert gingerbread toffee sweet roll halvah jelly-o? ", "Chocolate cake topping chocolate bar candy danish lemon drops jelly-o jelly-o. Marshmallow candy cake tiramisu gummi bears apple pie. Jelly-o wafer marshmallow cake chupa chups.", tags));
             list.add(new FaqItem("Questioning question " + (i + 1), "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit purus, venenatis in diam quis, interdum iaculis quam. Vestibulum tellus eros, pulvinar in dictum non, porta vehicula leo. Quisque purus dui, convallis nec venenatis eget, placerat eget augue. Vestibulum vitae pretium odio, sed mollis dolor. " + (i + 1), tags));
         }
         return list;

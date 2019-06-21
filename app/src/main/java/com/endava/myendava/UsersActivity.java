@@ -2,7 +2,8 @@ package com.endava.myendava;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.endava.myendava.activities.ProfileActivity;
 import com.endava.myendava.rest.RetrofitClient;
@@ -10,6 +11,7 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -65,14 +67,17 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
         super.onResume();
         RetrofitClient retrofitClient = new RetrofitClient();
         compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(retrofitClient.getRetrofitClient().getUsersByTag(tag.getCategory())
+        compositeDisposable.add(retrofitClient.getRetrofitClient().getUsersByTag(tag.getTagName())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(users -> {
+                    Log.d("Users", users.toString());
                     this.users.clear();
                     this.users.addAll(users);
                     adapter.notifyDataSetChanged();
                 }, throwable -> {
+                    Log.e("Users", throwable.getLocalizedMessage());
+                    Toast.makeText(UsersActivity.this, "Ooops! something wet wrong ...", Toast.LENGTH_SHORT).show();
                     this.users.clear();
                     this.users.addAll(UsersGenerator.generateUsers());
                     adapter.notifyDataSetChanged();

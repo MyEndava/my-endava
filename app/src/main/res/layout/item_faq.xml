@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -8,20 +9,24 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/faq_question_container"
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/question_text_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#616161"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/expand_arrow"
+            app:layout_constraintEnd_toStartOf="@id/expand_arrow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Cupcake ipsum dolor sit amet sugar plum. Dessert gingerbread toffee sweet roll halvah jelly-o?" />
 
         <ImageView
             android:id="@+id/expand_arrow"
@@ -40,19 +45,24 @@
         android:id="@+id/faq_answer_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DE411B"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/answer_text_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/tags_chip_group"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Powder donut lollipop. I love dessert cupcake macaroon icing wafer. Candy canes bonbon soufflé oat cake jelly sugar plum chocolate tiramisu." />
 
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/tags_chip_group"

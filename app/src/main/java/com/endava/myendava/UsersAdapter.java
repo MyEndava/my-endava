@@ -9,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.endava.myendava.rest.RetrofitClient;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -58,9 +61,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         }
 
         void bind(User user, OnUserClickListener listener) {
-            photoImageView.setImageDrawable(context.getDrawable(user.getPhotoId()));
-            nameTextView.setText(new StringBuilder().append(user.getFirstName()).append(" ")
-                    .append(user.getLastName()).toString());
+            Glide.with(context).load(RetrofitClient.TEST_URL + user.getImageUrl()).into(photoImageView);
+            nameTextView.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
             gradeTextView.setText(user.getGrade());
             itemView.setOnClickListener(view -> listener.onUserClicked(user));
         }

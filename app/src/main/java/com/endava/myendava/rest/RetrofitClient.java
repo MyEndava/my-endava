@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String TEST_URL = "http://185.104.181.99";
+    public static final String TEST_URL = "http://185.104.181.99";
 
     public RetrofitServiceApi getRetrofitClient() {
         OkHttpClient httpClient = new OkHttpClient();

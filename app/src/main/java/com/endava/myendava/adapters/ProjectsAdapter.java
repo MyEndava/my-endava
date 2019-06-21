@@ -12,11 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.endava.myendava.OnChipClickedListener;
+import com.endava.myendava.Project;
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
 import com.endava.myendava.TagColorManager;
 import com.endava.myendava.models.ProjectModel;
+import com.endava.myendava.rest.RetrofitClient;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -28,14 +31,14 @@ import butterknife.ButterKnife;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHolder> {
 
-    private final List<ProjectModel> mProjectsList;
+    private final List<Project> projects;
     private OnMyItemClickListener mItemListener;
     private OnChipClickedListener mChipListener;
     private Context mContext;
     private boolean mIsLoggedInAsGuest;
 
-    public ProjectsAdapter(Context context,OnChipClickedListener listener, boolean isGuest) {
-        mProjectsList = new ArrayList<>();
+    public ProjectsAdapter(Context context, List<Project> projects, OnChipClickedListener listener, boolean isGuest) {
+        this.projects = projects;
         mContext = context;
         mChipListener = listener;
         mIsLoggedInAsGuest = isGuest;
@@ -51,19 +54,13 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        ProjectModel project = mProjectsList.get(position);
+        Project project = projects.get(position);
         viewHolder.bind(project);
     }
 
     @Override
     public int getItemCount() {
-        return mProjectsList.size();
-    }
-
-    public void setData(List<ProjectModel> mData) {
-        mProjectsList.clear();
-        mProjectsList.addAll(mData);
-        notifyDataSetChanged();
+        return projects.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -87,14 +84,15 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             ButterKnife.bind(this, itemView);
         }
 
-        private void bind(ProjectModel item) {
-            mName.setText(item.getName());
-            mDescription.setText(item.getDescription());
-            mImage.setImageDrawable(new BitmapDrawable(mContext.getResources(), item.getImage()));
-            mView.setOnClickListener(v -> mItemListener.onMyItemClickListener(item.getName()));
+        private void bind(Project project) {
+            mName.setText(project.getProjectName());
+            mDescription.setText(project.getDescription());
+            Glide.with(mContext).load(RetrofitClient.TEST_URL + project.getImageUrl())
+                    .into(mImage);
+            mView.setOnClickListener(v -> mItemListener.onMyItemClickListener(project.getProjectName()));
             if(!mIsLoggedInAsGuest){
                 mTagsChipGroup.removeAllViews();
-                for (Tag tag : item.getTags()) {
+                for (Tag tag : project.getTags()) {
                     mTagsChipGroup.addView(createChip(tag, mTagsChipGroup.getContext()));
                 }
             } else {

@@ -8,4 +8,9 @@ public class SignInPresenter extends BasePresenter<SignInView> {
     public void viewReady() {
 
     }
+
+    @Override
+    public void viewGone() {
+
+    }
 }
