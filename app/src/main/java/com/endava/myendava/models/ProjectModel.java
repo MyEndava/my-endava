@@ -2,10 +2,15 @@ package com.endava.myendava.models;
 
 import android.graphics.Bitmap;
 
+import com.endava.myendava.Tag;
+
+import java.util.List;
+
 public class ProjectModel {
     private String mName;
     private String mDescription;
     private Bitmap mImage;
+    private List<Tag> mTags;
 
     public ProjectModel() {
     }
@@ -32,5 +37,13 @@ public class ProjectModel {
 
     public void setImage(Bitmap image) {
         this.mImage = image;
+    }
+
+    public List<Tag> getTags() {
+        return mTags;
+    }
+
+    public void setTags(List<Tag> mTags) {
+        this.mTags = mTags;
     }
 }
