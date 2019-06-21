@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/endava_orange</color>
+    <color name="colorPrimaryDark">@color/endava_dark_orange</color>
+    <color name="colorAccent">#727980</color>
     <color name="endava_orange">#DE411B</color>
-    <color name="endava_dark_orange">#C83A30</color>
-    <color name="endava_light_orange">#E47327</color>
+    <color name="endava_dark_orange">#a40000</color>
+    <color name="endava_light_orange">#ff7448</color>
     <color name="endava_grey">#50585A</color>
     <color name="cardboard_gray">#F7F7F7</color>
     <color name="white">#fff</color>

@@ -65,7 +65,7 @@ public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.
         holder.mAnswerContainer.setVisibility(item.isExpanded() ? View.VISIBLE : View.GONE);
         holder.mExpandArrowImageView.setRotation(item.isExpanded() ? 0 : 180);
 
-        if(!mIsLoggedInAsGuest){
+        if (!mIsLoggedInAsGuest) {
             holder.mTagsChipGroup.removeAllViews();
             for (Tag tag : item.getTags()) {
                 holder.mTagsChipGroup.addView(createChip(tag, holder.mTagsChipGroup.getContext()));
@@ -89,8 +89,8 @@ public class FaqRecyclerAdapter extends RecyclerView.Adapter<FaqRecyclerAdapter.
 
     private Chip createChip(Tag tag, Context context) {
         Chip chip = new Chip(context);
-        chip.setText(tag.getTitle());
-        chip.setChipBackgroundColorResource(TagColorManager.getColor(tag.getTagGroup().getSpecialization()));
+        chip.setText(tag.getTagName());
+        chip.setChipBackgroundColorResource(TagColorManager.getColor(tag.getSubcategory()));
         chip.setTextColor(context.getResources().getColor(android.R.color.white));
         chip.setOnClickListener(v -> mListener.onChipClicked(tag));
         return chip;
