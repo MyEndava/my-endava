@@ -12,10 +12,10 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
-            app:scrimAnimationDuration="250"
             android:layout_height="240dp"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:scrimAnimationDuration="250"
             app:titleEnabled="false">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
 
                 <TextView
                     android:id="@+id/tag_description_text_view"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"

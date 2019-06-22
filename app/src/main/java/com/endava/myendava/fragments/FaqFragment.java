@@ -6,13 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.endava.myendava.OnChipClickedListener;
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
@@ -24,6 +17,11 @@ import com.endava.myendava.views.fragments.FaqView;
 
 import javax.inject.Inject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -67,9 +65,9 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
         mFaqRecycler.addItemDecoration(dividerItemDecoration);
         mFaqRecycler.setItemAnimator(null);
         if (isUserLoggedInAsGuest) {
-            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getGuestsData(), this, true);
+            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getFaqData(getResources().openRawResource(R.raw.faq_guest)), this, true);
         } else {
-            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getEmployeesData(), this, false);
+            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getFaqData(getResources().openRawResource(R.raw.faq_employee)), this, false);
         }
         mFaqRecycler.setAdapter(mFaqAdapter);
     }
