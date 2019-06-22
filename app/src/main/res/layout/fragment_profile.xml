@@ -1,9 +1,11 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -21,16 +23,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_picture_iamge_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="fitXY"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
                     android:src="@drawable/richard_madden"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="2dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/richard_madden" />
 
                 <TextView
                     android:id="@+id/name_text_view"
@@ -39,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif-medium"
+                    android:fontFamily="sans-serif-condensed-light"
                     android:text="Alex Graur"
                     android:textColor="@android:color/white"
                     android:textSize="20sp"
@@ -51,13 +55,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-condensed-light"
                     android:text="Senior Android Developer"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"
-                    android:textStyle="bold"
                     app:layout_constraintBottom_toTopOf="@+id/email_text_view"
                     app:layout_constraintStart_toStartOf="parent" />
 
@@ -66,14 +68,31 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="sans-serif-thin"
+                    android:drawableStart="@drawable/ic_email"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:gravity="center_vertical"
                     android:text="alex.graur@endava.com"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toTopOf="@+id/location_text_view"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/location_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:drawableStart="@drawable/ic_location"
+                    android:drawablePadding="8dp"
+                    android:fontFamily="sans-serif-condensed-light"
+                    android:gravity="center_vertical"
+                    android:text="Cluj-Napoca"
+                    android:textColor="@android:color/white"
+                    android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -107,4 +126,24 @@
                 android:layout_height="match_parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/export_profile_button"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_export_pdf"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_tag_button"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_anchorGravity="bottom|right|end" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

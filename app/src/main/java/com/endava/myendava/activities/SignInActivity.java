@@ -34,6 +34,9 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
     @BindView(R.id.sign_in_as_guest_button)
     Button mSignInAsGuestButton;
 
+    @BindView(R.id.email)
+    EditText mUserEmailEditText;
+
     @BindView(R.id.password)
     EditText mPasswordEditText;
 
@@ -75,6 +78,7 @@ public class SignInActivity extends AppCompatActivity implements SignInView {
 
     private void showMainScreen() {
         mSharedPreferences.setUserAsEmployee();
+        mSharedPreferences.setUserEmail(mUserEmailEditText.getText().toString());
         MainActivity.start(this);
         finish();
     }

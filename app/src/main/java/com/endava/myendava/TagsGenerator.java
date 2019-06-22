@@ -56,7 +56,7 @@ public class TagsGenerator {
 
     public static List<Tag> generateProjectTags() {
         List<Tag> projectTags = new ArrayList<>();
-        projectTags.add(new Tag("Skill", "Interested", null, -1,
+        projectTags.add(new Tag("Project", "Owned", null, -1,
                 "SmartCredentials", ""));
         return projectTags;
     }

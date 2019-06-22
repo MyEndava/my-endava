@@ -1,5 +1,6 @@
 package com.endava.myendava.rest;
 
+import com.endava.myendava.Profile;
 import com.endava.myendava.Project;
 import com.endava.myendava.Tag;
 import com.endava.myendava.User;
@@ -20,4 +21,7 @@ public interface RetrofitServiceApi {
 
     @GET("project/getAll")
     Observable<List<Project>> getAllProjects();
+
+    @GET("profile/{email}")
+    Observable<Profile> getProfile(@Path("email") String email);
 }

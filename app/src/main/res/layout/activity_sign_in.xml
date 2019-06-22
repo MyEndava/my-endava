@@ -37,6 +37,7 @@
     <EditText
         android:id="@+id/email"
         android:layout_width="0dp"
+        android:text="marius.olenici@endava.com"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/sign_in_email_horizontal_margins"
         android:layout_marginTop="@dimen/sign_in_email_top_margin"
