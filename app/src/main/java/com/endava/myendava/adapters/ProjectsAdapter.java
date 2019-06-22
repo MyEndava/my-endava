@@ -1,16 +1,11 @@
 package com.endava.myendava.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.endava.myendava.OnChipClickedListener;
@@ -18,14 +13,15 @@ import com.endava.myendava.Project;
 import com.endava.myendava.R;
 import com.endava.myendava.Tag;
 import com.endava.myendava.TagColorManager;
-import com.endava.myendava.models.ProjectModel;
 import com.endava.myendava.rest.RetrofitClient;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -88,9 +84,10 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
             mName.setText(project.getProjectName());
             mDescription.setText(project.getDescription());
             Glide.with(mContext).load(RetrofitClient.TEST_URL + project.getImageUrl())
+                    .centerCrop()
                     .into(mImage);
             mView.setOnClickListener(v -> mItemListener.onMyItemClickListener(project.getProjectName()));
-            if(!mIsLoggedInAsGuest){
+            if (!mIsLoggedInAsGuest) {
                 mTagsChipGroup.removeAllViews();
                 for (Tag tag : project.getTags()) {
                     mTagsChipGroup.addView(createChip(tag, mTagsChipGroup.getContext()));
