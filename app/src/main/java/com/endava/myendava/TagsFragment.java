@@ -146,25 +146,6 @@ public class TagsFragment extends Fragment implements TagsAdapter.OnTagClickList
         }
     }
 
-    private Map<String, List<Tag>> toTagsMap(List<Tag> tags) {
-        Map<String, List<Tag>> tagsMap = new HashMap<>();
-        for (Tag tag : tags) {
-            addTagToMap(tagsMap, tag.getSubcategory(), tag);
-        }
-        return tagsMap;
-    }
-
-    private void addTagToMap(Map<String, List<Tag>> tagsMap, String key, Tag tag) {
-        List<Tag> tags;
-        if (tagsMap.containsKey(key)) {
-            tags = tagsMap.get(key);
-        } else {
-            tags = new ArrayList<>();
-        }
-        tags.add(tag);
-        tagsMap.put(key, tags);
-    }
-
     public interface OnTagsFragmentInteractionListener {
 
         void onSkillSelected(Tag tag);

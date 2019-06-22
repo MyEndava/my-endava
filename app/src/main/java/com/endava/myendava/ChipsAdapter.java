@@ -17,12 +17,18 @@ import java.util.Map;
 
 public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private final static int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+
     private final Context context;
+    private final Profile profile;
     private final Map<String, List<Tag>> tagsMap;
     private final OnChipClickedListener listener;
 
-    public ChipsAdapter(Context context, Map<String, List<Tag>> tagsMap, OnChipClickedListener listener) {
+    public ChipsAdapter(Context context, Profile profile, Map<String, List<Tag>> tagsMap,
+                        OnChipClickedListener listener) {
         this.context = context;
+        this.profile = profile;
         this.tagsMap = tagsMap;
         this.listener = listener;
     }
@@ -30,32 +36,56 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chips,
-                parent, false);
-        return new TagsViewHolder(view);
 
+        if (viewType == TYPE_ITEM) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chips,
+                    parent, false);
+            return new TagsViewHolder(view);
+        } else if (viewType == TYPE_HEADER) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_description,
+                    parent, false);
+            return new DescriptionViewHolder(view);
+        }
+        throw new RuntimeException("there is no type that matches the type " + viewType + ".");
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        TagsViewHolder tagsViewHolder = (TagsViewHolder) holder;
-        tagsViewHolder.tagsGroupTextView.setText(getTagGroupByPosition(position));
-        for (Tag tag : getTagsByPosition(position)) {
-            tagsViewHolder.createChip(getTagGroupByPosition(position), tag, listener);
+
+        if (holder instanceof DescriptionViewHolder) {
+            ((DescriptionViewHolder) holder).bind(profile);
+        } else if (holder instanceof TagsViewHolder) {
+            TagsViewHolder tagsViewHolder = (TagsViewHolder) holder;
+            tagsViewHolder.tagsGroupTextView.setText(getTagGroupByPosition(position));
+            for (Tag tag : getTagsByPosition(position)) {
+                tagsViewHolder.createChip(getTagGroupByPosition(position), tag, listener);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        return tagsMap.size();
+        return tagsMap.size() + 1;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (isPositionHeader(position))
+            return TYPE_HEADER;
+
+        return TYPE_ITEM;
+    }
+
+    private boolean isPositionHeader(int position) {
+        return position == 0;
     }
 
     private String getTagGroupByPosition(int position) {
-        return (String) tagsMap.keySet().toArray()[position];
+        return (String) tagsMap.keySet().toArray()[position - 1];
     }
 
     private List<Tag> getTagsByPosition(int position) {
-        return tagsMap.get((tagsMap.keySet().toArray())[position]);
+        return tagsMap.get((tagsMap.keySet().toArray())[position - 1]);
     }
 
     public class TagsViewHolder extends RecyclerView.ViewHolder {
@@ -74,14 +104,29 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             chip.setText(tag.getTagName());
             chip.setChipBackgroundColorResource(TagColorManager.getColor(tagGroup));
             chip.setTextColor(context.getResources().getColor(android.R.color.white));
-            chip.setTransitionName("chip_title_to_toolbar_title_transition");
-            chip.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onChipClicked(tag);
-                }
-            });
+            chip.setOnClickListener(v -> listener.onChipClicked(tag));
+            if ("Skill".equals(tag.getCategory())) {
+                chip.setCloseIcon(context.getDrawable(R.drawable.ic_close));
+                chip.setCloseIconVisible(true);
+                chip.setCloseIconTintResource(R.color.white);
+            }
             chipGroup.addView(chip);
+        }
+    }
+
+    public class DescriptionViewHolder extends RecyclerView.ViewHolder {
+
+        TextView descriptionTextView;
+
+        DescriptionViewHolder(@NonNull View itemView) {
+            super(itemView);
+            descriptionTextView = itemView.findViewById(R.id.description_text_view);
+        }
+
+        void bind(final Profile profile) {
+            if (profile != null) {
+                descriptionTextView.setText(profile.getDescription());
+            }
         }
     }
 }
