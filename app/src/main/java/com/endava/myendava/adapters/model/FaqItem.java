@@ -1,13 +1,17 @@
 package com.endava.myendava.adapters.model;
 
 import com.endava.myendava.Tag;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class FaqItem {
 
+    @SerializedName("faq_question")
     private String mQuestion;
+    @SerializedName("faq_answer")
     private String mAnswer;
+    @SerializedName("faq_tags")
     private List<Tag> mTags;
 
     private boolean isExpanded = false;
