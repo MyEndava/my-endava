@@ -34,6 +34,8 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ProfileFragment extends Fragment implements OnChipClickedListener {
 
+    private static final String ARG_EMAIL = "arg_email";
+
     private OnProfileFragmentInteractionListener listener;
     private Map<String, List<Tag>> tagsMap = new LinkedHashMap<>();
     private Profile profile;
@@ -50,8 +52,12 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
         // required empty public constructor
     }
 
-    public static ProfileFragment newInstance() {
-        return new ProfileFragment();
+    public static ProfileFragment newInstance(String email) {
+        Bundle arguments = new Bundle();
+        arguments.putString(ARG_EMAIL, email);
+        ProfileFragment profileFragment = new ProfileFragment();
+        profileFragment.setArguments(arguments);
+        return profileFragment;
     }
 
     @Override
@@ -86,11 +92,19 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
     @Override
     public void onResume() {
         super.onResume();
-        MySharedPreferences sharedPreferences = new MySharedPreferences(getContext()
-                .getSharedPreferences("MyEndavaSharedPrefs", Context.MODE_PRIVATE));
+        String email;
+
+        if ("".equals(getArguments().getString(ARG_EMAIL, ""))) {
+            MySharedPreferences sharedPreferences = new MySharedPreferences(getContext()
+                    .getSharedPreferences("MyEndavaSharedPrefs", Context.MODE_PRIVATE));
+            email = sharedPreferences.getUserEmail();
+        } else {
+            email = getArguments().getString(ARG_EMAIL);
+        }
+
         RetrofitClient retrofitClient = new RetrofitClient();
         compositeDisposable = new CompositeDisposable();
-        compositeDisposable.add(retrofitClient.getRetrofitClient().getProfile(sharedPreferences.getUserEmail())
+        compositeDisposable.add(retrofitClient.getRetrofitClient().getProfile(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(profile -> {

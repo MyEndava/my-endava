@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                 return true;
             case R.id.navigation_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
-                        ProfileFragment.newInstance()).commit();
+                        ProfileFragment.newInstance("")).commit();
                 return true;
             case R.id.navigation_tags:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,

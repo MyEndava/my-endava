@@ -6,18 +6,18 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.endava.myendava.activities.ProfileActivity;
 import com.endava.myendava.rest.RetrofitClient;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -94,6 +94,7 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     @Override
     public void onUserClicked(User user) {
         Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
+        intent.putExtra(ProfileActivity.ARG_EMAIL, user.getEmail());
         startActivity(intent);
     }
 }
