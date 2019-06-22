@@ -14,4 +14,5 @@
     <color name="soft_skills_tags">#2E8B57</color>
     <color name="contact_tags">#FE5BAC</color>
     <color name="project_tags">#6F2DA8</color>
+    <color name="project_name_background">#55000000</color>
 </resources>
