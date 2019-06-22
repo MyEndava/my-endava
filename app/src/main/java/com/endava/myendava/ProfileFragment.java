@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.endava.myendava.rest.RetrofitClient;
 import com.endava.myendava.utils.MySharedPreferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -25,6 +26,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
@@ -38,6 +40,7 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
     private ChipsAdapter adapter;
     private CompositeDisposable compositeDisposable;
     private RecyclerView recyclerView;
+    private CircleImageView photoImageView;
     private TextView nameTextView;
     private TextView gradeTextView;
     private TextView emailTextView;
@@ -70,6 +73,7 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
         gradeTextView = view.findViewById(R.id.grade_text_view);
         locationTextView = view.findViewById(R.id.location_text_view);
         emailTextView = view.findViewById(R.id.email_text_view);
+        photoImageView = view.findViewById(R.id.profile_picture_iamge_view);
         recyclerView = view.findViewById(R.id.tags_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -94,6 +98,10 @@ public class ProfileFragment extends Fragment implements OnChipClickedListener {
                     gradeTextView.setText(profile.getGrade());
                     emailTextView.setText(profile.getEmail());
                     locationTextView.setText(profile.getLocation());
+                    String url = RetrofitClient.TEST_URL + profile.getImageUrl();
+                    Log.d("Profile", url);
+                    Glide.with(getContext()).load(url)
+                            .into(photoImageView);
                     adapter = new ChipsAdapter(getContext(), profile,
                             toTagsMap(profile.getTags()), this);
                     recyclerView.setAdapter(adapter);
