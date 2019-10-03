@@ -9,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.presenters.activities.SignInAsGuestPresenter;
 import com.endava.myendava.utils.MySharedPreferences;
-import com.endava.myendava.views.activities.SignInAsGuestView;
 
 import javax.inject.Inject;
 
@@ -19,10 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SignInAsGuestActivity extends AppCompatActivity implements SignInAsGuestView {
-
-    @Inject
-    SignInAsGuestPresenter mPresenter;
+public class SignInAsGuestActivity extends AppCompatActivity {
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -47,15 +42,10 @@ public class SignInAsGuestActivity extends AppCompatActivity implements SignInAs
     private void setupModule() {
         ApplicationServiceLocator locator = (ApplicationServiceLocator) getApplication();
         locator.getSignInAsGuestComponent(this).inject(this);
-        informPresenterViewReady();
-    }
-
-    private void informPresenterViewReady() {
-        mPresenter.viewReady();
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
         mSignInButton.setOnClickListener(v -> showMainScreen());
     }

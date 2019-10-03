@@ -6,6 +6,7 @@ import com.endava.myendava.activities.MainActivity;
 import com.endava.myendava.activities.SignInActivity;
 import com.endava.myendava.activities.SignInAsGuestActivity;
 import com.endava.myendava.activities.SplashActivity;
+import com.endava.myendava.activities.UsersActivity;
 import com.endava.myendava.di.DaggerMyEndavaApplicationComponent;
 import com.endava.myendava.di.FragmentsDi.DashboardComponent;
 import com.endava.myendava.di.FragmentsDi.DashboardModule;
@@ -13,10 +14,10 @@ import com.endava.myendava.di.FragmentsDi.FaqComponent;
 import com.endava.myendava.di.FragmentsDi.FaqModule;
 import com.endava.myendava.di.FragmentsDi.GuestInfoComponent;
 import com.endava.myendava.di.FragmentsDi.GuestInfoModule;
-import com.endava.myendava.di.FragmentsDi.HomeComponent;
-import com.endava.myendava.di.FragmentsDi.HomeModule;
-import com.endava.myendava.di.FragmentsDi.NotificationsComponent;
-import com.endava.myendava.di.FragmentsDi.NotificationsModule;
+import com.endava.myendava.di.FragmentsDi.ProfileComponent;
+import com.endava.myendava.di.FragmentsDi.ProfileModule;
+import com.endava.myendava.di.FragmentsDi.TagsComponent;
+import com.endava.myendava.di.FragmentsDi.TagsModule;
 import com.endava.myendava.di.MyEndavaApplicationModule;
 import com.endava.myendava.di.activitiesDi.MainComponent;
 import com.endava.myendava.di.activitiesDi.MainModule;
@@ -26,11 +27,15 @@ import com.endava.myendava.di.activitiesDi.SignInComponent;
 import com.endava.myendava.di.activitiesDi.SignInModule;
 import com.endava.myendava.di.activitiesDi.SplashComponent;
 import com.endava.myendava.di.activitiesDi.SplashModule;
+import com.endava.myendava.di.activitiesDi.UsersComponent;
+import com.endava.myendava.di.activitiesDi.UsersModule;
 import com.endava.myendava.fragments.DashboardFragment;
 import com.endava.myendava.fragments.FaqFragment;
+import com.endava.myendava.fragments.FilteredTagsFragment;
 import com.endava.myendava.fragments.GuestInfoFragment;
-import com.endava.myendava.fragments.HomeFragment;
-import com.endava.myendava.fragments.NotificationsFragment;
+import com.endava.myendava.fragments.ProfileFragment;
+import com.endava.myendava.fragments.TagsFragment;
+import com.facebook.stetho.Stetho;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -50,12 +55,6 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     Provider<MainComponent.Builder> mMainComponentProvider;
 
     @Inject
-    Provider<HomeComponent.Builder> mHomeComponentProvider;
-
-    @Inject
-    Provider<NotificationsComponent.Builder> mNotificationsComponentProvider;
-
-    @Inject
     Provider<DashboardComponent.Builder> mDashboardComponentProvider;
 
     @Inject
@@ -64,10 +63,20 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     @Inject
     Provider<GuestInfoComponent.Builder> mGuestInfoComponentProvider;
 
+    @Inject
+    Provider<UsersComponent.Builder> mUsersComponentProvider;
+
+    @Inject
+    Provider<ProfileComponent.Builder> mProfileComponentProvider;
+
+    @Inject
+    Provider<TagsComponent.Builder> mTagsComponentProvider;
+
     @Override
     public void onCreate() {
         super.onCreate();
         setupDagger();
+        Stetho.initializeWithDefaults(this);
     }
 
     private void setupDagger() {
@@ -106,23 +115,9 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     }
 
     @Override
-    public HomeComponent getHomeComponent(HomeFragment fragment) {
-        return mHomeComponentProvider.get()
-                .homeBuilder(new HomeModule(fragment))
-                .build();
-    }
-
-    @Override
     public DashboardComponent getDashboardComponent(DashboardFragment fragment) {
         return mDashboardComponentProvider.get()
                 .dashboardBuilder(new DashboardModule(fragment))
-                .build();
-    }
-
-    @Override
-    public NotificationsComponent getNotificationsComponent(NotificationsFragment fragment) {
-        return mNotificationsComponentProvider.get()
-                .notificationsBuilder(new NotificationsModule(fragment))
                 .build();
     }
 
@@ -136,6 +131,34 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     public GuestInfoComponent getGuestInfoComponent(GuestInfoFragment fragment) {
         return mGuestInfoComponentProvider.get()
                 .guestInfoBuilder(new GuestInfoModule(fragment))
+                .build();
+    }
+
+    @Override
+    public UsersComponent getUsersComponent(UsersActivity activity) {
+        return mUsersComponentProvider.get()
+                .usersBuilder(new UsersModule(activity))
+                .build();
+    }
+
+    @Override
+    public ProfileComponent getProfileComponent(ProfileFragment fragment) {
+        return mProfileComponentProvider.get()
+                .profileBuilder(new ProfileModule(fragment))
+                .build();
+    }
+
+    @Override
+    public TagsComponent getTagsComponent(TagsFragment fragment) {
+        return mTagsComponentProvider.get()
+                .tagsBuilder(new TagsModule(fragment))
+                .build();
+    }
+
+    @Override
+    public TagsComponent getTagsComponent(FilteredTagsFragment fragment) {
+        return mTagsComponentProvider.get()
+                .tagsBuilder(new TagsModule(fragment))
                 .build();
     }
 }

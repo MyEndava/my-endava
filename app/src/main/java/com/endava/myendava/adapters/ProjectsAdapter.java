@@ -7,34 +7,35 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.endava.myendava.OnChipClickedListener;
-import com.endava.myendava.Project;
 import com.endava.myendava.R;
-import com.endava.myendava.Tag;
-import com.endava.myendava.TagColorManager;
+import com.endava.myendava.listeners.OnChipClickedListener;
+import com.endava.myendava.models.Project;
+import com.endava.myendava.models.Tag;
 import com.endava.myendava.rest.RetrofitClient;
+import com.endava.myendava.utils.TagColorManager;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHolder> {
 
-    private final List<Project> projects;
+    private List<Project> mProjects;
     private OnMyItemClickListener mItemListener;
     private OnChipClickedListener mChipListener;
     private Context mContext;
     private boolean mIsLoggedInAsGuest;
 
     public ProjectsAdapter(Context context, List<Project> projects, OnChipClickedListener listener, boolean isGuest) {
-        this.projects = projects;
+        mProjects = projects;
         mContext = context;
         mChipListener = listener;
         mIsLoggedInAsGuest = isGuest;
@@ -50,13 +51,19 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        Project project = projects.get(position);
+        Project project = mProjects.get(position);
         viewHolder.bind(project);
+    }
+
+
+    public void setData(List<Project> projects){
+        mProjects = projects;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return projects.size();
+        return mProjects.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

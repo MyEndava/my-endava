@@ -5,36 +5,45 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.endava.myendava.OnChipClickedListener;
-import com.endava.myendava.R;
-import com.endava.myendava.Tag;
-import com.endava.myendava.adapters.FaqRecyclerAdapter;
-import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.presenters.fragments.BaseFragment;
-import com.endava.myendava.presenters.fragments.FaqPresenter;
-import com.endava.myendava.views.fragments.FaqView;
-
-import javax.inject.Inject;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.endava.myendava.R;
+import com.endava.myendava.adapters.FaqsAdapter;
+import com.endava.myendava.app.ApplicationServiceLocator;
+import com.endava.myendava.listeners.OnChipClickedListener;
+import com.endava.myendava.models.Tag;
+import com.endava.myendava.utils.MySharedPreferences;
+import com.endava.myendava.viewmodels.FaqsViewModel;
+
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedListener {
+public class FaqFragment extends BaseFragment implements OnChipClickedListener {
+
+    @Inject
+    MySharedPreferences mSharedPreferences;
+
+    @Inject
+    FaqsViewModel mFaqViewModel;
 
     @BindView(R.id.faq_recycler_view)
     RecyclerView mFaqRecycler;
 
-    @Inject
-    FaqPresenter mPresenter;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgressBar;
 
-    private FaqRecyclerAdapter mFaqAdapter;
+    private FaqsAdapter mAdapter;
     private Unbinder mUnbinder;
     private OnFaqFragmentInteractionListener mListener;
 
@@ -43,7 +52,7 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
     }
 
     @Override
-    public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_faq, parent, false);
         setupModule();
         return view;
@@ -52,11 +61,22 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
-        informPresenterViewReady();
+
+        mFaqViewModel.getFaqs().observe(this, faqs -> mAdapter.setData(faqs));
+
+        mFaqViewModel.isUpdating().observe(this, aBoolean -> {
+            if (aBoolean) {
+                showProgressBar(mProgressBar);
+            } else {
+                hideProgressBar(mProgressBar);
+            }
+        });
+        mFaqViewModel.getError().observe(this, this::displayError);
+
+        setupRecyclerView();
     }
 
-    @Override
-    public void setupRecyclerView(boolean isUserLoggedInAsGuest) {
+    private void setupRecyclerView() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mFaqRecycler.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mFaqRecycler.getContext(),
@@ -64,16 +84,9 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
         mFaqRecycler.setHasFixedSize(true);
         mFaqRecycler.addItemDecoration(dividerItemDecoration);
         mFaqRecycler.setItemAnimator(null);
-        if (isUserLoggedInAsGuest) {
-            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getFaqData(getResources().openRawResource(R.raw.faq_guest)), this, true);
-        } else {
-            mFaqAdapter = new FaqRecyclerAdapter(mPresenter.getFaqData(getResources().openRawResource(R.raw.faq_employee)), this, false);
-        }
-        mFaqRecycler.setAdapter(mFaqAdapter);
-    }
-
-    private void informPresenterViewReady() {
-        mPresenter.viewReady();
+        mAdapter = new FaqsAdapter(new ArrayList<>(),
+                this, mSharedPreferences.isLoggedInAsGuest());
+        mFaqRecycler.setAdapter(mAdapter);
     }
 
     private void setupModule() {
@@ -100,17 +113,18 @@ public class FaqFragment extends BaseFragment implements FaqView, OnChipClickedL
     public void onDestroyView() {
         super.onDestroyView();
         mUnbinder.unbind();
+        mFaqViewModel.onCleared();
     }
 
     @Override
     public void onChipClicked(Tag tag) {
         if (mListener != null) {
-            mListener.onSkillSelected(tag);
+            mListener.onSkillSelected(tag, R.id.navigation_faq);
         }
     }
 
     public interface OnFaqFragmentInteractionListener {
 
-        void onSkillSelected(Tag tag);
+        void onSkillSelected(Tag tag, int navigationId);
     }
 }
