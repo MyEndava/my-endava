@@ -17,11 +17,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activities.FilteredTagsActivity"></activity>
         <activity
-            android:name=".activities.TagsActivity"
-            android:label="@string/title_activity_tags"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.SuggestTagActivity" />
-        <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -42,10 +37,8 @@
         <activity
             android:name=".activities.SignInAsGuestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".TagsActivity" />
-        <activity android:name=".UsersActivity" />
+        <activity android:name=".activities.UsersActivity" />
         <activity android:name=".activities.ProfileActivity" />
-        <activity android:name=".activities.AddTagActivity" />
     </application>
 
 </manifest>

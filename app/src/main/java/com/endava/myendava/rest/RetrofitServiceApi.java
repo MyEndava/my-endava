@@ -1,10 +1,11 @@
 package com.endava.myendava.rest;
 
-import com.endava.myendava.AddTagRequest;
-import com.endava.myendava.Profile;
-import com.endava.myendava.Project;
-import com.endava.myendava.Tag;
-import com.endava.myendava.User;
+import com.endava.myendava.models.AddTagRequest;
+import com.endava.myendava.models.Faq;
+import com.endava.myendava.models.Profile;
+import com.endava.myendava.models.Project;
+import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.User;
 
 import java.util.List;
 
@@ -21,7 +22,7 @@ public interface RetrofitServiceApi {
     @GET("tag/getAll")
     Observable<List<Tag>> getAllTags();
 
-    @GET("user/getByTag/{tag}")
+    @GET("user/getByTags/{tag}")
     Observable<List<User>> getUsersByTag(@Path("tag") String tag);
 
     @GET("project/getAll")
@@ -36,4 +37,7 @@ public interface RetrofitServiceApi {
     @POST("user/addTag")
     @Headers("Content-Type: application/json")
     Completable addTagToProfile(@Body AddTagRequest request);
+
+    @GET("faq/getAll")
+    Observable<List<Faq>>getAllFaqs();
 }

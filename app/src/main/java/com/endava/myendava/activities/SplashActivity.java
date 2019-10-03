@@ -1,6 +1,7 @@
 package com.endava.myendava.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
@@ -9,8 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.presenters.activities.SplashPresenter;
-import com.endava.myendava.views.activities.SplashView;
+import com.endava.myendava.utils.MySharedPreferences;
 
 import javax.inject.Inject;
 
@@ -18,15 +18,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class SplashActivity extends AppCompatActivity implements SplashView {
+public class SplashActivity extends AppCompatActivity {
 
     @Inject
-    SplashPresenter mPresenter;
+    MySharedPreferences mSharedPreferences;
 
     @BindView(R.id.logo)
     ImageView mLogo;
 
+    private static final long SPLASH_LENGTH = 1500;
+
     private Unbinder mUnbinder;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,25 +37,25 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
         setContentView(R.layout.activity_splash);
         mUnbinder = ButterKnife.bind(this);
         setupModule();
+        mHandler = new Handler();
+        startAnimation();
+        resetUpNavigation();
     }
 
     private void setupModule() {
         ApplicationServiceLocator locator = (ApplicationServiceLocator) getApplication();
         locator.getSplashComponent(this).inject(this);
-        informPresenterViewReady();
     }
 
-    private void informPresenterViewReady() {
-        mPresenter.viewReady();
+    private void resetUpNavigation() {
+        mSharedPreferences.resetUpNavigationId();
     }
 
-    @Override
     public void showSignInScreen() {
         SignInActivity.start(this);
         finish();
     }
 
-    @Override
     public void startAnimation() {
         AlphaAnimation animation = new AlphaAnimation(0.2f, 1f);
         animation.setDuration(600);
@@ -62,13 +65,13 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.onResume();
+        mHandler.postDelayed(this::showSignInScreen, SPLASH_LENGTH);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mPresenter.onPause();
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     @Override

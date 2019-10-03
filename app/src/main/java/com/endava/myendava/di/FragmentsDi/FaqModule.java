@@ -1,9 +1,9 @@
 package com.endava.myendava.di.FragmentsDi;
 
 import com.endava.myendava.fragments.FaqFragment;
-import com.endava.myendava.presenters.fragments.FaqPresenter;
-import com.endava.myendava.utils.MySharedPreferences;
-import com.endava.myendava.views.fragments.FaqView;
+import com.endava.myendava.repositories.FaqRepository;
+import com.endava.myendava.rest.RetrofitClient;
+import com.endava.myendava.viewmodels.FaqsViewModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,9 +18,7 @@ public class FaqModule {
     }
 
     @Provides
-    FaqPresenter provideFaqPresenter(MySharedPreferences mySharedPreferences) {
-        FaqPresenter presenter = new FaqPresenter(mySharedPreferences);
-        presenter.setView((FaqView) mFragment);
-        return presenter;
+    FaqsViewModel provideFaqsViewModel() {
+        return new FaqsViewModel(new FaqRepository(new RetrofitClient()));
     }
 }

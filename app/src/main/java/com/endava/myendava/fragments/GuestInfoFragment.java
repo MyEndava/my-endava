@@ -10,26 +10,22 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.presenters.fragments.BaseFragment;
-import com.endava.myendava.presenters.fragments.GuestInfoPresenter;
 import com.endava.myendava.utils.AnimationHelper;
-import com.endava.myendava.views.fragments.GuestInfoView;
 
 import java.util.Random;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
-public class GuestInfoFragment extends BaseFragment implements GuestInfoView {
+public class GuestInfoFragment extends BaseFragment {
 
     @BindView(R.id.wifi_password_textview)
     TextView mPasswordTextView;
@@ -37,9 +33,6 @@ public class GuestInfoFragment extends BaseFragment implements GuestInfoView {
     TextView mVisitorCardTextView;
     @BindView(R.id.copy_success_overlay)
     ImageView mCopySuccessOverlay;
-
-    @Inject
-    GuestInfoPresenter mPresenter;
 
     private Unbinder mUnbinder;
 
@@ -51,7 +44,7 @@ public class GuestInfoFragment extends BaseFragment implements GuestInfoView {
     }
 
     @Override
-    public View provideYourFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
+    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_guest_info, parent, false);
         setupModule();
         return view;
@@ -63,11 +56,6 @@ public class GuestInfoFragment extends BaseFragment implements GuestInfoView {
         mPasswordTextView.setText(UUID.randomUUID().toString().substring(0, 16));
         Random random = new Random();
         mVisitorCardTextView.setText(String.valueOf(random.nextInt(100)));
-        informPresenterViewReady();
-    }
-
-    private void informPresenterViewReady() {
-        mPresenter.viewReady();
     }
 
     private void setupModule() {

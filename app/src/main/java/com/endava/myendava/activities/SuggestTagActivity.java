@@ -26,4 +26,10 @@ public class SuggestTagActivity extends AppCompatActivity {
         FloatingActionButton floatingActionButton = findViewById(R.id.add_tag_button);
         floatingActionButton.setOnClickListener(v -> finish());
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

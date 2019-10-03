@@ -1,11 +1,8 @@
 package com.endava.myendava.di.FragmentsDi;
 
 import com.endava.myendava.fragments.GuestInfoFragment;
-import com.endava.myendava.presenters.fragments.GuestInfoPresenter;
-import com.endava.myendava.views.fragments.GuestInfoView;
 
 import dagger.Module;
-import dagger.Provides;
 
 @Module
 public class GuestInfoModule {
@@ -16,10 +13,4 @@ public class GuestInfoModule {
         mFragment = fragment;
     }
 
-    @Provides
-    GuestInfoPresenter provideGuestInfoPresenter() {
-        GuestInfoPresenter presenter = new GuestInfoPresenter();
-        presenter.setView((GuestInfoView) mFragment);
-        return presenter;
-    }
 }

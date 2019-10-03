@@ -1,6 +1,7 @@
 package com.endava.myendava.di;
 
 import com.endava.myendava.app.MyEndavaApplication;
+import com.endava.myendava.di.FragmentsDi.DashboardModule;
 
 import javax.inject.Singleton;
 

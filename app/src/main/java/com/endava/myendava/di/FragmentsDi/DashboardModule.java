@@ -1,9 +1,11 @@
 package com.endava.myendava.di.FragmentsDi;
 
 import com.endava.myendava.fragments.DashboardFragment;
-import com.endava.myendava.presenters.fragments.DashboardPresenter;
-import com.endava.myendava.utils.MySharedPreferences;
-import com.endava.myendava.views.fragments.DashboardView;
+import com.endava.myendava.repositories.ProjectsRepository;
+import com.endava.myendava.rest.RetrofitClient;
+import com.endava.myendava.viewmodels.ProjectsViewModel;
+
+import javax.inject.Inject;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,9 +20,7 @@ public class DashboardModule {
     }
 
     @Provides
-    DashboardPresenter provideDashboardPresenter(MySharedPreferences mySharedPreferences) {
-        DashboardPresenter presenter = new DashboardPresenter(mySharedPreferences);
-        presenter.setView((DashboardView) mFragment);
-        return presenter;
+    ProjectsViewModel provideProjectsViewModel() {
+        return new ProjectsViewModel(new ProjectsRepository(new RetrofitClient()));
     }
 }

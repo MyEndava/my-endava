@@ -1,25 +1,36 @@
 package com.endava.myendava.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.endava.myendava.ProfileFragment;
 import com.endava.myendava.R;
-import com.endava.myendava.Tag;
-import com.endava.myendava.TagsFragment;
-import com.endava.myendava.UsersActivity;
+import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.fragments.DashboardFragment;
 import com.endava.myendava.fragments.FaqFragment;
+import com.endava.myendava.fragments.ProfileFragment;
+import com.endava.myendava.fragments.TagsFragment;
+import com.endava.myendava.models.Tag;
+import com.endava.myendava.utils.EmailType;
+import com.endava.myendava.utils.MySharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.endava.myendava.utils.MySharedPreferences.MY_SHARED_PREFS_NAME;
+
 public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
         TagsFragment.OnTagsFragmentInteractionListener, DashboardFragment.OnDashboardFragmentInteractionListener {
+
+
+    @Inject
+    MySharedPreferences mSharedPreferences;
 
     @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
@@ -35,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                 return true;
             case R.id.navigation_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
-                        ProfileFragment.newInstance("")).commit();
+                        ProfileFragment.newInstance(EmailType.OWN_EMAIL.getType(), true)).commit();
                 return true;
             case R.id.navigation_tags:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
@@ -58,8 +69,15 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
+        setupModule();
+
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mNavigationView.setSelectedItemId(R.id.navigation_dashboard);
+
+        int upFragmentId = mSharedPreferences.getUpNavigationId();
+        if (upFragmentId != 0) {
+            navigate(upFragmentId);
+        }
     }
 
     @Override
@@ -67,9 +85,14 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         mUnbinder.unbind();
         super.onDestroy();
     }
+    private void setupModule() {
+        ApplicationServiceLocator locator = (ApplicationServiceLocator) getApplication();
+        locator.getMainComponent(this).inject(this);
+    }
 
     @Override
-    public void onSkillSelected(Tag tag) {
+    public void onSkillSelected(Tag tag, int fragmentID) {
+        mSharedPreferences.setUpNavigationId(fragmentID);
         Intent intent = new Intent(MainActivity.this, UsersActivity.class);
         intent.putExtra(UsersActivity.ARG_TAG, tag);
         startActivity(intent);
@@ -79,5 +102,26 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     public void onAddSkillClicked() {
         Intent intent = new Intent(MainActivity.this, SuggestTagActivity.class);
         startActivity(intent);
+    }
+
+    private void navigate(int fragmentId) {
+        mNavigationView.setSelectedItemId(fragmentId);
+        switch (fragmentId) {
+            case R.id.navigation_dashboard:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        DashboardFragment.newInstance()).commit();
+                return;
+            case R.id.navigation_profile:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        ProfileFragment.newInstance(EmailType.OWN_EMAIL.getType(), true)).commit();
+                return;
+            case R.id.navigation_tags:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        TagsFragment.newInstance()).commit();
+                return;
+            case R.id.navigation_faq:
+                getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
+                        FaqFragment.newInstance()).commit();
+        }
     }
 }
