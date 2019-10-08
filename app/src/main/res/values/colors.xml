@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/endava_orange</color>
-    <color name="colorPrimaryDark">@color/endava_dark_orange</color>
-    <color name="colorAccent">#727980</color>
+    <color name="colorPrimaryDark">@color/secondary</color>
+    <color name="colorAccent">@color/endava_orange</color>
     <color name="endava_orange">#DE411B</color>
     <color name="endava_dark_orange">#a40000</color>
     <color name="endava_light_orange">#ff7448</color>
     <color name="endava_grey">#50585A</color>
     <color name="cardboard_gray">#F7F7F7</color>
-    <color name="white">#fff</color>
     <color name="technical_tags">#0E4C92</color>
     <color name="interested_tags">#8D021F</color>
     <color name="soft_skills_tags">#2E8B57</color>
     <color name="contact_tags">#FE5BAC</color>
     <color name="project_tags">#6F2DA8</color>
     <color name="project_name_background">#55000000</color>
+
+    <color name="emailTextColor">#4a4a4a</color>
+
+    <color name="secondary">#0a1f44</color>
+    <color name="secondaryTransparent">#E60a1f44</color>
+    <color name="pale_violet">#d0c9d6</color>
+    <color name="primary">#de411b</color>
+    <color name="gray5">#e0e0e0</color>
+    <color name="white">#ffffff</color>
+    <color name="gray4">#bdbdbd</color>
+    <color name="grey3">#828282</color>
+    <color name="light_grey_blue">#acb1c0</color>
+    <color name="very_light_grey">#eaeaea</color>
+    <color name="pale_grey">#f7f8fa</color>
+    <color name="blue2">#2d9cdb</color>
+    <color name="yellow">#f2c94c</color>
+
+
 </resources>

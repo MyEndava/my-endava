@@ -1,8 +1,12 @@
 package com.endava.myendava.di.activitiesDi;
 
 import com.endava.myendava.activities.SignInActivity;
+import com.endava.myendava.repositories.UsersRepository;
+import com.endava.myendava.rest.RetrofitClient;
+import com.endava.myendava.viewmodels.UsersViewModel;
 
 import dagger.Module;
+import dagger.Provides;
 
 @Module
 public class SignInModule {
@@ -11,5 +15,10 @@ public class SignInModule {
 
     public SignInModule(SignInActivity activity) {
         mActivity = activity;
+    }
+
+    @Provides
+    UsersViewModel provideUsersViewModel() {
+        return new UsersViewModel(new UsersRepository(new RetrofitClient()));
     }
 }

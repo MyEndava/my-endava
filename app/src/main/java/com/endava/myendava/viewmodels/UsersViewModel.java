@@ -25,6 +25,7 @@ public class UsersViewModel extends ViewModel {
     private MutableLiveData<List<User>> mUsers;
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isUserExistent=new MutableLiveData<>();
 
     @Inject
     public UsersViewModel(UsersRepository usersRepository) {
@@ -59,6 +60,7 @@ public class UsersViewModel extends ViewModel {
     }
 
     private void handleError(Throwable throwable) {
+        Log.d("EMAIL", throwable.getLocalizedMessage());
         Log.d(getClass().getSimpleName(), throwable.getLocalizedMessage());
         mIsUpdating.setValue(false);
         mError.setValue(throwable.getLocalizedMessage());
@@ -68,6 +70,17 @@ public class UsersViewModel extends ViewModel {
         mUsers.setValue(users);
         mIsUpdating.setValue(false);
         mError.setValue(null);
+    }
+
+    public LiveData<Boolean> checkUserEmail(String email) {
+        Disposable observable = mRepo.isUserExistent(email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(result -> {
+                    this.isUserExistent.setValue(result.isSuccess());
+                }, this::handleError);
+        mCompositeDisposable.add(observable);
+       return this.isUserExistent;
     }
 
     @Override
