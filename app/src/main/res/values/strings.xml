@@ -31,4 +31,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="terms_and_cond"><font color="1e2432">I agree to the </font><font color="#DE411B">Terms and conditions</font></string>
+
+    <!--    tag screen-->
+    <string name="tag_search_hint">Enter a tag name</string>
 </resources>

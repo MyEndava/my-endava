@@ -1,10 +1,7 @@
 package com.endava.myendava.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
@@ -23,9 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.endava.myendava.utils.MySharedPreferences.MY_SHARED_PREFS_NAME;
-
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
+public class MainActivity extends BaseActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
         TagsFragment.OnTagsFragmentInteractionListener, DashboardFragment.OnDashboardFragmentInteractionListener {
 
 
@@ -80,11 +75,13 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         }
     }
 
+
     @Override
     protected void onDestroy() {
         mUnbinder.unbind();
         super.onDestroy();
     }
+
     private void setupModule() {
         ApplicationServiceLocator locator = (ApplicationServiceLocator) getApplication();
         locator.getMainComponent(this).inject(this);

@@ -21,7 +21,7 @@ import retrofit2.http.Path;
 public interface RetrofitServiceApi {
 
     @GET("user/login/{email}")
-    Observable<LoginResult> userLoginMock(@Path("email")String email);
+    Observable<LoginResult> userLoginEmailCheck(@Path("email") String email);
 
     @GET("tag/getAll")
     Observable<List<Tag>> getAllTags();
@@ -43,5 +43,5 @@ public interface RetrofitServiceApi {
     Completable addTagToProfile(@Body AddTagRequest request);
 
     @GET("faq/getAll")
-    Observable<List<Faq>>getAllFaqs();
+    Observable<List<Faq>> getAllFaqs();
 }

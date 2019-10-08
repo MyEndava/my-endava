@@ -1,6 +1,5 @@
 package com.endava.myendava.repositories;
 
-import com.endava.myendava.models.LoginResult;
 import com.endava.myendava.models.User;
 import com.endava.myendava.rest.RetrofitClient;
 
@@ -18,9 +17,5 @@ public class UsersRepository {
 
     public Observable<List<User>> getUsersByTag(String tag) {
         return mRetrofitClient.getRetrofitClient().getUsersByTag(tag);
-    }
-
-    public Observable<LoginResult> isUserExistent(String email) {
-        return mRetrofitClient.getRetrofitClient().userLoginMock(email);
     }
 }
