@@ -1,9 +1,9 @@
 package com.endava.myendava.di.activitiesDi;
 
 import com.endava.myendava.activities.SignInActivity;
-import com.endava.myendava.repositories.SignInRepository;
+import com.endava.myendava.repositories.LoginRepository;
 import com.endava.myendava.rest.RetrofitClient;
-import com.endava.myendava.viewmodels.SignInViewModel;
+import com.endava.myendava.viewmodels.LoginViewModel;
 
 import dagger.Module;
 import dagger.Provides;
@@ -18,7 +18,7 @@ public class SignInModule {
     }
 
     @Provides
-    SignInViewModel provideSignInViewModel() {
-        return new SignInViewModel(new SignInRepository(new RetrofitClient()));
+    LoginViewModel provideSignInViewModel() {
+        return new LoginViewModel(new LoginRepository(new RetrofitClient()));
     }
 }

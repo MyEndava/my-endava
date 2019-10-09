@@ -21,7 +21,7 @@ import retrofit2.http.Path;
 public interface RetrofitServiceApi {
 
     @GET("user/login/{email}")
-    Observable<LoginResult> userLoginEmailCheck(@Path("email") String email);
+    Observable<LoginResult> login(@Path("email") String email);
 
     @GET("tag/getAll")
     Observable<List<Tag>> getAllTags();

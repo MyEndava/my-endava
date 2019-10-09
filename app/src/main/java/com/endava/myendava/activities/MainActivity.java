@@ -23,7 +23,6 @@ import butterknife.Unbinder;
 public class MainActivity extends BaseActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
         TagsFragment.OnTagsFragmentInteractionListener, DashboardFragment.OnDashboardFragmentInteractionListener {
 
-
     @Inject
     MySharedPreferences mSharedPreferences;
 
@@ -65,16 +64,13 @@ public class MainActivity extends BaseActivity implements ProfileFragment.OnProf
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
         setupModule();
-
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mNavigationView.setSelectedItemId(R.id.navigation_dashboard);
-
         int upFragmentId = mSharedPreferences.getUpNavigationId();
         if (upFragmentId != 0) {
             navigate(upFragmentId);
         }
     }
-
 
     @Override
     protected void onDestroy() {

@@ -5,14 +5,14 @@ import com.endava.myendava.rest.RetrofitClient;
 
 import io.reactivex.Observable;
 
-public class SignInRepository {
+public class LoginRepository {
     private final RetrofitClient mRetrofitClient;
 
-    public SignInRepository(RetrofitClient mRetrofitClient) {
+    public LoginRepository(RetrofitClient mRetrofitClient) {
         this.mRetrofitClient = mRetrofitClient;
     }
 
-    public Observable<LoginResult> isUserExistent(String email) {
-        return mRetrofitClient.getRetrofitClient().userLoginEmailCheck(email);
+    public Observable<LoginResult> login(String email) {
+        return mRetrofitClient.getRetrofitClient().login(email);
     }
 }
