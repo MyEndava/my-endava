@@ -2,6 +2,7 @@ package com.endava.myendava.rest;
 
 import com.endava.myendava.models.AddTagRequest;
 import com.endava.myendava.models.Faq;
+import com.endava.myendava.models.LoginResult;
 import com.endava.myendava.models.Profile;
 import com.endava.myendava.models.Project;
 import com.endava.myendava.models.Tag;
@@ -18,6 +19,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface RetrofitServiceApi {
+
+    @GET("user/login/{email}")
+    Observable<LoginResult> login(@Path("email") String email);
 
     @GET("tag/getAll")
     Observable<List<Tag>> getAllTags();
@@ -39,5 +43,5 @@ public interface RetrofitServiceApi {
     Completable addTagToProfile(@Body AddTagRequest request);
 
     @GET("faq/getAll")
-    Observable<List<Faq>>getAllFaqs();
+    Observable<List<Faq>> getAllFaqs();
 }

@@ -1,10 +1,7 @@
 package com.endava.myendava.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
@@ -23,11 +20,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.endava.myendava.utils.MySharedPreferences.MY_SHARED_PREFS_NAME;
-
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
+public class MainActivity extends BaseActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
         TagsFragment.OnTagsFragmentInteractionListener, DashboardFragment.OnDashboardFragmentInteractionListener {
-
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -70,10 +64,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
         setupModule();
-
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mNavigationView.setSelectedItemId(R.id.navigation_dashboard);
-
         int upFragmentId = mSharedPreferences.getUpNavigationId();
         if (upFragmentId != 0) {
             navigate(upFragmentId);
@@ -85,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         mUnbinder.unbind();
         super.onDestroy();
     }
+
     private void setupModule() {
         ApplicationServiceLocator locator = (ApplicationServiceLocator) getApplication();
         locator.getMainComponent(this).inject(this);

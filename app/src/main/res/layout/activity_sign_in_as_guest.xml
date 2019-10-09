@@ -21,8 +21,8 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="@dimen/sign_in_logo_size"
-        android:layout_height="@dimen/sign_in_logo_size"
+        android:layout_width="@dimen/sign_in_logo_width"
+        android:layout_height="@dimen/sign_in_logo_height"
         android:layout_marginStart="@dimen/sign_in_logo_margin"
         android:layout_marginTop="@dimen/sign_in_logo_margin"
         android:layout_marginEnd="@dimen/sign_in_logo_margin"
