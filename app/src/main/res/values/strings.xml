@@ -34,4 +34,5 @@
 
     <!--    tag screen-->
     <string name="tag_search_hint">Enter a tag name</string>
+    <string name="multiple_src_btn_text">Multiple Search</string>
 </resources>

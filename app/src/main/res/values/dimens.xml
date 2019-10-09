@@ -109,4 +109,7 @@
     <dimen name="tag_item_margin_between">20dp</dimen>
     <dimen name="button_text_size">14sp</dimen>
 
+    <dimen name="tags_button_drawable_padding">9dp</dimen>
+    <dimen name="tags_searcj_drawable_padding">8dp</dimen>
+
 </resources>
