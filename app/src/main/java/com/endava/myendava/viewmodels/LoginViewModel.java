@@ -15,10 +15,10 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class LoginViewModel extends ViewModel {
-    
+
     private final LoginRepository mRepo;
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-    private MutableLiveData<Boolean> isUserExistent = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mLoginSuccess = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
 
@@ -27,14 +27,17 @@ public class LoginViewModel extends ViewModel {
         this.mRepo = mRepo;
     }
 
-    public LiveData<Boolean> checkUserEmail(String email) {
+    public void login(String email) {
         mIsLoading.setValue(true);
         Disposable observable = mRepo.login(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccess, this::handleError);
         mCompositeDisposable.add(observable);
-        return this.isUserExistent;
+    }
+
+    public MutableLiveData<Boolean> getLoginSuccess() {
+        return mLoginSuccess;
     }
 
     public LiveData<Boolean> isLoading() {
@@ -51,7 +54,7 @@ public class LoginViewModel extends ViewModel {
     }
 
     private void handleSuccess(LoginResult isEmailValid) {
-        isUserExistent.setValue(isEmailValid.isSuccess());
+        mLoginSuccess.setValue(isEmailValid.isSuccess());
         mIsLoading.setValue(false);
         mError.setValue(null);
     }

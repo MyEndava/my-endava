@@ -75,7 +75,7 @@
     <!-- Splash Screen -->
     <dimen name="splash_logo_width">320dp</dimen>
 
-    <!--    tags screen-->
+    <!--    TAGS screen-->
     <dimen name="search_bar_side_margin">22dp</dimen>
     <dimen name="search_bar_margin_top">56dp</dimen>
     <dimen name="search_bar_margin_bottom">34dp</dimen>
@@ -106,6 +106,7 @@
     <dimen name="tag_item_icon_padding">1dp</dimen>
     <dimen name="tag_item_margin_side">22dp</dimen>
     <dimen name="tag_item_margin_between">20dp</dimen>
+    <dimen name="tag_item_check_icon_margin">10dp</dimen>
     <dimen name="button_text_size">14sp</dimen>
 
     <dimen name="tags_button_drawable_padding">9dp</dimen>

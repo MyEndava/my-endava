@@ -76,7 +76,7 @@ public class SignInActivity extends BaseActivity {
                 hideProgressBar(mProgressBar);
             }
         });
-
+        mLoginViewModel.getLoginSuccess().observe(this, this::handleLogin);
         mLoginViewModel.getError().observe(this, this::displayError);
     }
 
@@ -85,7 +85,7 @@ public class SignInActivity extends BaseActivity {
         finish();
     }
 
-    private void handleSignIn(boolean isMailValid) {
+    private void handleLogin(boolean isMailValid) {
         if (!mTermsAndCondCheckBox.isChecked()) {
             Toast.makeText(this, R.string.terms_and_cond_unchecked_message, Toast.LENGTH_SHORT).show();
             return;
@@ -108,9 +108,7 @@ public class SignInActivity extends BaseActivity {
     private void validateEmail() {
         String email = mUserEmailEditText.getText().toString();
         if (email.length() > 0) {
-            mLoginViewModel.checkUserEmail(email).observe(this, valid -> {
-                handleSignIn(valid.booleanValue());
-            });
+            mLoginViewModel.login(email);
         } else {
             Toast.makeText(this, R.string.invalid_email_message, Toast.LENGTH_SHORT).show();
         }

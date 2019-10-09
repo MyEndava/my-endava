@@ -18,7 +18,7 @@ public class SignInModule {
     }
 
     @Provides
-    LoginViewModel provideSignInViewModel() {
+    LoginViewModel provideLoginViewModel() {
         return new LoginViewModel(new LoginRepository(new RetrofitClient()));
     }
 }
