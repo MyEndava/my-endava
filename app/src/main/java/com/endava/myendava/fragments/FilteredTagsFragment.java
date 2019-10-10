@@ -41,7 +41,6 @@ public class FilteredTagsFragment extends BaseFragment implements TagsAdapter.On
 
     @Inject
     MySharedPreferences mSharedPreferences;
-
     @Inject
     TagsViewModel mTagsViewModel;
 
@@ -49,8 +48,11 @@ public class FilteredTagsFragment extends BaseFragment implements TagsAdapter.On
     ProgressBar mProgressBar;
 
     private Unbinder mUnbinder;
+
     private List<Tag> tags = new ArrayList<>();
+
     private TagsAdapter mAdapter;
+
     private OnFilteredTagsFragmentInteractionListener listener;
 
     public FilteredTagsFragment() {
@@ -116,9 +118,17 @@ public class FilteredTagsFragment extends BaseFragment implements TagsAdapter.On
     @Override
     public void onTagClicked(Tag tag) {
         mTagsViewModel.addTag(new AddTagRequest(tag.getTagId(),
-                1, mSharedPreferences.getUserEmail())).observe(this, aBoolean -> {
-                    listener.onTagAdded();
-        });
+                1, mSharedPreferences.getUserEmail())).observe(this, aBoolean -> listener.onTagAdded());
+    }
+
+    @Override
+    public List<Tag> getSelectedTags() {
+        return null;
+    }
+
+    @Override
+    public boolean isMultiSearchClicked() {
+        return false;
     }
 
     public interface OnFilteredTagsFragmentInteractionListener {

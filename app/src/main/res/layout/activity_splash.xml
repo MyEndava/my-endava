@@ -6,14 +6,20 @@
     android:background="@color/endava_orange"
     android:orientation="vertical">
 
+    <include layout="@layout/background_layout"></include>
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="@dimen/splash_logo_width"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/splash_logo_height"
+        android:layout_marginStart="@dimen/splash_logo_margin_left"
+        android:layout_marginTop="@dimen/splash_logo_margin_top"
+        android:layout_marginEnd="@dimen/splash_logo_margin_right"
+        android:layout_marginBottom="@dimen/splash_logo_margin_bottom"
+        android:contentDescription="@string/sign_in_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.4"
-        app:srcCompat="@drawable/my_endava_logo" />
+        app:srcCompat="@drawable/logo_endava" />
 </androidx.constraintlayout.widget.ConstraintLayout>

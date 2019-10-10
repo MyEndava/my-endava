@@ -1,32 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/gray5"
+    android:fitsSystemWindows="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:title="Available tags"
-        android:theme="@style/AppTheme.Toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ToolbarStyle"
-        app:titleTextColor="@android:color/white" />
+    <include
+        android:id="@+id/background_image"
+        layout="@layout/background_layout"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tags_recycler_view"
+    <View
+        android:id="@+id/list_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/image_height"
+        android:background="@color/gray5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginLeft="@dimen/search_bar_side_margin"
+        android:layout_marginRight="@dimen/search_bar_side_margin"
+        android:layout_marginTop="@dimen/search_bar_margin_top"
+        android:background="@drawable/tag_search_shape"
+        android:drawableLeft="@drawable/icons_24_px_search"
+        android:drawablePadding="@dimen/tags_search_drawable_padding"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:hint="@string/tag_search_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.widget.Button
+        android:id="@+id/multi_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/multisearch_left_margin"
+        android:layout_marginTop="@dimen/tag_buttons_top_margin"
+        android:backgroundTint="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_multisearch"
+        android:drawablePadding="@dimen/tags_button_drawable_padding"
+        android:fontFamily="@font/roboto_medium"
+        android:stateListAnimator="@null"
+        android:text="@string/multiple_src_btn_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search" />
+
+    <android.widget.Button
+        android:id="@+id/filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/filters_left_margin"
+        android:layout_marginTop="@dimen/tag_buttons_top_margin"
+        android:layout_marginRight="@dimen/filters_left_right"
+        android:backgroundTint="@android:color/transparent"
+        android:drawableLeft="@drawable/ic_filter_24dp"
+        android:drawablePadding="@dimen/tags_button_drawable_padding"
+        android:fontFamily="@font/roboto_medium"
+        android:stateListAnimator="@null"
+        android:text="@string/filter_button_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/button_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tags_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/tags_list_margin_side"
+        android:layout_marginEnd="@dimen/tags_list_margin_side"
+        android:layout_gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/multi_search" />
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -36,6 +96,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </ProgressBar>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/floating_button_margin_left"
+        android:layout_marginEnd="@dimen/floating_button_margin_right"
+        android:layout_marginBottom="@dimen/floating_button_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_add" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

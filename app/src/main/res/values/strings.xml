@@ -41,5 +41,5 @@
     <!--    tag screen-->
     <string name="tag_search_hint">Enter a tag name</string>
     <string name="multiple_src_btn_text">Multiple Search</string>
-    <string name="filter_button_text">Filter</string>
+    <string name="filter_button_text">Filters</string>
 </resources>
