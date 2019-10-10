@@ -1,6 +1,6 @@
 package com.endava.myendava.listeners;
 
-public interface OnEdit {
+public interface OnProfileEditListener {
 
     void onEditClick(boolean isEditable);
 }

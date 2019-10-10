@@ -1,7 +1,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/AppTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray5"
@@ -149,7 +148,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/phone_number"
                     android:lineHeight="@dimen/profile_screen_line_height_size_16sp"
-                    android:textColor="@color/ligh_grey_blue"
+                    android:textColor="@color/light_grey_blue"
                     android:textSize="@dimen/profile_screen_grade_font_size_12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/other_information" />
@@ -186,7 +185,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/email_hint"
                     android:lineHeight="@dimen/profile_screen_line_height_size_16sp"
-                    android:textColor="@color/ligh_grey_blue"
+                    android:textColor="@color/light_grey_blue"
                     android:textSize="@dimen/profile_screen_grade_font_size_12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/line1" />
@@ -226,7 +225,7 @@
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/location_hint"
                     android:lineHeight="@dimen/profile_screen_line_height_size_16sp"
-                    android:textColor="@color/ligh_grey_blue"
+                    android:textColor="@color/light_grey_blue"
                     android:textSize="@dimen/profile_screen_grade_font_size_12sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/line2" />

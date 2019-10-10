@@ -2,38 +2,30 @@ package com.endava.myendava.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.endava.myendava.R;
-import com.endava.myendava.activities.FilteredTagsActivity;
 import com.endava.myendava.adapters.ChipsAdapter;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.listeners.OnChipClickedListener;
-import com.endava.myendava.listeners.OnEdit;
+import com.endava.myendava.listeners.OnProfileEditListener;
 import com.endava.myendava.models.Profile;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.rest.RetrofitClient;
 import com.endava.myendava.utils.EmailType;
 import com.endava.myendava.utils.MySharedPreferences;
 import com.endava.myendava.viewmodels.ProfileViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +41,7 @@ import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class ProfileFragment extends BaseFragment implements OnChipClickedListener, OnEdit {
+public class ProfileFragment extends BaseFragment implements OnChipClickedListener, OnProfileEditListener {
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -87,6 +79,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     private Unbinder mUnbinder;
 
     public ProfileFragment() {
+        // required empty constructor
     }
 
     public static ProfileFragment newInstance(String email, boolean isUserProfile) {
@@ -128,14 +121,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        adapter = new ChipsAdapter(getContext(), mSharedPreferences.getUserEmail(),false, new Profile(),
-                tagsMap, this, this);
         mRecyclerView.setAdapter(adapter);
-
-        if (!getArguments().getString(ARG_EMAIL, "").equals(EmailType.OWN_EMAIL.getType())) {
-
-        }
-
     }
 
     private void setupModule() {
@@ -153,11 +139,6 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
         return email;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
     private void populateViews(Profile profile) {
         mNameTextView.setText(profile.getFirstname() + " " + profile.getLastName());
         mGradeTextView.setText(profile.getGrade());
@@ -166,8 +147,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
         String url = RetrofitClient.TEST_URL + profile.getImageUrl();
         Glide.with(getContext()).load(url)
                 .into(mPhotoImageView);
-        adapter = new ChipsAdapter(getContext(), mSharedPreferences.getUserEmail(),false, profile,
-                toTagsMap(profile.getTags()), this, this);
+        adapter = new ChipsAdapter(getContext(), mSharedPreferences.getUserEmail(), false, profile, toTagsMap(profile.getTags()), this, this);
         mRecyclerView.setAdapter(adapter);
     }
 

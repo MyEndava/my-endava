@@ -104,8 +104,4 @@ public class Tag implements Serializable {
                 ", tagDescription='" + tagDescription + '\'' +
                 '}';
     }
-
-    public boolean isEditTag(){
-        return false;
-    }
 }
