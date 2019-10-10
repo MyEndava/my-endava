@@ -1,4 +1,5 @@
 <resources>
+
     <!-- Sign In Activities -->
     <dimen name="sign_in_logo_width">175dp</dimen>
     <dimen name="sign_in_logo_height">59dp</dimen>
@@ -73,10 +74,15 @@
     <dimen name="project_card_description_padding">8dp</dimen>
 
     <!-- Splash Screen -->
-    <dimen name="splash_logo_width">320dp</dimen>
+    <dimen name="splash_logo_width">281dp</dimen>
+    <dimen name="splash_logo_height">95dp</dimen>
+    <dimen name="splash_logo_margin_left">43dp</dimen>
+    <dimen name="splash_logo_margin_right">51dp</dimen> 330 387
+    <dimen name="splash_logo_margin_top">330dp</dimen>
+    <dimen name="splash_logo_margin_bottom">387dp</dimen>
 
     <!--    TAGS screen-->
-    <dimen name="search_bar_side_margin">22dp</dimen>
+    <dimen name="search_bar_side_margin">23dp</dimen>
     <dimen name="search_bar_margin_top">56dp</dimen>
     <dimen name="search_bar_margin_bottom">34dp</dimen>
     <dimen name="image_height">238dp</dimen>
@@ -91,6 +97,8 @@
     <dimen name="tag_item_radius">8dp</dimen>
     <dimen name="tag_item_width">155dp</dimen>
     <dimen name="tag_item_height">95dp</dimen>
+    <dimen name="tag_item_margin_side">10dp</dimen>
+    <dimen name="tag_item_margin">10dp</dimen>
     <dimen name="tag_item_text_margin_left">16dp</dimen>
     <dimen name="tag_item_type_margin_top">12dp</dimen>
     <dimen name="tag_item_type_margin_right">80dp</dimen>
@@ -104,12 +112,15 @@
     <dimen name="tag_item_using_size">10sp</dimen>
     <dimen name="tag_item_icon_size">14dp</dimen>
     <dimen name="tag_item_icon_padding">1dp</dimen>
-    <dimen name="tag_item_margin_side">22dp</dimen>
-    <dimen name="tag_item_margin_between">20dp</dimen>
     <dimen name="tag_item_check_icon_margin">10dp</dimen>
     <dimen name="button_text_size">14sp</dimen>
 
     <dimen name="tags_button_drawable_padding">9dp</dimen>
-    <dimen name="tags_searcj_drawable_padding">8dp</dimen>
+    <dimen name="tags_search_drawable_padding">8dp</dimen>
+    <dimen name="tags_list_margin_side">10dp</dimen>
+    
+    <dimen name="floating_button_margin_left">314dp</dimen>
+    <dimen name="floating_button_margin_right">11dp</dimen>
+    <dimen name="floating_button_margin_bottom">13dp</dimen>
 
 </resources>

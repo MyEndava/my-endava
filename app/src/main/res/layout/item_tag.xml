@@ -1,52 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="72dp"
+    android:layout_height="@dimen/tag_item_height"
+    android:layout_margin="@dimen/tag_item_margin"
+    android:background="@drawable/tag_item_shape"
     android:orientation="vertical">
 
-    <com.github.ivbaranov.mli.MaterialLetterIcon
-        android:id="@+id/tag_group_image_view"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/tag_type"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/tag_item_text_margin_left"
+        android:layout_marginTop="@dimen/tag_item_type_margin_top"
+        android:layout_marginEnd="@dimen/tag_item_type_margin_right"
+        android:drawablePadding="@dimen/tag_item_icon_padding"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_regular"
+        android:maxLines="1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tag_item_type_size"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:mli_letter_color="@android:color/white"
-        app:mli_letters_number="1"
-        app:mli_shape_type="circle"
-        tools:src="@color/colorAccent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tag_title_text_view"
+        android:id="@+id/tag_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/tag_item_text_margin_left"
+        android:layout_marginTop="@dimen/tag_item_title_margin_top"
         android:ellipsize="end"
-        android:fontFamily="sans-serif-medium"
+        android:fontFamily="@font/roboto_regular"
+        android:gravity="start"
         android:maxLines="1"
-        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tag_item_title_size"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tag_group_image_view"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Reactive programming" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_type" />
 
     <TextView
-        android:id="@+id/tag_users_text_view"
+        android:id="@+id/tag_info"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/tag_item_text_margin_left"
+        android:layout_marginTop="@dimen/tag_item_using_margin_top"
+        android:layout_marginEnd="@dimen/tag_item_using_margin_right"
+        android:layout_marginBottom="@dimen/tag_item_using_margin_bottom"
         android:ellipsize="end"
-        android:fontFamily="sans-serif"
+        android:fontFamily="@font/roboto_regular"
         android:maxLines="1"
-        android:textSize="12sp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/tag_item_using_size"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tag_group_image_view"
-        app:layout_constraintTop_toBottomOf="@id/tag_title_text_view"
-        tools:text="You and 69 others are mastering this skill." />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_title" />
+
+    <ImageView
+        android:id="@+id/check_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/tag_item_check_icon_margin"
+        android:layout_marginEnd="@dimen/tag_item_check_icon_margin"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_check_14dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

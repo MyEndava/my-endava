@@ -13,9 +13,11 @@ public class TagColorManager {
             case "Interested":
                 return R.color.interested_tags;
             case "Contact":
-                return R.color.contact_tags;
+                return R.color.yellow;
             case "Project":
                 return R.color.project_tags;
+            case "Logistics":
+                return R.color.contact_tags;
             default:
                 return R.color.colorPrimary;
         }
