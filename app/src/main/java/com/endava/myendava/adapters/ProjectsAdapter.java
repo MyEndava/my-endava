@@ -116,7 +116,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
     private Chip createChip(Tag tag, Context context) {
         Chip chip = new Chip(context);
         chip.setText(tag.getTagName());
-        chip.setChipBackgroundColorResource(TagColorManager.getColor(tag.getSubcategory()));
+        chip.setChipBackgroundColorResource(TagColorManager.getBackgroundColorProject(tag.getSubcategory()));
         chip.setTextColor(context.getResources().getColor(android.R.color.white));
         chip.setOnClickListener(v -> mChipListener.onChipClicked(tag));
         return chip;

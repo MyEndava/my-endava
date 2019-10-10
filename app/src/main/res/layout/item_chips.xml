@@ -4,33 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_margin="@dimen/profile_screen_other_info_margin_10dp"
+    android:background="@drawable/about_me_shape"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/profile_screen_other_info_padding_left_and_right"
+    android:paddingTop="@dimen/profile_screen_other_info_padding_top_and_bottom"
+    android:paddingRight="@dimen/profile_screen_other_info_padding_left_and_right"
+    android:paddingBottom="@dimen/profile_screen_other_info_padding_top_and_bottom"
+    android:id="@+id/layout"
+    >
 
     <TextView
         android:id="@+id/tags_group_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="16dp"
+        android:fontFamily="@font/roboto_medium"
+        android:letterSpacing="0.1"
+        android:lineHeight="@dimen/profile_screen_other_info_title_line_height_24sp"
+        android:padding="@dimen/profile_screen_other_info_padding_10dp"
+        android:textSize="@dimen/profile_screen_font_size_14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Interests" />
+        tools:text="@string/interests_title"
+        android:textAllCaps="true"
+        />
+
+    <TextView
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/profile_screen_other_info_margin_10dp"
+        android:backgroundTint="@android:color/white"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/add_button"
+        android:letterSpacing="0.1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/profile_screen_font_size_14sp"
+        android:padding="@dimen/profile_screen_other_info_padding_10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/tags_group_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/tags_chip_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="@dimen/profile_screen_margin_4dp"
+        android:layout_marginBottom="@dimen/profile_screen_margin_4dp"
+        android:paddingRight="@dimen/profile_screen_other_info_padding_10dp"
+        android:paddingLeft="@dimen/profile_screen_other_info_padding_10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tags_group_text_view">
+
     </com.google.android.material.chip.ChipGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

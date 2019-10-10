@@ -73,6 +73,38 @@
     <dimen name="project_card_description_margins">8dp</dimen>
     <dimen name="project_card_description_padding">8dp</dimen>
 
+
+    <!-- Profile Screen -->
+
+    <dimen name="nested_scroll_bottom_padding">40dp</dimen>
+    <dimen name="profile_screen_transparent_background_view_overlay">370dp</dimen>
+    <dimen name="profile_screen_circle_image_view">159dp</dimen>
+    <dimen name="profile_screen_margin_top_circle_image_view">58dp</dimen>
+    <dimen name="profile_screen_margin_bottom_circle_image_view">16dp</dimen>
+    <dimen name="profile_screen_border_circle_image_view">2dp</dimen>
+    <dimen name="profile_screen_name_line_height_size">28sp</dimen>
+    <dimen name="profile_screen_name_font_size_20sp">20sp</dimen>
+    <dimen name="profile_screen_line_height_size_16sp">16sp</dimen>
+    <dimen name="profile_screen_grade_font_size_12sp">12sp</dimen>
+    <dimen name="profile_screen_recycle_view_margin_top">55dp</dimen>
+    <dimen name="profile_screen_other_info_padding_left_and_right">16dp</dimen>
+    <dimen name="profile_screen_other_info_padding_top_and_bottom">19dp</dimen>
+    <dimen name="profile_screen_other_info_margin_10dp">10dp</dimen>
+    <dimen name="profile_screen_other_info_padding_10dp">10dp</dimen>
+    <dimen name="profile_screen_other_info_title_line_height_24sp">24sp</dimen>
+    <dimen name="profile_screen_font_size_14sp">14sp</dimen>
+    <dimen name="profile_screen_margin_15dp">15dp</dimen>
+    <dimen name="profile_screen_margin_14dp">14dp</dimen>
+    <dimen name="profile_screen_other_info_line_height_info">16dp</dimen>
+    <dimen name="profile_screen_other_info_view_height_line">1dp</dimen>
+    <dimen name="profile_screen_margin_4dp">4dp</dimen>
+
+
+
+
+
+
+
     <!-- Splash Screen -->
     <dimen name="splash_logo_width">281dp</dimen>
     <dimen name="splash_logo_height">95dp</dimen>
