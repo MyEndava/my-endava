@@ -129,7 +129,6 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     private void setupRecyclerView(View view) {
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        mRecyclerView = view.findViewById(R.id.tags_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         mRecyclerView.setLayoutManager(mLayoutManager);

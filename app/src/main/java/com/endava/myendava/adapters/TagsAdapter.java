@@ -27,14 +27,13 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
     public static final String CATEGORY_TECHNICAL = "Technical";
     public static final String CATEGORY_SOFT = "Soft";
     public static final String CATEGORY_PROJECT = "Project";
+    public static final String CATEGORY_LOGISTICS = "Logistics";
     public static final String TAG_INFO_FIRST = "You and ";
     public static final String TAG_INFO_OTHERS = " others are using this tag.";
 
     private final Context mContext;
 
     private List<Tag> mTagsList;
-
-    private List<Tag> mSelectedTags;
 
     private OnTagClickListener mListener;
 
@@ -89,9 +88,9 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
             Drawable background = itemView.getBackground();
             background.setColorFilter(mContext.getColor(TagColorManager.getColor(tag.getSubcategory())), PorterDuff.Mode.SRC);
             mTagTitle.setText(tag.getTagName());
-            mTagType.setText(tag.getCategory());
+            mTagType.setText(tag.getSubcategory());
             Drawable icon = null;
-            switch (tag.getCategory()) {
+            switch (tag.getSubcategory()) {
                 case CATEGORY_TECHNICAL:
                     icon = mContext.getResources().getDrawable(R.drawable.icons_filled_settings);
                     break;
@@ -101,21 +100,24 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
                 case CATEGORY_PROJECT:
                     icon = mContext.getResources().getDrawable(R.drawable.icons_filled_tags);
                     break;
+                case CATEGORY_LOGISTICS:
+                    icon = mContext.getResources().getDrawable(R.drawable.ic_logistics);
+                    break;
                 default:
                     break;
             }
             mTagType.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-            if (mContext.getColor(TagColorManager.getColor(tag.getSubcategory())) == mContext.getResources().getColor(R.color.white)) {
-                mTagTitle.setTextColor(mContext.getResources().getColor(R.color.secondary));
-                mTagType.setTextColor(mContext.getResources().getColor(R.color.secondary));
-                mTagInfo.setTextColor(mContext.getResources().getColor(R.color.secondary));
+            if (tag.getSubcategory().equals(CATEGORY_SOFT)) {
+                setFieldsColor(mContext.getResources().getColor(R.color.secondary));
+            } else {
+                setFieldsColor(mContext.getResources().getColor(R.color.white));
             }
             Random random = new Random();
             String users = random.nextInt(2) == 1 ? TAG_INFO_FIRST : "";
             users += random.nextInt(100) + TAG_INFO_OTHERS;
             mTagInfo.setText(users);
 
-            mSelectedTags = listener.getSelectedTags();
+            List<Tag> mSelectedTags = listener.getSelectedTags();
             if (mSelectedTags != null && mSelectedTags.contains(tag))
                 mCheckIcon.setVisibility(View.VISIBLE);
             else mCheckIcon.setVisibility(View.GONE);
@@ -128,6 +130,12 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
                     mCheckIcon.setVisibility(View.VISIBLE);
                 }
             });
+        }
+
+        private void setFieldsColor(int color) {
+            mTagTitle.setTextColor(color);
+            mTagType.setTextColor(color);
+            mTagInfo.setTextColor(color);
         }
     }
 
