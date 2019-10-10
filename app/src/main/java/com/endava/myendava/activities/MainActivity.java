@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements ProfileFragment.OnProf
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
         switch (item.getItemId()) {
-            case R.id.navigation_dashboard:
+            case R.id.navigation_calendar:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                         DashboardFragment.newInstance()).commit();
                 return true;
@@ -65,7 +65,7 @@ public class MainActivity extends BaseActivity implements ProfileFragment.OnProf
         mUnbinder = ButterKnife.bind(this);
         setupModule();
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mNavigationView.setSelectedItemId(R.id.navigation_dashboard);
+        mNavigationView.setSelectedItemId(R.id.navigation_calendar);
         int upFragmentId = mSharedPreferences.getUpNavigationId();
         if (upFragmentId != 0) {
             navigate(upFragmentId);
@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements ProfileFragment.OnProf
     private void navigate(int fragmentId) {
         mNavigationView.setSelectedItemId(fragmentId);
         switch (fragmentId) {
-            case R.id.navigation_dashboard:
+            case R.id.navigation_calendar:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
                         DashboardFragment.newInstance()).commit();
                 return;
