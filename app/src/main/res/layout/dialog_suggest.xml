@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/suggest_tag_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
+        android:layout_marginBottom="24dp"
+        android:background="#0a1f44"
+        android:text="@string/suggest_tag_label"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_description_edit_Text" />
+
+    <EditText
+        android:id="@+id/tag_description_edit_Text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
+        android:background="@drawable/tag_suggestion_rounded_edit_text"
+        android:hint="@string/tag_description_label"
+        android:padding="16dp"
+        android:textSize="14sp"
+        android:maxLines="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_title_edit_text" />
+
+    <EditText
+        android:id="@+id/tag_title_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
+        android:maxLines="1"
+        android:background="@drawable/tag_suggestion_rounded_edit_text"
+        android:hint="@string/tag_title_label"
+        android:padding="8dp"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_details_text_view" />
+
+    <TextView
+        android:id="@+id/tag_details_text_view"
+        style="@style/SuggestTagTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
+        android:layout_marginTop="16dp"
+        android:text="@string/tag_details_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+    <TextView
+        android:id="@+id/tag_group_text_view"
+        style="@style/SuggestTagTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
+        android:layout_marginTop="24dp"
+        android:text="@string/tag_group_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="#eaecef"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categories_recycler_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categories_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_group_text_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>

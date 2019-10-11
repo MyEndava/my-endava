@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,10 +25,11 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
+import com.endava.myendava.SuggestDialogFragment;
 import com.endava.myendava.adapters.TagsAdapter;
-import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.utils.KeyboardHelper;
+import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.viewmodels.TagsViewModel;
 
 import java.util.ArrayList;
@@ -58,7 +60,6 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     Button mMultiSearchButton;
 
     private TagsAdapter mAdapter;
-
     private OnTagsFragmentInteractionListener listener;
 
     private Unbinder mUnbinder;
@@ -77,20 +78,19 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     }
 
     @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tags, parent, false);
-        setupModule();
-        return view;
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeStatusBarColor(R.color.secondary);
         setHasOptionsMenu(true);
     }
 
-    private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_tags;
+    }
+
+    @Override
+    public void setupModule() {
         locator.getTagsComponent(this).inject(this);
     }
 
@@ -186,6 +186,11 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
                 listener.onTagsSearch(mSelectedTagsList, R.id.navigation_tags);
             }
         }
+    }
+
+    @OnClick(R.id.suggest_tag_button)
+    public void onSuggestTag() {
+        mTagsViewModel.fetchTagCategories();
     }
 
     private void addSelectedTagsToList(Tag tag) {

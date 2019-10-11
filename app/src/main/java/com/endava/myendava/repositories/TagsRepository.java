@@ -4,6 +4,7 @@ import com.endava.myendava.models.AddTagRequest;
 import com.endava.myendava.models.RemoveTagRequest;
 import com.endava.myendava.models.RemoveTagResponse;
 import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.rest.RetrofitClient;
 
 import java.util.List;
@@ -33,5 +34,9 @@ public class TagsRepository {
 
     public Observable<RemoveTagResponse> removeTagFromProfile(RemoveTagRequest request) {
         return mRetrofitClient.getRetrofitClient().removeTagFromProfile(request);
+    }
+
+    public Observable<List<TagCategory>> getAllTagCategories() {
+        return mRetrofitClient.getRetrofitClient().getAllTagCategories();
     }
 }

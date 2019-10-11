@@ -63,13 +63,6 @@ public class FaqFragment extends BaseFragment implements OnChipClickedListener {
     }
 
     @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_faq, parent, false);
-        setupModule();
-        return view;
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
 
@@ -138,8 +131,13 @@ public class FaqFragment extends BaseFragment implements OnChipClickedListener {
         mFaqRecycler.setAdapter(mAdapter);
     }
 
-    private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_faq;
+    }
+
+    @Override
+    public void setupModule() {
         locator.getFaqComponent(this).inject(this);
     }
 

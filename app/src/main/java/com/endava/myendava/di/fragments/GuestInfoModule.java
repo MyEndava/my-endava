@@ -1,4 +1,4 @@
-package com.endava.myendava.di.FragmentsDi;
+package com.endava.myendava.di.fragments;
 
 import com.endava.myendava.fragments.GuestInfoFragment;
 

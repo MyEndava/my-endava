@@ -4,9 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.endava.myendava.R;
-import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.utils.AnimationHelper;
 
 import java.util.Random;
@@ -44,13 +41,6 @@ public class GuestInfoFragment extends BaseFragment {
     }
 
     @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_guest_info, parent, false);
-        setupModule();
-        return view;
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         mUnbinder = ButterKnife.bind(this, view);
         mPasswordTextView.setText(UUID.randomUUID().toString().substring(0, 16));
@@ -58,8 +48,13 @@ public class GuestInfoFragment extends BaseFragment {
         mVisitorCardTextView.setText(String.valueOf(random.nextInt(100)));
     }
 
-    private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_guest_info;
+    }
+
+    @Override
+    public void setupModule() {
         locator.getGuestInfoComponent(this).inject(this);
     }
 

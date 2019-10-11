@@ -69,4 +69,10 @@
     <string name="multiple_search_description">The list of users that have the following tags:\n</string>
     <string name="multiple_search_tag_description">Custom Tags Description</string>
 
+    <!-- Suggest tag screen -->
+    <string name="tag_group_label">Tag group</string>
+    <string name="tag_details_label">Tag details</string>
+    <string name="suggest_tag_label">SUGGEST TAG</string>
+    <string name="tag_title_label">Tag title</string>
+    <string name="tag_description_label">Tell us what this tag represents and why should be added …</string>
 </resources>

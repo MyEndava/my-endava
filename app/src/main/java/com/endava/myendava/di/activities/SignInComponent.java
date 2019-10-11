@@ -1,4 +1,4 @@
-package com.endava.myendava.di.activitiesDi;
+package com.endava.myendava.di.activities;
 
 import com.endava.myendava.activities.SignInActivity;
 

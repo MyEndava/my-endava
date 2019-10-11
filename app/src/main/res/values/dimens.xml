@@ -264,4 +264,7 @@
     <dimen name="user_screen_arrow_padding">8dp</dimen>
     <dimen name="scroll_view_top_margin">20dp</dimen>
 
+    <dimen name="suggest_tag_category_container_size">100dp</dimen>
+    <dimen name="suggest_dialog_margin_start">16dp</dimen>
+    <dimen name="suggest_dialog_margin_end">16dp</dimen>
 </resources>
