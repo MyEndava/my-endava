@@ -19,7 +19,7 @@ import com.endava.myendava.R;
 import com.endava.myendava.adapters.ChipsAdapter;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.listeners.OnChipClickedListener;
-import com.endava.myendava.listeners.OnProfileEditListener;
+import com.endava.myendava.listeners.OnProfileEditedListener;
 import com.endava.myendava.models.Profile;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.rest.RetrofitClient;
@@ -40,8 +40,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-public class ProfileFragment extends BaseFragment implements OnChipClickedListener, OnProfileEditListener {
+public class ProfileFragment extends BaseFragment implements OnChipClickedListener, OnProfileEditedListener {
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -192,7 +191,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     }
 
     @Override
-    public void onEditClick(boolean isEditable) {
+    public void onEditClicked(boolean isEditable) {
         mLocationTextView.setEnabled(isEditable);
         mEmailTextView.setEnabled(isEditable);
     }

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.endava.myendava.R;
 import com.endava.myendava.activities.FilteredTagsActivity;
 import com.endava.myendava.listeners.OnChipClickedListener;
-import com.endava.myendava.listeners.OnProfileEditListener;
+import com.endava.myendava.listeners.OnProfileEditedListener;
 import com.endava.myendava.models.Profile;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.utils.TagColorManager;
@@ -38,11 +38,11 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final Profile profile;
     private final Map<String, List<Tag>> tagsMap;
     private final OnChipClickedListener listener;
-    private final OnProfileEditListener onEditListener;
+    private final OnProfileEditedListener onEditListener;
     private boolean isProfileEditable;
 
     public ChipsAdapter(Context context, String email, Boolean isEditable, Profile profile, Map<String, List<Tag>> tagsMap,
-                        OnChipClickedListener listener, OnProfileEditListener onEditListener) {
+                        OnChipClickedListener listener, OnProfileEditedListener onEditListener) {
         this.context = context;
         this.profile = profile;
         this.tagsMap = tagsMap;
@@ -74,9 +74,10 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (holder instanceof DescriptionViewHolder) {
             ((DescriptionViewHolder) holder).bind(profile);
         } else if (holder instanceof TagsViewHolder) {
+            ((TagsViewHolder) holder).bind(tagsMap);
             TagsViewHolder tagsViewHolder = (TagsViewHolder) holder;
             tagsViewHolder.tagsGroupTextView.setText(getTagGroupByPosition(position));
-            tagsViewHolder.addTagClick.setTextColor(context.getResources().getColor(R.color.gray5));
+            tagsViewHolder.addTagTextView.setTextColor(context.getResources().getColor(R.color.gray5));
             tagsViewHolder.removeChips();
             for (Tag tag : getTagsByPosition(position)) {
                 tagsViewHolder.createChip(getTagGroupByPosition(position), tag, listener);
@@ -84,7 +85,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     case "Project":
                         tagsViewHolder.tagHolderLayout.setBackground(context.getResources().getDrawable(R.drawable.about_me_shape));
                         tagsViewHolder.tagsGroupTextView.setTextColor(context.getResources().getColor(R.color.colorPrimary));
-                        tagsViewHolder.addTagClick.setVisibility(View.GONE);
+                        tagsViewHolder.addTagTextView.setVisibility(View.GONE);
                         break;
                     case "Technical":
                         tagsViewHolder.tagHolderLayout.setBackground(context.getResources().getDrawable(R.drawable.technical_shape));
@@ -125,21 +126,32 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public class TagsViewHolder extends RecyclerView.ViewHolder {
 
+
+        @BindView(R.id.tags_group_text_view)
         TextView tagsGroupTextView;
+
+        @BindView(R.id.tags_chip_group)
         ChipGroup chipGroup;
-        TextView addTagClick;
+
+        @BindView(R.id.add_button)
+        TextView addTagTextView;
+
+        @BindView(R.id.layout)
         ConstraintLayout tagHolderLayout;
+
 
         TagsViewHolder(@NonNull View itemView) {
             super(itemView);
-            tagHolderLayout = itemView.findViewById(R.id.layout);
-            addTagClick = itemView.findViewById(R.id.add_button);
-            tagsGroupTextView = itemView.findViewById(R.id.tags_group_text_view);
-            chipGroup = itemView.findViewById(R.id.tags_chip_group);
-            addTagClick.setOnClickListener(view -> {
-                Intent intent = new Intent(context, FilteredTagsActivity.class);
-                context.startActivity(intent);
-            });
+            ButterKnife.bind(this, itemView);
+        }
+
+        void bind(final Map<String, List<Tag>> tagsMap) {
+            if (tagsMap != null) {
+                addTagTextView.setOnClickListener(view -> {
+                    Intent intent = new Intent(context, FilteredTagsActivity.class);
+                    context.startActivity(intent);
+                });
+            }
         }
 
         public void removeChips() {
@@ -170,7 +182,6 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             }
             chipGroup.addView(chip);
         }
-
     }
 
     public class DescriptionViewHolder extends RecyclerView.ViewHolder {
@@ -191,19 +202,20 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             if (profile != null) {
                 descriptionTextView.setText(profile.getDescription());
                 if (profile.getEmail() != null && !profile.getEmail().equals(email)) {
-                        editButton.setVisibility(View.GONE);
+                    editButton.setVisibility(View.GONE);
                 }
                 editButton.setOnClickListener(view -> {
                     if (editButton.getText().equals(context.getResources().getString(R.string.edit_text_press))) {
                         descriptionTextView.setEnabled(true);
+                        descriptionTextView.requestFocus();
                         isProfileEditable = true;
-                        onEditListener.onEditClick(true);
+                        onEditListener.onEditClicked(true);
                         editButton.setText(context.getResources().getString(R.string.save_text_press));
                     } else {
                         descriptionTextView.setEnabled(false);
                         editButton.setText(context.getResources().getString(R.string.edit_text_press));
                         isProfileEditable = false;
-                        onEditListener.onEditClick(false);
+                        onEditListener.onEditClicked(false);
                     }
                     notifyDataSetChanged();
                 });
