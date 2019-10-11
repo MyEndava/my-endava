@@ -103,6 +103,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
         mUnbinder = ButterKnife.bind(this, view);
         setViews();
 
+        changeStatusBarColor(R.color.secondary);
         mProfileViewModel.getProfile(getCurrentEmail()).observe(this, this::populateViews);
 
         mProfileViewModel.isUpdating().observe(this, aBoolean -> {
@@ -194,6 +195,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     public void onEditClicked(boolean isEditable) {
         mLocationTextView.setEnabled(isEditable);
         mEmailTextView.setEnabled(isEditable);
+
     }
 
     public interface OnProfileFragmentInteractionListener {

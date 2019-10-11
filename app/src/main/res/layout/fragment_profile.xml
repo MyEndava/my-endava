@@ -1,9 +1,23 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/gray5"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/background_image"
+        layout="@layout/background_layout" />
+
+    <View
+        android:id="@+id/list_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/profile_screen_image_height"
+        android:background="@color/gray5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
@@ -11,41 +25,15 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/nested_scroll_bottom_padding"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_profile"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="top|center_horizontal"
-                android:adjustViewBounds="true"
-                android:background="@drawable/splash_screen_background"
-                android:scaleType="fitCenter"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:id="@+id/transparent"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/profile_screen_transparent_background_view_overlay"
-                android:background="@color/colorSecondary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/gray5"
-                app:layout_constraintBottom_toBottomOf="@id/imageView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/transparent" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_picture_image_view"
@@ -68,7 +56,7 @@
                 android:letterSpacing="0.15"
                 android:lineHeight="@dimen/profile_screen_name_line_height_size"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/profile_screen_name_font_size_20sp"
+                android:textSize="@dimen/profile_screen_name_font_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_picture_image_view" />
@@ -79,13 +67,12 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
                 android:letterSpacing="0.4"
-                android:lineHeight="@dimen/profile_screen_line_height_size_16sp"
+                android:lineHeight="@dimen/profile_screen_line_height_size"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/profile_screen_grade_font_size_12sp"
+                android:textSize="@dimen/profile_screen_grade_font_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/name_text_view" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tags_recycler_view"
@@ -99,12 +86,14 @@
                 android:id="@+id/other_information_panel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/profile_screen_other_info_margin_10dp"
+                android:layout_marginLeft="@dimen/profile_screen_other_info_margin"
+                android:layout_marginRight="@dimen/profile_screen_other_info_margin"
+                android:layout_marginBottom="@dimen/profile_screen_other_info_margin"
                 android:background="@drawable/about_me_shape"
-                android:paddingLeft="@dimen/profile_screen_other_info_padding_left_and_right"
-                android:paddingTop="@dimen/profile_screen_other_info_padding_top_and_bottom"
-                android:paddingRight="@dimen/profile_screen_other_info_padding_left_and_right"
-                android:paddingBottom="@dimen/profile_screen_other_info_padding_top_and_bottom"
+                android:paddingLeft="@dimen/profile_screen_other_info_horizontal_padding"
+                android:paddingTop="@dimen/profile_screen_other_info_vertical_padding"
+                android:paddingRight="@dimen/profile_screen_other_info_horizontal_padding"
+                android:paddingBottom="@dimen/profile_screen_other_info_vertical_padding"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tags_recycler_view">
@@ -115,10 +104,10 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
                     android:letterSpacing="0.1"
-                    android:lineHeight="@dimen/profile_screen_other_info_title_line_height_24sp"
+                    android:lineHeight="@dimen/profile_screen_other_info_title_line_height"
                     android:text="@string/other_information"
                     android:textColor="@color/other_info_color"
-                    android:textSize="@dimen/profile_screen_font_size_14sp"
+                    android:textSize="@dimen/profile_screen_font_size"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.18" />
@@ -126,13 +115,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/profile_screen_margin_15dp"
+                    android:layout_marginRight="@dimen/profile_screen_other_info_margin_right"
                     android:backgroundTint="@android:color/white"
                     android:fontFamily="@font/roboto_medium"
                     android:letterSpacing="0.1"
                     android:text="@string/view_more_button"
                     android:textColor="@color/colorSecondary"
-                    android:textSize="@dimen/profile_screen_font_size_14sp"
+                    android:textSize="@dimen/profile_screen_font_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@id/other_information"
@@ -142,12 +131,12 @@
                     android:id="@+id/phone_number_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/phone_number"
-                    android:lineHeight="@dimen/profile_screen_line_height_size_16sp"
+                    android:lineHeight="@dimen/profile_screen_line_height_size"
                     android:textColor="@color/light_grey_blue"
-                    android:textSize="@dimen/profile_screen_grade_font_size_12sp"
+                    android:textSize="@dimen/profile_screen_grade_font_size"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/other_information" />
 
@@ -155,12 +144,12 @@
                     android:id="@+id/phone_number_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/profile_screen_margin_15dp"
+                    android:layout_marginRight="@dimen/profile_screen_other_info_margin_right"
                     android:background="@null"
                     android:fontFamily="@font/roboto_regular"
-                    android:lineHeight="@dimen/profile_screen_name_font_size_20sp"
+                    android:lineHeight="@dimen/profile_screen_name_font_size"
                     android:textColor="@color/other_info_color"
-                    android:textSize="@dimen/profile_screen_font_size_14sp"
+                    android:textSize="@dimen/profile_screen_font_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@id/phone_number_text"
@@ -170,8 +159,8 @@
                     android:id="@+id/line1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_screen_other_info_view_height_line"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
-                    android:layout_marginBottom="@dimen/profile_screen_margin_14dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
+                    android:layout_marginBottom="@dimen/profile_screen_other_info_vertical_margin"
                     android:background="@color/gray5"
                     app:layout_constraintTop_toBottomOf="@id/phone_number_hint" />
 
@@ -179,12 +168,12 @@
                     android:id="@+id/email_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/email_hint"
-                    android:lineHeight="@dimen/profile_screen_line_height_size_16sp"
+                    android:lineHeight="@dimen/profile_screen_line_height_size"
                     android:textColor="@color/light_grey_blue"
-                    android:textSize="@dimen/profile_screen_grade_font_size_12sp"
+                    android:textSize="@dimen/profile_screen_grade_font_size"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/line1" />
 
@@ -192,15 +181,15 @@
                     android:id="@+id/email_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
-                    android:layout_marginRight="@dimen/profile_screen_margin_15dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
+                    android:layout_marginRight="@dimen/profile_screen_other_info_margin_right"
                     android:background="@null"
                     android:enabled="false"
                     android:fontFamily="@font/roboto_regular"
-                    android:lineHeight="@dimen/profile_screen_name_font_size_20sp"
-                    android:paddingBottom="@dimen/profile_screen_margin_14dp"
+                    android:lineHeight="@dimen/profile_screen_name_font_size"
+                    android:paddingBottom="@dimen/profile_screen_other_info_vertical_margin"
                     android:textColor="@color/other_info_color"
-                    android:textSize="@dimen/profile_screen_font_size_14sp"
+                    android:textSize="@dimen/profile_screen_font_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@id/email_hint"
@@ -210,8 +199,8 @@
                     android:id="@+id/line2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_screen_other_info_view_height_line"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
-                    android:layout_marginBottom="@dimen/profile_screen_margin_14dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
+                    android:layout_marginBottom="@dimen/profile_screen_other_info_vertical_margin"
                     android:background="@color/gray5"
                     app:layout_constraintTop_toBottomOf="@id/email_hint" />
 
@@ -219,12 +208,12 @@
                     android:id="@+id/location_text_hint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
                     android:fontFamily="@font/roboto_regular"
                     android:hint="@string/location_hint"
-                    android:lineHeight="@dimen/profile_screen_line_height_size_16sp"
+                    android:lineHeight="@dimen/profile_screen_line_height_size"
                     android:textColor="@color/light_grey_blue"
-                    android:textSize="@dimen/profile_screen_grade_font_size_12sp"
+                    android:textSize="@dimen/profile_screen_grade_font_size"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/line2" />
 
@@ -232,14 +221,14 @@
                     android:id="@+id/location_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
-                    android:layout_marginRight="@dimen/profile_screen_margin_15dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
+                    android:layout_marginRight="@dimen/profile_screen_other_info_margin_right"
                     android:background="@null"
                     android:fontFamily="@font/roboto_regular"
-                    android:lineHeight="@dimen/profile_screen_name_font_size_20sp"
-                    android:paddingBottom="@dimen/profile_screen_margin_14dp"
+                    android:lineHeight="@dimen/profile_screen_name_font_size"
+                    android:paddingBottom="@dimen/profile_screen_other_info_vertical_margin"
                     android:textColor="@color/other_info_color"
-                    android:textSize="@dimen/profile_screen_font_size_14sp"
+                    android:textSize="@dimen/profile_screen_font_size"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toEndOf="@id/location_text_hint"
@@ -249,12 +238,10 @@
                     android:id="@+id/line3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/profile_screen_other_info_view_height_line"
-                    android:layout_marginTop="@dimen/profile_screen_margin_14dp"
-                    android:layout_marginBottom="@dimen/profile_screen_margin_14dp"
+                    android:layout_marginTop="@dimen/profile_screen_other_info_vertical_margin"
+                    android:layout_marginBottom="@dimen/profile_screen_other_info_vertical_margin"
                     android:background="@color/gray5"
                     app:layout_constraintTop_toBottomOf="@id/location_text_hint" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ProgressBar
@@ -268,7 +255,5 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
