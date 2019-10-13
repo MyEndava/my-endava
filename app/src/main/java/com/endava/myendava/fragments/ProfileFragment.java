@@ -44,28 +44,20 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
 
     @Inject
     MySharedPreferences mSharedPreferences;
-
     @Inject
     ProfileViewModel mProfileViewModel;
-
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
-
     @BindView(R.id.name_text_view)
     TextView mNameTextView;
-
     @BindView(R.id.grade_text_view)
     TextView mGradeTextView;
-
     @BindView(R.id.location_text_view)
     TextView mLocationTextView;
-
     @BindView(R.id.email_text_view)
     TextView mEmailTextView;
-
     @BindView(R.id.profile_picture_image_view)
     CircleImageView mPhotoImageView;
-
     @BindView(R.id.tags_recycler_view)
     RecyclerView mRecyclerView;
 
@@ -98,12 +90,18 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        changeStatusBarColor(getActivity().getResources().getColor(R.color.secondary));
+        setHasOptionsMenu(true);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUnbinder = ButterKnife.bind(this, view);
         setViews();
 
-        changeStatusBarColor(R.color.secondary);
         mProfileViewModel.getProfile(getCurrentEmail()).observe(this, this::populateViews);
 
         mProfileViewModel.isUpdating().observe(this, aBoolean -> {
@@ -195,7 +193,6 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     public void onEditClicked(boolean isEditable) {
         mLocationTextView.setEnabled(isEditable);
         mEmailTextView.setEnabled(isEditable);
-
     }
 
     public interface OnProfileFragmentInteractionListener {

@@ -37,17 +37,17 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private final String email;
     private final Profile profile;
     private final Map<String, List<Tag>> tagsMap;
-    private final OnChipClickedListener listener;
-    private final OnProfileEditedListener onEditListener;
+    private final OnChipClickedListener onChipClickedListener;
+    private final OnProfileEditedListener onEditedListener;
     private boolean isProfileEditable;
 
     public ChipsAdapter(Context context, String email, Boolean isEditable, Profile profile, Map<String, List<Tag>> tagsMap,
-                        OnChipClickedListener listener, OnProfileEditedListener onEditListener) {
+                        OnChipClickedListener onChipClickedListener, OnProfileEditedListener onEditedListener) {
         this.context = context;
         this.profile = profile;
         this.tagsMap = tagsMap;
-        this.listener = listener;
-        this.onEditListener = onEditListener;
+        this.onChipClickedListener = onChipClickedListener;
+        this.onEditedListener = onEditedListener;
         this.isProfileEditable = isEditable;
         this.email = email;
     }
@@ -80,7 +80,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             tagsViewHolder.addTagTextView.setTextColor(context.getResources().getColor(R.color.gray5));
             tagsViewHolder.removeChips();
             for (Tag tag : getTagsByPosition(position)) {
-                tagsViewHolder.createChip(getTagGroupByPosition(position), tag, listener);
+                tagsViewHolder.createChip(getTagGroupByPosition(position), tag, onChipClickedListener);
                 switch (tag.getSubcategory()) {
                     case "Project":
                         tagsViewHolder.tagHolderLayout.setBackground(context.getResources().getDrawable(R.drawable.about_me_shape));
@@ -123,19 +123,14 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<Tag> getTagsByPosition(int position) {
         return tagsMap.get((tagsMap.keySet().toArray())[position - 1]);
     }
-
     public class TagsViewHolder extends RecyclerView.ViewHolder {
-
 
         @BindView(R.id.tags_group_text_view)
         TextView tagsGroupTextView;
-
         @BindView(R.id.tags_chip_group)
         ChipGroup chipGroup;
-
         @BindView(R.id.add_button)
         TextView addTagTextView;
-
         @BindView(R.id.layout)
         ConstraintLayout tagHolderLayout;
 
@@ -158,7 +153,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             chipGroup.removeAllViews();
         }
 
-        void createChip(final String tagGroup, final Tag tag, final OnChipClickedListener listener) {
+        void createChip(final String tagGroup, final Tag tag, final OnChipClickedListener onChipClickedListener) {
             Chip chip = new Chip(chipGroup.getContext());
             chip.setText(tag.getTagName());
             chip.setChipBackgroundColorResource(TagColorManager.getBackgroundColor(tagGroup));
@@ -174,7 +169,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     }
                 }
             });
-            chip.setOnClickListener(v -> listener.onChipClicked(tag));
+            chip.setOnClickListener(v -> onChipClickedListener.onChipClicked(tag));
             if ("Skill".equals(tag.getCategory())) {
                 chip.setCloseIcon(context.getDrawable(R.drawable.ic_close));
                 chip.setCloseIconVisible(isProfileEditable);
@@ -188,7 +183,6 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @BindView(R.id.edit_about_me)
         TextView editButton;
-
         @BindView(R.id.description_text_view)
         EditText descriptionTextView;
 
@@ -209,13 +203,13 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         descriptionTextView.setEnabled(true);
                         descriptionTextView.requestFocus();
                         isProfileEditable = true;
-                        onEditListener.onEditClicked(true);
+                        onEditedListener.onEditClicked(true);
                         editButton.setText(context.getResources().getString(R.string.save_text_press));
                     } else {
                         descriptionTextView.setEnabled(false);
                         editButton.setText(context.getResources().getString(R.string.edit_text_press));
                         isProfileEditable = false;
-                        onEditListener.onEditClicked(false);
+                        onEditedListener.onEditClicked(false);
                     }
                     notifyDataSetChanged();
                 });

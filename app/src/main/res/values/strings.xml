@@ -3,7 +3,7 @@
     <string name="title_calendar">Calendar</string>
     <string name="title_profile">Profile</string>
     <string name="title_tags">Tags</string>
-    <string name="email_hint"><i>Email</i></string>
+    <string name="email_hint">Email</string>
     <string name="password_hint"><i>Password</i></string>
     <string name="code_hint"><i>Authorization Code</i></string>
 

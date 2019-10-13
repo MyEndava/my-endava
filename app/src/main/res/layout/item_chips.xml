@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto_medium"
         android:letterSpacing="0.1"
-        android:lineHeight="@dimen/profile_screen_item_chips_title_line_height"
+        android:lineHeight="@dimen/profile_screen_other_info_title_line_height"
         android:paddingBottom="@dimen/profile_screen_chips_title_bottom_padding"
         android:textAllCaps="true"
         android:textSize="@dimen/profile_screen_font_size"
