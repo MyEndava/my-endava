@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/calendar_day_item_width"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/calendar_day_item_height"
     android:layout_marginStart="@dimen/calendar_day_item_margin_side"
     android:layout_marginEnd="@dimen/calendar_day_item_margin_side"
@@ -36,36 +36,42 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/day_nr" />
 
-    <View
-        android:id="@+id/dot1"
-        android:layout_width="@dimen/calendar_day_item_dot_size"
-        android:layout_height="@dimen/calendar_day_item_dot_size"
-        android:layout_marginLeft="@dimen/calendar_day_item_dot1_margin_left"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/calendar_day_item_dot_margin_top"
-        android:background="@drawable/calendar_dots_background"
-        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/day" />
+        app:layout_constraintTop_toBottomOf="@id/day">
 
-    <View
-        android:id="@+id/dot2"
-        android:layout_width="@dimen/calendar_day_item_dot_size"
-        android:layout_height="@dimen/calendar_day_item_dot_size"
-        android:layout_marginStart="@dimen/calendar_day_item_dot23_margin_left"
-        android:layout_marginTop="@dimen/calendar_day_item_dot_margin_top"
-        android:background="@drawable/calendar_dots_background"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/dot1"
-        app:layout_constraintTop_toBottomOf="@id/day" />
+        <View
+            android:id="@+id/dot1"
+            android:layout_width="@dimen/calendar_day_item_dot_size"
+            android:layout_height="@dimen/calendar_day_item_dot_size"
+            android:background="@drawable/calendar_dots_background"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <View
-        android:id="@+id/dot3"
-        android:layout_width="@dimen/calendar_day_item_dot_size"
-        android:layout_height="@dimen/calendar_day_item_dot_size"
-        android:layout_marginStart="@dimen/calendar_day_item_dot23_margin_left"
-        android:layout_marginTop="@dimen/calendar_day_item_dot_margin_top"
-        android:background="@drawable/calendar_dots_background"
-        android:visibility="gone"
-        app:layout_constraintStart_toEndOf="@id/dot2"
-        app:layout_constraintTop_toBottomOf="@id/day" />
+        <View
+            android:id="@+id/dot2"
+            android:layout_width="@dimen/calendar_day_item_dot_size"
+            android:layout_height="@dimen/calendar_day_item_dot_size"
+            android:layout_marginStart="@dimen/calendar_day_item_dot23_margin_left"
+            android:background="@drawable/calendar_dots_background"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@id/dot1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/dot3"
+            android:layout_width="@dimen/calendar_day_item_dot_size"
+            android:layout_height="@dimen/calendar_day_item_dot_size"
+            android:layout_marginStart="@dimen/calendar_day_item_dot23_margin_left"
+            android:background="@drawable/calendar_dots_background"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@id/dot2"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,20 +33,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calendar_month_button" />
 
-    <Switch
+    <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch_my_events"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/calendar_switch_margin_left"
         android:layout_marginTop="@dimen/calendar_switch_margin_top"
-        android:fontFamily="@font/roboto_medium"
+        android:checked="true"
         android:layoutDirection="rtl"
-        android:switchPadding="@dimen/calendar_switch_drawable_padding"
+        android:thumb="@drawable/switch_thumb_selector"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendar_list"
+        app:track="@drawable/switch_track_selector" />
+
+    <TextView
+        android:id="@+id/myevents_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/calendar_switch_drawable_padding"
+        android:layout_marginTop="@dimen/calendar_switch_margin_top"
+        android:fontFamily="@font/roboto_medium"
         android:text="@string/calendar_switch_text"
         android:textColor="@color/white"
         android:textSize="@dimen/calendar_text_size"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendar_list" />
+        app:layout_constraintStart_toEndOf="@id/switch_my_events"
+        app:layout_constraintTop_toBottomOf="@id/calendar_list">
+
+    </TextView>
 
     <android.widget.Button
         android:id="@+id/filters"
@@ -67,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@id/calendar_list" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/projects_list_parent"
+        android:id="@+id/events_list_parent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/event_list_margin"

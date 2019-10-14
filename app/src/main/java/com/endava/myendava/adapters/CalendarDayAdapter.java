@@ -1,9 +1,13 @@
 package com.endava.myendava.adapters;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -38,7 +42,17 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_calendar_day, parent, false);
+        view.getLayoutParams().width =  getRecyclerWidth() / 5;
         return new CalendarViewHolder(view);
+    }
+
+    private int getRecyclerWidth() {
+        WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        float margins = (26 * 2 + 8 * 5) * ((float) mContext.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return size.x - (int) margins;
     }
 
     @Override

@@ -6,10 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Switch;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -47,10 +46,10 @@ public class CalendarFragment extends BaseFragment {
     @BindView(R.id.calendar_list)
     RecyclerView mCalendarRecycleView;
     @BindView(R.id.switch_my_events)
-    Switch mSwitchEvents;
+    SwitchCompat mSwitchEvents;
     @BindView(R.id.filters)
     Button mFiltersButton;
-    @BindView(R.id.projects_list_parent)
+    @BindView(R.id.events_list_parent)
     RecyclerView mProjectsRecyclerView;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
@@ -69,7 +68,6 @@ public class CalendarFragment extends BaseFragment {
     public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_calendar, parent, false);
         setupModule();
-        changeStatusBarColor(getActivity().getResources().getColor(R.color.secondary));
         return view;
     }
 
@@ -81,11 +79,11 @@ public class CalendarFragment extends BaseFragment {
         setupParentEventsAdapter();
     }
 
-    private void setMonthButton(){
+    private void setMonthButton() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
         String month_name = month_date.format(calendar.getTime());
-        mCalendarMonthButton.setText(month_name+" "+calendar.get(Calendar.YEAR));
+        mCalendarMonthButton.setText(month_name + " " + calendar.get(Calendar.YEAR));
     }
 
     private void setupModule() {
