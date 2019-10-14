@@ -136,11 +136,25 @@
     <dimen name="tag_item_check_icon_margin">10dp</dimen>
     <dimen name="button_text_size">14sp</dimen>
     <dimen name="tags_button_drawable_padding">9dp</dimen>
-    <dimen name="tags_search_drawable_padding">8dp</dimen>
+    <dimen name="search_drawable_padding">8dp</dimen>
+    <dimen name="search_start_padding">12dp</dimen>
     <dimen name="tags_list_margin_side">10dp</dimen>
 
     <dimen name="floating_button_margin_left">314dp</dimen>
     <dimen name="floating_button_margin_right">11dp</dimen>
     <dimen name="floating_button_margin_bottom">13dp</dimen>
+    <dimen name="faq_item_horizontal_margins">16dp</dimen>
+    <dimen name="faq_item_vertical_margins">8dp</dimen>
+    <dimen name="faq_item_answer_text_size">16sp</dimen>
+    <dimen name="faq_item_view_bottom_margin">11dp</dimen>
+    <dimen name="faq_item_question_margins">16dp</dimen>
+    <dimen name="faq_item_question_text_size">16sp</dimen>
+    <dimen name="faq_item_arrow_size">24dp</dimen>
+    <dimen name="faq_item_arrow_vertical_margins">12dp</dimen>
+    <dimen name="faq_item_arrow_end_margin">16dp</dimen>
+    <dimen name="faq_item_chip_group_margins">16dp</dimen>
+    <dimen name="faq_recycler_top_margin">45dp</dimen>
+    <dimen name="faq_recycler_margins">23dp</dimen>
+    <dimen name="faq_item_shape_corner_radius">8dp</dimen>
 
 </resources>

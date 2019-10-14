@@ -14,6 +14,7 @@ import com.endava.myendava.di.activitiesDi.SignInComponent;
 import com.endava.myendava.di.activitiesDi.SplashComponent;
 import com.endava.myendava.di.activitiesDi.UsersComponent;
 import com.endava.myendava.rest.RetrofitClient;
+import com.endava.myendava.utils.KeyboardHelper;
 import com.endava.myendava.utils.MySharedPreferences;
 
 import javax.inject.Singleton;
@@ -46,5 +47,9 @@ public class MyEndavaApplicationModule {
     RetrofitClient provideRetrofitClient() {
         return new RetrofitClient();
     }
+
+    @Singleton
+    @Provides
+    KeyboardHelper provideKeyboardHelper(){ return new KeyboardHelper();}
 
 }
