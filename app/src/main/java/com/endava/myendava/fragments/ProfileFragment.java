@@ -1,6 +1,5 @@
 package com.endava.myendava.fragments;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ import com.endava.myendava.viewmodels.ProfileViewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -65,7 +63,6 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     private static final String ARG_IS_USER_PROFILE = "arg_is_user_profile";
 
     private OnProfileFragmentInteractionListener listener;
-    private Map<String, List<Tag>> tagsMap = new LinkedHashMap<>();
     private ChipsAdapter adapter;
     private Unbinder mUnbinder;
 
@@ -92,7 +89,6 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeStatusBarColor(getActivity().getResources().getColor(R.color.secondary));
         setHasOptionsMenu(true);
     }
 
@@ -114,7 +110,6 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
         mProfileViewModel.getError().observe(this, this::displayError);
     }
 
-    @SuppressLint("RestrictedApi")
     private void setViews() {
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());

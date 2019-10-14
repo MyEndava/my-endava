@@ -24,7 +24,6 @@ public class UsersViewModel extends ViewModel {
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
 
-
     @Inject
     public UsersViewModel(UsersRepository usersRepository) {
         mRepo = usersRepository;
