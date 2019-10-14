@@ -38,8 +38,7 @@
             android:name=".activities.SignInAsGuestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activities.UsersActivity" />
-        <activity android:name=".activities.ProfileActivity"
-            android:theme="@style/SignInTheme" />
+        <activity android:name=".activities.ProfileActivity" />
     </application>
 
 </manifest>
