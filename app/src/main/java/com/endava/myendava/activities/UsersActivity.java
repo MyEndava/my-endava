@@ -1,15 +1,15 @@
 package com.endava.myendava.activities;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +19,6 @@ import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.User;
 import com.endava.myendava.viewmodels.UsersViewModel;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_LOGISTICS;
+import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_PROJECT;
+import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_SOFT;
+import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_TECHNICAL;
 
 public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnUserClickListener {
 
@@ -38,12 +42,14 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
 
     @BindView(R.id.tag_description_text_view)
     TextView descriptionTextView;
-
-    @BindView(R.id.collapsing_toolbar_layout)
-    CollapsingToolbarLayout collapsingToolbarLayout;
-
+    @BindView(R.id.tag_title)
+    TextView tagTitleTextView;
+    @BindView(R.id.tag_type)
+    TextView tagTypeTextView;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
+    @BindView(R.id.arrow_back_button)
+    ImageView backPressImageViewButton;
 
     private Tag tag;
     private List<User> users = new ArrayList<>();
@@ -55,23 +61,45 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
         setContentView(R.layout.activity_users);
         ButterKnife.bind(this);
         setupModule();
-        setupActionBar();
         setupRecyclerView();
+        populateSelectedTag();
     }
 
-    private void setupActionBar() {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    private void populateSelectedTag() {
         tag = (Tag) getIntent().getSerializableExtra(ARG_TAG);
-
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setTitle(tag.getTagName());
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
+        tagTitleTextView.setText(tag.getTagName());
+        backPressImageViewButton.setOnClickListener(view -> onBackPressed());
         descriptionTextView.setText(tag.getTagDescription());
-        collapsingToolbarLayout.post(() -> collapsingToolbarLayout.setScrimVisibleHeightTrigger(collapsingToolbarLayout.getMeasuredHeight() - 150));
+        tagTypeTextView.setText(tag.getCategory());
+        Drawable icon = null;
+        switch (tag.getSubcategory()) {
+            case CATEGORY_TECHNICAL:
+                icon = getResources().getDrawable(R.drawable.icons_filled_settings);
+                break;
+            case CATEGORY_SOFT:
+                icon = getResources().getDrawable(R.drawable.icons_filled_comment);
+                break;
+            case CATEGORY_PROJECT:
+                icon = getResources().getDrawable(R.drawable.icons_filled_tags);
+                break;
+            case CATEGORY_LOGISTICS:
+                icon = getResources().getDrawable(R.drawable.ic_logistics);
+                break;
+            default:
+                break;
+        }
+        tagTypeTextView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+        if (tag.getSubcategory().equals(CATEGORY_SOFT)) {
+            setFieldsColor(getResources().getColor(R.color.secondary));
+        } else {
+            setFieldsColor(getResources().getColor(R.color.white));
+        }
+    }
+
+    private void setFieldsColor(int color) {
+        tagTitleTextView.setTextColor(color);
+        descriptionTextView.setTextColor(color);
+        tagTypeTextView.setTextColor(color);
     }
 
     private void setupRecyclerView() {

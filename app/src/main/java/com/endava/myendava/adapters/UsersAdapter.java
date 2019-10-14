@@ -16,6 +16,8 @@ import com.endava.myendava.rest.RetrofitClient;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
@@ -54,17 +56,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     class UserViewHolder extends RecyclerView.ViewHolder {
 
-        View itemView;
+        @BindView(R.id.user_photo_image_view)
         CircleImageView photoImageView;
+        @BindView(R.id.user_name_text_view)
         TextView nameTextView;
+        @BindView(R.id.user_grade_text_view)
         TextView gradeTextView;
 
         UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.itemView = itemView;
-            photoImageView = itemView.findViewById(R.id.user_photo_image_view);
-            nameTextView = itemView.findViewById(R.id.user_name_text_view);
-            gradeTextView = itemView.findViewById(R.id.user_grade_text_view);
+            ButterKnife.bind(this, itemView);
         }
 
         void bind(User user, OnUserClickListener listener) {
