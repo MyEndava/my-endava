@@ -159,6 +159,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             chip.setChipBackgroundColorResource(TagColorManager.getBackgroundColor(tagGroup));
             int color = context.getColor(TagColorManager.getTextChipColor(tagGroup));
             chip.setTextColor(color);
+            chip.setTextSize(12);
             chip.setCloseIconEnabled(!"Project".equals(tagGroup) && isProfileEditable);
             chip.setOnCloseIconClickListener(view -> {
                 List<Tag> tags = getTagsByPosition(getAdapterPosition());

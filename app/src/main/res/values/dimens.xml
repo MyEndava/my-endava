@@ -64,7 +64,7 @@
     <dimen name="profile_screen_transparent_background_view_overlay">370dp</dimen>
     <dimen name="profile_screen_circle_image_view">159dp</dimen>
     <dimen name="profile_screen_margin_top_circle_image_view">58dp</dimen>
-    <dimen name="profile_screen_margin_bottom_circle_image_view">16dp</dimen>
+    <dimen name="profile_screen_margin_top_title_text_view">16dp</dimen>
     <dimen name="profile_screen_border_circle_image_view">2dp</dimen>
     <dimen name="profile_screen_name_line_height_size">28sp</dimen>
     <dimen name="profile_screen_name_font_size">20sp</dimen>
