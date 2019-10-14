@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/profile_screen_other_info_margin"
+    android:layout_marginRight="@dimen/profile_screen_other_info_margin"
+    android:layout_marginBottom="@dimen/profile_screen_other_info_margin"
+    android:background="@drawable/about_me_shape"
+    android:orientation="horizontal"
+    android:paddingLeft="@dimen/profile_screen_other_info_horizontal_padding"
+    android:paddingTop="@dimen/profile_screen_other_info_vertical_padding"
+    android:paddingRight="@dimen/profile_screen_other_info_horizontal_padding"
+    android:paddingBottom="@dimen/profile_screen_other_info_vertical_padding"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
 
     <TextView
         android:id="@+id/description_label_text_view"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="Description"
-        android:fontFamily="sans-serif-medium"
-        android:textSize="16dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/about_me"
+        android:textColor="@color/colorSecondary"
+        android:textSize="@dimen/profile_screen_font_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
 
     <TextView
+        android:id="@+id/edit_about_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/white"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/edit_button"
+        android:textColor="@color/colorSecondary"
+        android:textSize="@dimen/profile_screen_font_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@id/description_label_text_view"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
         android:id="@+id/description_text_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        android:fontFamily="sans-serif"
-        android:textSize="16sp"
+        android:layout_marginTop="@dimen/profile_screen_other_info_margin"
+        android:background="@null"
+        android:enabled="false"
+        android:fontFamily="@font/roboto_regular"
+        android:lineHeight="@dimen/profile_screen_name_font_size"
+        android:text="@string/text_about_me"
+        android:textColor="@color/colorSecondary"
+        android:textSize="@dimen/profile_screen_font_size"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description_label_text_view"
-        tools:text="Cupcake ipsum dolor sit amet candy jujubes. Fruitcake bonbon candy canes apple pie oat cake tart macaroon brownie I love. Sweet roll gummies sweet donut liquorice biscuit muffin. Jelly beans jelly jelly-o jelly chocolate bar sweet roll ice cream sesame snaps. Donut ice cream bear claw. Pastry oat cake candy chocolate bar gingerbread. Dragée gingerbread muffin gingerbread wafer. Sesame snaps cotton candy dessert sweet."
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="16dp"/>
+        tools:text="@string/text_about_me" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

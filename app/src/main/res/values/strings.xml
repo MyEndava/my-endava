@@ -3,7 +3,7 @@
     <string name="title_calendar">Calendar</string>
     <string name="title_profile">Profile</string>
     <string name="title_tags">Tags</string>
-    <string name="email_hint"><i>Email</i></string>
+    <string name="email_hint">Email</string>
     <string name="password_hint"><i>Password</i></string>
     <string name="code_hint"><i>Authorization Code</i></string>
 
@@ -13,13 +13,9 @@
     <string name="forgot_password">FORGOT YOUR PASSWORD?</string>
     <string name="invalid_email_message">Invalid email</string>
     <string name="terms_and_cond_unchecked_message">You must agree with the terms and conditions</string>
-
-
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
-
     <string name="wifi_password_title">Guest Wi-Fi password</string>
     <string name="random_project_name">Random Project Name</string>
-
     <string name="sign_in_logo">Logo Image</string>
     <string name="background_image">Background Image</string>
     <string name="project_image">Project Image</string>
@@ -30,12 +26,25 @@
     <string name="add_title">Add</string>
     <string name="title_activity_tags">Tags</string>
     <string name="visitor_card_number">Visitor card number</string>
-
+    <string name="about_me">ABOUT ME</string>
+    <string name="edit_button">EDIT</string>
+    <string name="save_button">SAVE</string>
+    <string name="text_about_me">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut risus arcu. In sapien justo, rutrum quis magna quis, maximus accumsan est. Duis dignissim ex dui, vel malesuada tortor [...]</string>
+    <string name="other_information">OTHER INFORMATION</string>
     <string name="user_description">Cupcake ipsum dolor sit amet candy jujubes. Fruitcake bonbon candy canes apple pie oat cake tart macaroon brownie I love. Sweet roll gummies sweet donut liquorice biscuit muffin. Jelly beans jelly jelly-o jelly chocolate bar sweet roll ice cream sesame snaps. Donut ice cream bear claw. Pastry oat cake candy chocolate bar gingerbread. Dragée gingerbread muffin gingerbread wafer. Sesame snaps cotton candy dessert sweet.</string>
+    <string name="view_more_button">VIEW MORE</string>
+    <string name="phone_number">Phone number</string>
+    <string name="location_hint">Location</string>
+    <string name="technical_title">TECHNICAL</string>
+    <string name="soft_title">SOFT</string>
+    <string name="projects_title">PROJECTS</string>
+    <string name="add_button">ADD</string>
+    <string name="interests_title">INTERESTS</string>
+    <string name="save_text_press">SAVE</string>
+    <string name="edit_text_press">EDIT</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="terms_and_cond"><font color="1e2432">I agree to the </font><font color="#DE411B">Terms and conditions</font></string>
 
     <!--    tag screen-->

@@ -10,18 +10,23 @@ public class Tag implements Serializable {
     @SerializedName("tag_category")
     @Expose
     private String category;
+
     @SerializedName("tag_subcategory")
     @Expose
     private String subcategory;
+
     @SerializedName("tag_data")
     @Expose
     private String tagData;
+
     @SerializedName("tag_id")
     @Expose
     private Integer tagId;
+
     @SerializedName("tag_name")
     @Expose
     private String tagName;
+
     @SerializedName("tag_description")
     @Expose
     private String tagDescription;
