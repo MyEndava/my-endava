@@ -6,6 +6,7 @@
     <dimen name="sign_in_logo_margin_bottom">110dp</dimen>
     <dimen name="sign_in_logo_margin_left">63dp</dimen>
     <dimen name="sign_in_logo_margin_right">100dp</dimen>
+
     <dimen name="sign_in_text_size">14sp</dimen>
     <dimen name="sign_in_hint_size">12sp</dimen>
     <dimen name="info_container_height">360dp</dimen>
@@ -15,34 +16,47 @@
     <dimen name="info_container_text_marginLeft">24dp</dimen>
     <dimen name="info_container_text_marginRight">75dp</dimen>
     <dimen name="info_container_radius">25dp</dimen>
+
     <dimen name="email_hint_marginTop">38dp</dimen>
     <dimen name="email_hint_line_height">16dp</dimen>
     <dimen name="email_hint_size">12sp</dimen>
     <dimen name="email_hint_letter_spacing">0.4</dimen>
     <dimen name="email_hint_margin_bottom">302dp</dimen>
+
+
     <dimen name="check_box_drawable_padding">15dp</dimen>
+
     <dimen name="email_line_height">20dp</dimen>
     <dimen name="email_margin_bottom">248dp</dimen>
     <dimen name="email_margin_top">67dp</dimen>
+
     <dimen name="password_margin_bottom">202dp</dimen>
     <dimen name="password_margin_top">26dp</dimen>
+
     <dimen name="signin_margin_top">310dp</dimen>
     <dimen name="signin_margin_left">193dp</dimen>
+
     <dimen name="checkbox_margin_bottom">90dp</dimen>
     <dimen name="checkbox_margin_top">54dp</dimen>
+
     <dimen name="forgot_pass_horizontal_margin">92dp</dimen>
     <dimen name="forgot_pass_margin_top">78dp</dimen>
     <dimen name="forgot_pass_margin_bottom">81dp</dimen>
+
     <dimen name="login_buttons_margin_top">40dp</dimen>
     <dimen name="sign_in_button_height">50dp</dimen>
     <dimen name="sign_in_button_width">145dp</dimen>
     <dimen name="sign_in_button_marginLeft">193dp</dimen>
     <dimen name="sign_in_button_marginTop">60dp</dimen>
     <dimen name="sign_in_button_paddingEnd">10dp</dimen>
+
     <dimen name="sign_in_guest_marginLeft">0dp</dimen>
     <dimen name="sign_in_progress_bar_size">80dp</dimen>
+
+
     <dimen name="sign_in_background_height">240dp</dimen>
     <dimen name="sign_in_logo_margin">8dp</dimen>
+
     <dimen name="sign_in_input_drawable_padding">5dp</dimen>
     <dimen name="sign_in_buttons_horizontal_margins">24dp</dimen>
     <dimen name="sign_in_guest_button_bottom_margin">24dp</dimen>
@@ -99,7 +113,6 @@
     <dimen name="splash_logo_height">95dp</dimen>
     <dimen name="splash_logo_margin_left">43dp</dimen>
     <dimen name="splash_logo_margin_right">51dp</dimen>
-    330 387
     <dimen name="splash_logo_margin_top">330dp</dimen>
     <dimen name="splash_logo_margin_bottom">387dp</dimen>
 
@@ -114,6 +127,7 @@
     <dimen name="filters_left_right">21dp</dimen>
     <dimen name="tag_buttons_top_margin">34dp</dimen>
     <dimen name="tag_buttons_bottom_margin">600dp</dimen>
+
     <dimen name="tag_item_radius">8dp</dimen>
     <dimen name="tag_item_width">155dp</dimen>
     <dimen name="tag_item_height">95dp</dimen>
@@ -156,5 +170,58 @@
     <dimen name="faq_recycler_top_margin">45dp</dimen>
     <dimen name="faq_recycler_margins">23dp</dimen>
     <dimen name="faq_item_shape_corner_radius">8dp</dimen>
+
+    <!--    CALENDAR SCREEN-->
+    <dimen name="calendar_icon_size">11dp</dimen>
+    <dimen name="calendar_heart_size">20dp</dimen>
+    <dimen name="calendar_text_size">14sp</dimen>
+
+    <dimen name="month_button_margin">19dp</dimen>
+
+    <dimen name="event_item_radius">8dp</dimen>
+    <dimen name="event_item_height">82dp</dimen>
+    <dimen name="event_item_margin_bottom">11dp</dimen>
+    <dimen name="event_item_margin_left">16dp</dimen>
+    <dimen name="event_item_title_margin_top">24dp</dimen>
+    <dimen name="event_item_title_margin_left">9dp</dimen>
+    <dimen name="event_item_title_margin_right">17dp</dimen>
+    <dimen name="event_item_title_size">14sp</dimen>
+    <dimen name="event_item_icon_margin_top">19dp</dimen>
+    <dimen name="event_item_icon_margin_bottom">17dp</dimen>
+    <dimen name="event_item_type_width">7dp</dimen>
+    <dimen name="event_item_heart_icon_margin">18dp</dimen>
+    <dimen name="event_item_details_margin">13dp</dimen>
+    <dimen name="event_item_details_text_size">10sp</dimen>
+    <dimen name="event_item_drawable_padding">6dp</dimen>
+    <dimen name="event_item_progressbar_margin_top">3dp</dimen>
+    <dimen name="event_item_progressbar_margin_right">21dp</dimen>
+
+    <dimen name="calendar_day_item_radius">6dp</dimen>
+    <dimen name="calendar_day_item_dot_size">5dp</dimen>
+    <dimen name="calendar_day_list_margin">26dp</dimen>
+    <dimen name="calendar_day_item_width">63dp</dimen>
+    <dimen name="calendar_day_item_height">77dp</dimen>
+    <dimen name="calendar_day_item_margin_side">4dp</dimen>
+    <dimen name="calendar_day_item_day_margin_side">6dp</dimen>
+    <dimen name="calendar_day_item_day_margin_bottom">26dp</dimen>
+    <dimen name="calendar_day_item_day_text_size">12sp</dimen>
+    <dimen name="calendar_day_item_daynr_text_size">24sp</dimen>
+
+    <dimen name="calendar_switch_margin_left">24dp</dimen>
+    <dimen name="calendar_switch_margin_top">30dp</dimen>
+    <dimen name="calendar_switch_drawable_padding">9dp</dimen>
+    <dimen name="calendar_filters_margin_top">20dp</dimen>
+    <dimen name="calendar_filters_margin_end">24dp</dimen>
+
+    <dimen name="event_list_margin">24dp</dimen>
+
+    <dimen name="calendar_day_item_dot_margin_top">8dp</dimen>
+    <dimen name="calendar_day_item_dot1_margin_left">22dp</dimen>
+    <dimen name="calendar_day_item_dot23_margin_left">2dp</dimen>
+
+    <dimen name="calendar_event_list_parent_margin_bottom">11dp</dimen>
+    <dimen name="calendar_event_list_parent_date_margin_left">3dp</dimen>
+    <dimen name="calendar_event_list_parent_date_text_size">14dp</dimen>
+    <dimen name="calendar_event_list_parent_list_margin_top">10dp</dimen>
 
 </resources>

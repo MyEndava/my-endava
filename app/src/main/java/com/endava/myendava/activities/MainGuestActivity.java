@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.endava.myendava.R;
-import com.endava.myendava.fragments.DashboardFragment;
+import com.endava.myendava.fragments.CalendarFragment;
 import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.fragments.GuestInfoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -27,7 +27,7 @@ public class MainGuestActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.navigation_dashboard:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
-                        DashboardFragment.newInstance()).commit();
+                        CalendarFragment.newInstance()).commit();
                 return true;
             case R.id.navigation_info:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,

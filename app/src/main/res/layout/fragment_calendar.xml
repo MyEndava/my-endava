@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/background_layout" />
+
+    <Button
+        android:id="@+id/calendar_month_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/month_button_margin"
+        android:layout_marginTop="@dimen/month_button_margin"
+        android:backgroundTint="@android:color/transparent"
+        android:fontFamily="@font/roboto_medium"
+        android:stateListAnimator="@null"
+        android:textSize="@dimen/calendar_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendar_list"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/calendar_day_item_height"
+        android:layout_marginStart="@dimen/calendar_day_list_margin"
+        android:layout_marginTop="@dimen/calendar_day_list_margin"
+        android:layout_marginEnd="@dimen/calendar_day_list_margin"
+        android:orientation="horizontal"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendar_month_button" />
+
+    <Switch
+        android:id="@+id/switch_my_events"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/calendar_switch_margin_left"
+        android:layout_marginTop="@dimen/calendar_switch_margin_top"
+        android:fontFamily="@font/roboto_medium"
+        android:layoutDirection="rtl"
+        android:switchPadding="@dimen/calendar_switch_drawable_padding"
+        android:text="@string/calendar_switch_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/calendar_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendar_list" />
+
+    <android.widget.Button
+        android:id="@+id/filters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/calendar_filters_margin_top"
+        android:layout_marginEnd="@dimen/calendar_filters_margin_end"
+        android:backgroundTint="@android:color/transparent"
+        android:drawableEnd="@drawable/ic_filter_24dp"
+        android:drawablePadding="@dimen/tags_button_drawable_padding"
+        android:fontFamily="@font/roboto_medium"
+        android:layoutDirection="rtl"
+        android:stateListAnimator="@null"
+        android:text="@string/filter_button_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/calendar_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/calendar_list" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/projects_list_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/event_list_margin"
+        android:layout_marginTop="@dimen/event_list_margin"
+        android:layout_marginEnd="@dimen/event_list_margin"
+        android:layout_marginBottom="0dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/switch_my_events" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ProgressBar>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
     <string name="password_hint"><i>Password</i></string>
     <string name="code_hint"><i>Authorization Code</i></string>
 
-<!--    sign in activity-->
+    <!--    sign in activity-->
     <string name="sign_in">Sign In</string>
     <string name="sign_in_as_guest">SIGN IN AS GUEST</string>
     <string name="forgot_password">FORGOT YOUR PASSWORD?</string>
@@ -51,6 +51,9 @@
     <string name="tag_search_hint">Enter a tag name</string>
     <string name="multiple_src_btn_text">Multiple Search</string>
     <string name="filter_button_text">Filters</string>
+
+    <!--    calendar screen-->
+    <string name="calendar_switch_text">MY EVENTS</string>
 
     <!-- faq screen -->
     <string name="faq_search_hint">Search by faq name</string>

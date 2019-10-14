@@ -3,7 +3,7 @@ package com.endava.myendava.di;
 import android.content.Context;
 
 import com.endava.myendava.app.MyEndavaApplication;
-import com.endava.myendava.di.FragmentsDi.DashboardComponent;
+import com.endava.myendava.di.FragmentsDi.CalendarComponent;
 import com.endava.myendava.di.FragmentsDi.FaqComponent;
 import com.endava.myendava.di.FragmentsDi.GuestInfoComponent;
 import com.endava.myendava.di.FragmentsDi.ProfileComponent;
@@ -25,7 +25,7 @@ import dagger.Provides;
 import static com.endava.myendava.utils.MySharedPreferences.MY_SHARED_PREFS_NAME;
 
 @Module(subcomponents = {SplashComponent.class, SignInComponent.class, SignInAsGuestComponent.class,
-        MainComponent.class, UsersComponent.class, DashboardComponent.class, FaqComponent.class,
+        MainComponent.class, UsersComponent.class, CalendarComponent.class, FaqComponent.class,
         GuestInfoComponent.class, ProfileComponent.class, TagsComponent.class})
 public class MyEndavaApplicationModule {
 
