@@ -1,31 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <include
+        android:id="@+id/background_image"
+        layout="@layout/background_layout"/>
+
+    <EditText
+        android:id="@+id/search"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        app:title="FAQ"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        android:layout_marginLeft="@dimen/search_bar_side_margin"
+        android:layout_marginRight="@dimen/search_bar_side_margin"
+        android:layout_marginTop="@dimen/search_bar_margin_top"
+        android:inputType="text"
+        android:background="@drawable/tag_search_shape"
+        android:drawableStart="@drawable/icons_24_px_search"
+        android:drawablePadding="@dimen/search_drawable_padding"
+        android:paddingStart="@dimen/search_start_padding"
+        android:paddingEnd="@dimen/search_start_padding"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:hint="@string/faq_search_hint"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:titleTextColor="@android:color/white" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/faq_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="@dimen/faq_recycler_top_margin"
+        android:layout_marginBottom="@dimen/faq_recycler_margins"
+        android:layout_marginStart="@dimen/faq_recycler_margins"
+        android:layout_marginEnd="@dimen/faq_recycler_margins"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+        app:layout_constraintTop_toBottomOf="@id/search"/>
 
     <ProgressBar
         android:id="@+id/progress_bar"

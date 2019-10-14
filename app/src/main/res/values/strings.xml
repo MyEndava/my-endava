@@ -42,4 +42,8 @@
     <string name="tag_search_hint">Enter a tag name</string>
     <string name="multiple_src_btn_text">Multiple Search</string>
     <string name="filter_button_text">Filters</string>
+
+    <!-- faq screen -->
+    <string name="faq_search_hint">Search by faq name</string>
+
 </resources>

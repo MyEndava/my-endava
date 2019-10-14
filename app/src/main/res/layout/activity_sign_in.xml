@@ -79,6 +79,7 @@
                 style="@style/SignInTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingEnd="@dimen/sign_in_button_paddingEnd"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
                 android:theme="@style/EditTextTheme" />

@@ -83,7 +83,6 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeStatusBarColor(getActivity().getResources().getColor(R.color.secondary));
         setHasOptionsMenu(true);
     }
 
