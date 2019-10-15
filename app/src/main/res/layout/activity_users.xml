@@ -80,6 +80,7 @@
                 android:layout_marginEnd="@dimen/user_screen_horizontal_margin_description"
                 android:fontFamily="@font/roboto_regular"
                 android:lineHeight="@dimen/user_screen_tag_description_line_height"
+                android:minLines="9"
                 android:textColor="@color/white"
                 android:textSize="@dimen/user_screen_tag_description_font_size"
                 app:layout_constraintStart_toStartOf="parent"

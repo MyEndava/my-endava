@@ -49,7 +49,7 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
     @BindView(R.id.arrow_back_button)
-    ImageView backPressImageViewButton;
+    ImageView backImageView;
 
     private Tag tag;
     private List<User> users = new ArrayList<>();
@@ -65,7 +65,7 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
         populateSelectedTag();
     }
 
-    public void setIconToTagType(){
+    private void setIconToTagType(){
         Drawable icon = null;
         switch (tag.getSubcategory()) {
             case CATEGORY_TECHNICAL:
@@ -89,7 +89,7 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     private void populateSelectedTag() {
         tag = (Tag) getIntent().getSerializableExtra(ARG_TAG);
         tagTitle.setText(tag.getTagName());
-        backPressImageViewButton.setOnClickListener(view -> onBackPressed());
+        backImageView.setOnClickListener(view -> onBackPressed());
         tagDescription.setText(tag.getTagDescription());
         tagType.setText(tag.getCategory());
         setIconToTagType();
