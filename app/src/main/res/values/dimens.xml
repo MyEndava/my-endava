@@ -121,10 +121,10 @@
     <dimen name="search_bar_margin_top">56dp</dimen>
     <dimen name="search_bar_margin_bottom">34dp</dimen>
     <dimen name="image_height">238dp</dimen>
-    <dimen name="multisearch_left_margin">26dp</dimen>
+    <dimen name="multisearch_left_margin">10dp</dimen>
     <dimen name="multisearch_left_right">215dp</dimen>
     <dimen name="filters_left_margin">272dp</dimen>
-    <dimen name="filters_left_right">21dp</dimen>
+    <dimen name="filters_left_right">9dp</dimen>
     <dimen name="tag_buttons_top_margin">34dp</dimen>
     <dimen name="tag_buttons_bottom_margin">600dp</dimen>
 

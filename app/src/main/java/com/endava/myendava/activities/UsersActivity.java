@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,9 +37,10 @@ import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_TECHNICAL;
 public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnUserClickListener {
 
     @Inject
-    UsersViewModel mUsersViewModel;
+    UsersViewModel usersViewModel;
 
-    public static final String ARG_TAG = "arg_tag_name";
+    public static final String ARG_TAG = "arg_tag";
+    public static final String ARG_TAG_LIST = "arg_tag_list";
 
     @BindView(R.id.tag_description_text_view)
     TextView tagDescription;
@@ -50,10 +52,11 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     ProgressBar mProgressBar;
     @BindView(R.id.arrow_back_button)
     ImageView backImageView;
+    ProgressBar progressBar;
 
     private Tag tag;
-    private List<User> users = new ArrayList<>();
-    private UsersAdapter mAdapter;
+    private List<Tag> tagList;
+    private UsersAdapter usersAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,13 +105,32 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
         tagType.setTextColor(color);
     }
 
+    private void initData() {
+        if (getIntent().getSerializableExtra(ARG_TAG) != null) {
+            tag = (Tag) getIntent().getSerializableExtra(ARG_TAG);
+        } else if (getIntent().getSerializableExtra(ARG_TAG_LIST) != null) {
+            tagList = (List<Tag>) getIntent().getSerializableExtra(ARG_TAG_LIST);
+        }
+    }
+
+    private void setTitleAndDescription(Tag tag) {
+        tagTitle.setText(tag.getTagName());
+        tagDescription.setText(tag.getTagDescription());
+    }
+
+    private void setTitleAndDescription(List<Tag> tagsList, int usersListSize) {
+        String iteratedTagsList = usersViewModel.mapTagsList(tagsList).replace(",", ", ");
+        tagTitle.setText(iteratedTagsList);
+        tagDescription.setText(getDescriptionByTagsList(usersListSize).concat(iteratedTagsList));
+    }
+
     private void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.people_recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        mAdapter = new UsersAdapter(this, users, this);
-        recyclerView.setAdapter(mAdapter);
+        usersAdapter = new UsersAdapter(this, new ArrayList<>(), this);
+        recyclerView.setAdapter(usersAdapter);
     }
 
     private void setupModule() {
@@ -120,16 +142,36 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     protected void onResume() {
         super.onResume();
 
-        mUsersViewModel.getUsersByTag(tag.getTagName()).observe(this, users -> mAdapter.setData(users));
+        if (tag != null) {
+            usersViewModel.getUsersByTag(tag).observe(this, users -> {
+                usersAdapter.setData(users);
+                setTitleAndDescription(tag);
+            });
+        } else if (tagList != null) {
+            usersViewModel.getUsersByTagList(tagList).observe(this, users -> {
+                usersAdapter.setData(users);
+                setTitleAndDescription(tagList, users.size());
+            });
+        }
 
-        mUsersViewModel.isUpdating().observe(this, aBoolean -> {
+        usersViewModel.isUpdating().observe(this, aBoolean -> {
             if (aBoolean) {
                 showProgressBar();
             } else {
                 hideProgressbar();
             }
         });
-        mUsersViewModel.getError().observe(this, this::displayError);
+        usersViewModel.getError().observe(this, this::displayError);
+    }
+
+    private String getDescriptionByTagsList(int usersListSize) {
+        String description = "";
+        if (usersListSize == 0) {
+            description = getResources().getString(R.string.no_users_found);
+        } else {
+            description = getResources().getString(R.string.multiple_search_description);
+        }
+        return description;
     }
 
     private void displayError(String message) {
@@ -139,11 +181,11 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     }
 
     private void showProgressBar() {
-        mProgressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     private void hideProgressbar() {
-        mProgressBar.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -163,6 +205,6 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mUsersViewModel.onCleared();
+        usersViewModel.onCleared();
     }
 }

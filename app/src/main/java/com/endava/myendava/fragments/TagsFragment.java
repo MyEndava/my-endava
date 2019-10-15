@@ -3,6 +3,9 @@ package com.endava.myendava.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +27,7 @@ import com.endava.myendava.R;
 import com.endava.myendava.adapters.TagsAdapter;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.models.Tag;
+import com.endava.myendava.utils.KeyboardHelper;
 import com.endava.myendava.viewmodels.TagsViewModel;
 
 import java.util.ArrayList;
@@ -40,18 +43,17 @@ import butterknife.Unbinder;
 
 public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClickListener {
 
-    public static final String MULTIPLE_SEARCH = "MULTIPLE SEARCH";
-    public static final String SHOW_PEOPLE = "SHOW PEOPLE";
-
     @Inject
     TagsViewModel mTagsViewModel;
+    @Inject
+    KeyboardHelper mKeyboardHelper;
 
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
     @BindView(R.id.tags_recycler_view)
     RecyclerView mRecyclerView;
     @BindView(R.id.search)
-    EditText mSearchEditText;
+    EditText mSearchBar;
     @BindView(R.id.multi_search)
     Button mMultiSearchButton;
 
@@ -64,6 +66,7 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     private boolean mIsMultiSearchClicked;
 
     private List<Tag> mSelectedTagsList;
+    private List<Tag> mTagsList;
 
     public TagsFragment() {
         // required empty public constructor
@@ -111,7 +114,10 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
         super.onViewCreated(view, savedInstanceState);
         mUnbinder = ButterKnife.bind(this, view);
 
-        mTagsViewModel.getTags().observe(this, tags -> mAdapter.setData(tags));
+        mTagsViewModel.getTags().observe(this, tags -> {
+            mTagsList = tags;
+            mAdapter.setData(tags);
+        });
 
         mTagsViewModel.isUpdating().observe(this, aBoolean -> {
             if (aBoolean) {
@@ -123,6 +129,39 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
         mTagsViewModel.getError().observe(this, this::displayError);
 
         setupRecyclerView(view);
+        mSearchBar.addTextChangedListener(getSearchWatcher());
+
+        mSearchBar.setOnKeyListener((v, keyCode, event) -> {
+            if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                    (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                mKeyboardHelper.hideSoftKeyboard(getActivity());
+                return true;
+            }
+            return false;
+        });
+    }
+
+    private TextWatcher getSearchWatcher() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                List<Tag> filteredList = new ArrayList<>();
+                for (Tag tag : mTagsList) {
+                    if (tag.getTagName().toLowerCase().contains(charSequence.toString().toLowerCase())) {
+                        filteredList.add(tag);
+                    }
+                }
+                mAdapter.setData(filteredList);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        };
     }
 
     private void setupRecyclerView(View view) {
@@ -136,15 +175,15 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     }
 
     @OnClick(R.id.multi_search)
-    public void multiSearchListener() {
-        if (mMultiSearchButton.getText().toString().equalsIgnoreCase(MULTIPLE_SEARCH)) {
-            mMultiSearchButton.setText(SHOW_PEOPLE);
+    void multiSearchListener() {
+        if (mMultiSearchButton.getText().toString().equalsIgnoreCase(getResources().getString(R.string.multiple_search))) {
+            mMultiSearchButton.setText(getResources().getString(R.string.show_people));
             mMultiSearchButton.setEnabled(false);
             mIsMultiSearchClicked = true;
             mSelectedTagsList = new ArrayList<>();
         } else {
             if (mSelectedTagsList.size() > 0) {
-                Toast.makeText(getContext(), "LIST SIZE " + mSelectedTagsList.size(), Toast.LENGTH_SHORT).show();
+                listener.onMultipleTagsSearch(mSelectedTagsList, R.id.navigation_tags);
             }
         }
     }
@@ -154,7 +193,7 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
         if (mSelectedTagsList.contains(tag)) {
             mSelectedTagsList.remove(tag);
             if (mSelectedTagsList.size() == 0) {
-                mMultiSearchButton.setText(MULTIPLE_SEARCH);
+                mMultiSearchButton.setText(getResources().getString(R.string.multiple_search));
                 mIsMultiSearchClicked = false;
             }
         } else {
@@ -209,6 +248,8 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
         void onSkillSelected(Tag tag, int navigationId);
 
         void onAddSkillClicked();
+
+        void onMultipleTagsSearch(List<Tag> selectedTagsList, int navigationId);
     }
 
     @Override

@@ -16,6 +16,9 @@ import com.endava.myendava.utils.EmailType;
 import com.endava.myendava.utils.MySharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -111,6 +114,14 @@ public class MainActivity extends BaseFullScreenActivity implements ProfileFragm
     @Override
     public void onAddSkillClicked() {
         Intent intent = new Intent(MainActivity.this, SuggestTagActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onMultipleTagsSearch(List<Tag> selectedTagsList, int fragmentID) {
+        mSharedPreferences.setUpNavigationId(fragmentID);
+        Intent intent = new Intent(MainActivity.this, UsersActivity.class);
+        intent.putExtra(UsersActivity.ARG_TAG_LIST, (Serializable) selectedTagsList);
         startActivity(intent);
     }
 

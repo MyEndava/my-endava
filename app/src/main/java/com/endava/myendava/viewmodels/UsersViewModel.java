@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.User;
 import com.endava.myendava.repositories.UsersRepository;
 
@@ -29,12 +30,32 @@ public class UsersViewModel extends ViewModel {
         mRepo = usersRepository;
     }
 
-    public LiveData<List<User>> getUsersByTag(String tag) {
+    public LiveData<List<User>> getUsersByTag(Tag tag) {
         if (mUsers == null) {
             mUsers = new MutableLiveData<>();
-            loadData(tag);
+            loadData(tag.getTagName());
         }
         return mUsers;
+    }
+
+    public LiveData<List<User>> getUsersByTagList(List<Tag> tagsList) {
+        if (mUsers == null) {
+            mUsers = new MutableLiveData<>();
+            loadData(mapTagsList(tagsList));
+        }
+        return mUsers;
+    }
+
+    public String mapTagsList(List<Tag> tagsList) {
+        StringBuilder selectedTags = new StringBuilder();
+        int listSize = tagsList.size();
+        for (int i = 0; i < listSize; i++) {
+            selectedTags.append(tagsList.get(i).getTagName());
+            if (i != listSize - 1) {
+                selectedTags.append(",");
+            }
+        }
+        return selectedTags.toString();
     }
 
     private void loadData(String tag) {
