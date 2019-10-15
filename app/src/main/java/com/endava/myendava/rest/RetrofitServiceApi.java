@@ -5,6 +5,8 @@ import com.endava.myendava.models.Faq;
 import com.endava.myendava.models.LoginResult;
 import com.endava.myendava.models.Profile;
 import com.endava.myendava.models.Project;
+import com.endava.myendava.models.RemoveTagRequest;
+import com.endava.myendava.models.RemoveTagResponse;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.User;
 
@@ -41,6 +43,10 @@ public interface RetrofitServiceApi {
     @POST("user/addTag")
     @Headers("Content-Type: application/json")
     Completable addTagToProfile(@Body AddTagRequest request);
+
+    @POST("user/removeTag")
+    @Headers("Content-Type: application/json")
+    Observable<RemoveTagResponse> removeTagFromProfile(@Body RemoveTagRequest request);
 
     @GET("faq/getAll")
     Observable<List<Faq>> getAllFaqs();

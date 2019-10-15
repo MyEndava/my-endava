@@ -7,7 +7,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.endava.myendava.models.Profile;
+import com.endava.myendava.models.RemoveTagRequest;
+import com.endava.myendava.models.RemoveTagResponse;
+import com.endava.myendava.models.Tag;
 import com.endava.myendava.repositories.ProfileRepository;
+import com.endava.myendava.repositories.TagsRepository;
 
 import javax.inject.Inject;
 
@@ -20,13 +24,17 @@ public class ProfileViewModel extends ViewModel {
 
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
     private final ProfileRepository mRepo;
+    private final TagsRepository tagsRepository;
     private MutableLiveData<Profile> mProfile;
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsTagRemoved = new MutableLiveData<>();
 
     @Inject
-    public ProfileViewModel(ProfileRepository profileRepository) {
+    public ProfileViewModel(ProfileRepository profileRepository,
+                            TagsRepository tagsRepository) {
         mRepo = profileRepository;
+        this.tagsRepository = tagsRepository;
     }
 
     public LiveData<Profile> getProfile(String email) {
@@ -37,7 +45,24 @@ public class ProfileViewModel extends ViewModel {
         return mProfile;
     }
 
-    private void loadData(String email) {
+    private void onTagRemoved(RemoveTagResponse response) {
+        mIsTagRemoved.setValue(response.success);
+    }
+
+    public LiveData<Boolean> tagRemoved() {
+        return mIsTagRemoved;
+    }
+
+    private void onTagRemoveError(Throwable throwable) {}
+
+    public void removeTag(Tag tag) {
+        mCompositeDisposable.add(tagsRepository.removeTagFromProfile(new RemoveTagRequest(tag.getTagId()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onTagRemoved, this::onTagRemoveError));
+    }
+
+    public void loadData(String email) {
         mIsUpdating.setValue(true);
 
         Disposable observable = mRepo.getProfile(email)

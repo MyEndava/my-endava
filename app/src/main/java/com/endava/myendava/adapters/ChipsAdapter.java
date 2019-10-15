@@ -1,7 +1,9 @@
 package com.endava.myendava.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,6 +125,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private List<Tag> getTagsByPosition(int position) {
         return tagsMap.get((tagsMap.keySet().toArray())[position - 1]);
     }
+
     public class TagsViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tags_group_text_view)
@@ -164,8 +167,12 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 List<Tag> tags = getTagsByPosition(getAdapterPosition());
                 for (Tag currentTag : tags) {
                     if (currentTag.getTagId().equals(tag.getTagId())) {
-                        tags.remove(currentTag);
-                        notifyDataSetChanged();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogRemoveTag));
+                        builder.setMessage(R.string.title_alert_dialog_remove_tag);
+                        builder.setPositiveButton(R.string.button_text_yes_dialog_remove_tag, (dialog, which) -> onEditedListener.onRemoveTag(tag));
+                        builder.setNegativeButton(R.string.button_text_cancel_dialog_remove_tag, null);
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                 }
             });

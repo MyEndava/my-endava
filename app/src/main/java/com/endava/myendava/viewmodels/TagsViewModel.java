@@ -7,9 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.endava.myendava.models.AddTagRequest;
-import com.endava.myendava.models.Faq;
 import com.endava.myendava.models.Tag;
-import com.endava.myendava.repositories.FaqRepository;
 import com.endava.myendava.repositories.TagsRepository;
 
 import java.util.List;

@@ -1,6 +1,8 @@
 package com.endava.myendava.repositories;
 
 import com.endava.myendava.models.AddTagRequest;
+import com.endava.myendava.models.RemoveTagRequest;
+import com.endava.myendava.models.RemoveTagResponse;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.rest.RetrofitClient;
 
@@ -29,4 +31,7 @@ public class TagsRepository {
         return mRetrofitClient.getRetrofitClient().addTagToProfile(request);
     }
 
+    public Observable<RemoveTagResponse> removeTagFromProfile(RemoveTagRequest request) {
+        return mRetrofitClient.getRetrofitClient().removeTagFromProfile(request);
+    }
 }
