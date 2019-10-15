@@ -67,6 +67,7 @@
                 android:lineHeight="@dimen/user_screen_tag_type_line_height"
                 android:textColor="@color/white"
                 android:textSize="@dimen/user_screen_tag_type_font_size"
+                android:drawablePadding="1dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tag_title" />
 

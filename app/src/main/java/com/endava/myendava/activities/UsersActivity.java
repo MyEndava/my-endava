@@ -41,11 +41,11 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     public static final String ARG_TAG = "arg_tag_name";
 
     @BindView(R.id.tag_description_text_view)
-    TextView descriptionTextView;
+    TextView tagDescription;
     @BindView(R.id.tag_title)
-    TextView tagTitleTextView;
+    TextView tagTitle;
     @BindView(R.id.tag_type)
-    TextView tagTypeTextView;
+    TextView tagType;
     @BindView(R.id.progress_bar)
     ProgressBar mProgressBar;
     @BindView(R.id.arrow_back_button)
@@ -65,19 +65,14 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
         populateSelectedTag();
     }
 
-    private void populateSelectedTag() {
-        tag = (Tag) getIntent().getSerializableExtra(ARG_TAG);
-        tagTitleTextView.setText(tag.getTagName());
-        backPressImageViewButton.setOnClickListener(view -> onBackPressed());
-        descriptionTextView.setText(tag.getTagDescription());
-        tagTypeTextView.setText(tag.getCategory());
+    public void setIconToTagType(){
         Drawable icon = null;
         switch (tag.getSubcategory()) {
             case CATEGORY_TECHNICAL:
                 icon = getResources().getDrawable(R.drawable.icons_filled_settings);
                 break;
             case CATEGORY_SOFT:
-                icon = getResources().getDrawable(R.drawable.icons_filled_comment);
+                icon = getResources().getDrawable(R.drawable.ic_icons_filled_comment_white);
                 break;
             case CATEGORY_PROJECT:
                 icon = getResources().getDrawable(R.drawable.icons_filled_tags);
@@ -88,18 +83,23 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
             default:
                 break;
         }
-        tagTypeTextView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
-        if (tag.getSubcategory().equals(CATEGORY_SOFT)) {
-            setFieldsColor(getResources().getColor(R.color.secondary));
-        } else {
-            setFieldsColor(getResources().getColor(R.color.white));
-        }
+        tagType.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+    }
+
+    private void populateSelectedTag() {
+        tag = (Tag) getIntent().getSerializableExtra(ARG_TAG);
+        tagTitle.setText(tag.getTagName());
+        backPressImageViewButton.setOnClickListener(view -> onBackPressed());
+        tagDescription.setText(tag.getTagDescription());
+        tagType.setText(tag.getCategory());
+        setIconToTagType();
+        setFieldsColor(getResources().getColor(R.color.white));
     }
 
     private void setFieldsColor(int color) {
-        tagTitleTextView.setTextColor(color);
-        descriptionTextView.setTextColor(color);
-        tagTypeTextView.setTextColor(color);
+        tagTitle.setTextColor(color);
+        tagDescription.setTextColor(color);
+        tagType.setTextColor(color);
     }
 
     private void setupRecyclerView() {
