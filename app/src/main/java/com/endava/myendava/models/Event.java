@@ -10,13 +10,15 @@ public class Event implements CalendarFragment.EventsSection {
     private String duration;
     private List<Tag> tags;
     private int participantsNumber;
+    private int eventCapacity;
     private String type;
 
-    public Event(String title, String duration, List<Tag> tags, int participantsNr, String type) {
+    public Event(String title, String duration, List<Tag> tags, int participantsNr, int eventCapacity, String type) {
         this.title = title;
         this.duration = duration;
         this.tags = tags;
         this.participantsNumber = participantsNr;
+        this.eventCapacity = eventCapacity;
         this.type = type;
     }
 
@@ -76,5 +78,13 @@ public class Event implements CalendarFragment.EventsSection {
     @Override
     public String getName() {
         return title;
+    }
+
+    public int getEventCapacity() {
+        return eventCapacity;
+    }
+
+    public void setEventCapacity(int eventCapacity) {
+        this.eventCapacity = eventCapacity;
     }
 }

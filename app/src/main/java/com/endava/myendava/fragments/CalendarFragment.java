@@ -20,7 +20,7 @@ import com.endava.myendava.adapters.StickHeaderItemDecoration;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.models.Event;
 import com.endava.myendava.models.EventTitle;
-import com.endava.myendava.utils.CalendarDummyData;
+import com.endava.myendava.utils.CalendarDummyDataGenerator;
 import com.endava.myendava.utils.MySharedPreferences;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +40,8 @@ public class CalendarFragment extends BaseFragment {
 
     @Inject
     MySharedPreferences mSharedPreferences;
+    @Inject
+    CalendarDummyDataGenerator calendarDummyDataGenerator;
 
     @BindView(R.id.calendar_month_button)
     Button calendarMonthButton;
@@ -76,11 +78,11 @@ public class CalendarFragment extends BaseFragment {
         setupCalendarDayAdapter();
         eventsList = new ArrayList<>();
         populateList();
-        setupMOFOAdapter();
+        setupEventsAdapter();
     }
 
     private void populateList() {
-        LinkedHashMap<EventTitle, List<Event>> map = CalendarDummyData.getEventsListNew();
+        LinkedHashMap<EventTitle, List<Event>> map = calendarDummyDataGenerator.getMockedEvents();
         for (EventTitle eventTitle : map.keySet()) {
             eventsList.add(eventTitle);
             for (Event event : map.get(eventTitle)) {
@@ -89,7 +91,7 @@ public class CalendarFragment extends BaseFragment {
         }
     }
 
-    private void setupMOFOAdapter() {
+    private void setupEventsAdapter() {
         projectsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         EventsAdapter mofoAdapter = new EventsAdapter(getContext(), eventsList);
         projectsRecyclerView.setAdapter(mofoAdapter);
@@ -110,7 +112,7 @@ public class CalendarFragment extends BaseFragment {
     }
 
     private void setupCalendarDayAdapter() {
-        mCalendarDayAdapter = new CalendarDayAdapter(getContext(), CalendarDummyData.getCalendarDayList());
+        mCalendarDayAdapter = new CalendarDayAdapter(getContext(), calendarDummyDataGenerator.getMockedCalendarDays());
         calendarRecycleView.setAdapter(mCalendarDayAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         calendarRecycleView.setLayoutManager(layoutManager);

@@ -10,9 +10,15 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class CalendarDummyData {
+import javax.inject.Inject;
 
-    public static LinkedHashMap<EventTitle, List<Event>> getEventsListNew() {
+public class CalendarDummyDataGenerator {
+
+    @Inject
+    public CalendarDummyDataGenerator() {
+    }
+
+    public LinkedHashMap<EventTitle, List<Event>> getMockedEvents() {
         LinkedHashMap<EventTitle, List<Event>> map = new LinkedHashMap<>();
         for (String title : getEventsTitles()) {
             map.put(new EventTitle(title), getEventList().get(getEventsTitles().indexOf(title)));
@@ -20,24 +26,24 @@ public class CalendarDummyData {
         return map;
     }
 
-    public static List<String> getEventsTitles() {
+    private List<String> getEventsTitles() {
         return new ArrayList<>(Arrays.asList("30 OCTOBER", "31 OCTOBER", "1 NOVEMBER"));
     }
 
-    public static List<List<Event>> getEventList() {
+    private List<List<Event>> getEventList() {
         List<Tag> tags = new ArrayList<>(Arrays.asList(new Tag("", "", "", 2, "Android", ""),
                 new Tag("", "", "", 2, "MVP", "")));
-        Event event1 = new Event("Training title", "2h 30", tags, 4, "Training");
-        Event event2 = new Event("Certification title", "1h 30", tags, 2, "Certification");
-        Event event3 = new Event("Conference title", "2h", tags, 9, "Conference");
-        Event event4 = new Event("Training title", "3h 30", tags, 5, "Training");
+        Event event1 = new Event("Training title", "2h 30", tags, 4, 10, "Training");
+        Event event2 = new Event("Certification title", "1h 30", tags, 2, 6, "Certification");
+        Event event3 = new Event("Conference title", "2h", tags, 9, 15, "Conference");
+        Event event4 = new Event("Training title", "3h 30", tags, 5, 16, "Training");
         List<Event> list1 = new ArrayList<>();
         List<Event> list2 = new ArrayList<>(Arrays.asList(event1, event2, event3));
         List<Event> list3 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4));
         return new ArrayList<>(Arrays.asList(list1, list2, list3));
     }
 
-    public static List<CalendarDay> getCalendarDayList() {
+    public List<CalendarDay> getMockedCalendarDays() {
         CalendarDay cd0 = new CalendarDay(30, "Sun", new ArrayList<>());
         CalendarDay cd1 = new CalendarDay(1, "Mon", new ArrayList<>(Arrays.asList("Training", "Conference")));
         CalendarDay cd2 = new CalendarDay(2, "Tue", new ArrayList<>(Arrays.asList("Conference")));

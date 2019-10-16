@@ -113,7 +113,7 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @BindView(R.id.event_tags)
         TextView eventTags;
         @BindView(R.id.event_nr_people)
-        TextView eventNrPeople;
+        TextView eventNumberPeople;
         @BindView(R.id.progressBar)
         ProgressBar progressBar;
 
@@ -126,8 +126,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             eventTitle.setText(event.getTitle());
             eventTime.setText(event.getDuration());
             eventTags.setText(event.getFormattedTags());
-            eventNrPeople.setText(event.getParticipantsNumber() + " of 10");
-            int f = (int) ((event.getParticipantsNumber() / 10.0) * 100);
+            eventNumberPeople.setText(event.getParticipantsNumber() + " of " + event.getEventCapacity());
+            int f = (int) ((event.getParticipantsNumber() / (double) event.getEventCapacity()) * 100);
             progressBar.setProgress(f);
             eventType.setBackgroundTintList(context.getColorStateList(EventsColorManager.getEventColor(event.getType())));
         }

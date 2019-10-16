@@ -14,6 +14,7 @@ import com.endava.myendava.di.activitiesDi.SignInComponent;
 import com.endava.myendava.di.activitiesDi.SplashComponent;
 import com.endava.myendava.di.activitiesDi.UsersComponent;
 import com.endava.myendava.rest.RetrofitClient;
+import com.endava.myendava.utils.CalendarDummyDataGenerator;
 import com.endava.myendava.utils.KeyboardHelper;
 import com.endava.myendava.utils.MySharedPreferences;
 
@@ -50,6 +51,14 @@ public class MyEndavaApplicationModule {
 
     @Singleton
     @Provides
-    KeyboardHelper provideKeyboardHelper(){ return new KeyboardHelper();}
+    KeyboardHelper provideKeyboardHelper() {
+        return new KeyboardHelper();
+    }
+
+    @Singleton
+    @Provides
+    CalendarDummyDataGenerator provideCalendarDummyDataGenerator() {
+        return new CalendarDummyDataGenerator();
+    }
 
 }
