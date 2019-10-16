@@ -21,18 +21,21 @@
     <color name="secondaryTransparent">#CC0a1f44</color>
     <color name="pale_violet">#d0c9d6</color>
     <color name="primary">#de411b</color>
-    <color name="primary_transparent">#ccde411b</color>
+    <color name="primary_transparent">#0dde411b</color>
     <color name="gray5">#e0e0e0</color>
     <color name="white">#ffffff</color>
     <color name="gray4">#bdbdbd</color>
+    <color name="gray4_transparent">#CCbdbdbd</color>
     <color name="gray3">#828282</color>
     <color name="light_grey_blue">#acb1c0</color>
     <color name="very_light_grey">#eaeaea</color>
     <color name="pale_grey">#f7f8fa</color>
     <color name="blue2">#2d9cdb</color>
     <color name="yellow">#f2c94c</color>
+    <color name="blurred_grey">#1e0a1f44</color>
     <color name="colorSecondary">#CC0a1f44</color>
     <color name="other_info_color">#262626</color>
     <color name="technical_text_color">#263238</color>
     <color name="transparent_white">#00ffffff</color>
+
 </resources>

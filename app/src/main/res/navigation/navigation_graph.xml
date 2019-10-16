@@ -3,43 +3,43 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph.xml"
-    app:startDestination="@id/home_screen">
+    app:startDestination="@id/calendar_screen">
 
     <fragment
-        android:id="@+id/home_screen"
-        android:name="com.endava.myendava.fragments.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home"/>
+        android:id="@+id/calendar_screen"
+        android:name="com.endava.myendava.fragments.CalendarFragment"
+        android:label="Calendar"
+        tools:layout="@layout/fragment_calendar"/>
 
     <fragment
-        android:id="@+id/dashboard_screen"
-        android:name="com.endava.myendava.fragments.DashboardFragment"
-        android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard"/>
-
-    <fragment
-        android:id="@+id/notifications_screen"
-        android:name="com.endava.myendava.fragments.NotificationsFragment"
-        android:label="Notifications"
-        tools:layout="@layout/fragment_notifications"/>
+        android:id="@+id/tags_screen"
+        android:name="com.endava.myendava.fragments.TagsFragment"
+        android:label="Tags"
+        tools:layout="@layout/fragment_tags"/>
 
     <fragment
         android:id="@+id/faq_screen"
         android:name="com.endava.myendava.fragments.FaqFragment"
-        android:label="Faq"
+        android:label="Faqs"
         tools:layout="@layout/fragment_faq"/>
+
+    <fragment
+        android:id="@+id/profile_screen"
+        android:name="com.endava.myendava.fragments.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"/>
 
     <action
         android:id="@+id/action_global_home_screen"
-        app:destination="@id/home_screen" />
+        app:destination="@id/calendar_screen" />
     <action
         android:id="@+id/action_global_dashboard_screen"
-        app:destination="@id/dashboard_screen" />
+        app:destination="@id/tags_screen" />
     <action
         android:id="@+id/action_global_notifications_screen"
-        app:destination="@id/notifications_screen" />
+        app:destination="@id/faq_screen" />
     <action
         android:id="@+id/action_global_faq_screen"
-        app:destination="@id/faq_screen" />
+        app:destination="@id/profile_screen" />
 
 </navigation>

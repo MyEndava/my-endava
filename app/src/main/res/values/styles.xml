@@ -63,4 +63,5 @@
         <item name="colorControlActivated">@color/secondary</item>
         <item name="colorControlHighlight">@color/secondary</item>
     </style>
+
 </resources>

@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.fragments.DashboardFragment;
+import com.endava.myendava.fragments.CalendarFragment;
 import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.fragments.ProfileFragment;
 import com.endava.myendava.fragments.TagsFragment;
@@ -23,7 +23,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MainActivity extends BaseFullScreenActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
-        TagsFragment.OnTagsFragmentInteractionListener, DashboardFragment.OnDashboardFragmentInteractionListener {
+        TagsFragment.OnTagsFragmentInteractionListener{
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -41,7 +41,7 @@ public class MainActivity extends BaseFullScreenActivity implements ProfileFragm
         switch (item.getItemId()) {
             case R.id.navigation_calendar:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
-                        DashboardFragment.newInstance()).commit();
+                        CalendarFragment.newInstance()).commit();
                 return true;
             case R.id.navigation_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
@@ -119,7 +119,7 @@ public class MainActivity extends BaseFullScreenActivity implements ProfileFragm
         switch (fragmentId) {
             case R.id.navigation_calendar:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,
-                        DashboardFragment.newInstance()).commit();
+                        CalendarFragment.newInstance()).commit();
                 return;
             case R.id.navigation_profile:
                 getSupportFragmentManager().beginTransaction().replace(R.id.main_container,

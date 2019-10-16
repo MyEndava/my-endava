@@ -8,8 +8,8 @@ import com.endava.myendava.activities.SignInAsGuestActivity;
 import com.endava.myendava.activities.SplashActivity;
 import com.endava.myendava.activities.UsersActivity;
 import com.endava.myendava.di.DaggerMyEndavaApplicationComponent;
-import com.endava.myendava.di.FragmentsDi.DashboardComponent;
-import com.endava.myendava.di.FragmentsDi.DashboardModule;
+import com.endava.myendava.di.FragmentsDi.CalendarComponent;
+import com.endava.myendava.di.FragmentsDi.CalendarModule;
 import com.endava.myendava.di.FragmentsDi.FaqComponent;
 import com.endava.myendava.di.FragmentsDi.FaqModule;
 import com.endava.myendava.di.FragmentsDi.GuestInfoComponent;
@@ -29,7 +29,7 @@ import com.endava.myendava.di.activitiesDi.SplashComponent;
 import com.endava.myendava.di.activitiesDi.SplashModule;
 import com.endava.myendava.di.activitiesDi.UsersComponent;
 import com.endava.myendava.di.activitiesDi.UsersModule;
-import com.endava.myendava.fragments.DashboardFragment;
+import com.endava.myendava.fragments.CalendarFragment;
 import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.fragments.FilteredTagsFragment;
 import com.endava.myendava.fragments.GuestInfoFragment;
@@ -55,7 +55,7 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     Provider<MainComponent.Builder> mMainComponentProvider;
 
     @Inject
-    Provider<DashboardComponent.Builder> mDashboardComponentProvider;
+    Provider<CalendarComponent.Builder> mDashboardComponentProvider;
 
     @Inject
     Provider<FaqComponent.Builder> mFaqComponentProvider;
@@ -115,9 +115,9 @@ public class MyEndavaApplication extends Application implements ApplicationServi
     }
 
     @Override
-    public DashboardComponent getDashboardComponent(DashboardFragment fragment) {
+    public CalendarComponent getDashboardComponent(CalendarFragment fragment) {
         return mDashboardComponentProvider.get()
-                .dashboardBuilder(new DashboardModule(fragment))
+                .calendarBuilder(new CalendarModule(fragment))
                 .build();
     }
 
