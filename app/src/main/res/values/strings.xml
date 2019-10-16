@@ -57,5 +57,8 @@
 
     <!-- faq screen -->
     <string name="faq_search_hint">Search by faq name</string>
+    <string name="nav_bar_name">config_showNavigationBar</string>
+    <string name="boolean_def_type">bool</string>
+    <string name="android_def_package">android</string>
 
 </resources>

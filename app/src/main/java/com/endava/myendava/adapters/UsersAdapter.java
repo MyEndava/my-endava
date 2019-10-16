@@ -16,6 +16,8 @@ import com.endava.myendava.rest.RetrofitClient;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder> {
@@ -54,23 +56,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     class UserViewHolder extends RecyclerView.ViewHolder {
 
-        View itemView;
-        CircleImageView photoImageView;
-        TextView nameTextView;
-        TextView gradeTextView;
+        @BindView(R.id.user_photo_image_view)
+        CircleImageView userCircleImageView;
+        @BindView(R.id.user_name_text_view)
+        TextView userNameTextView;
+        @BindView(R.id.user_grade_text_view)
+        TextView userGradeTextView;
 
         UserViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.itemView = itemView;
-            photoImageView = itemView.findViewById(R.id.user_photo_image_view);
-            nameTextView = itemView.findViewById(R.id.user_name_text_view);
-            gradeTextView = itemView.findViewById(R.id.user_grade_text_view);
+            ButterKnife.bind(this, itemView);
         }
 
         void bind(User user, OnUserClickListener listener) {
-            Glide.with(mContext).load(RetrofitClient.TEST_URL + user.getImageUrl()).into(photoImageView);
-            nameTextView.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
-            gradeTextView.setText(user.getGrade());
+            Glide.with(mContext).load(RetrofitClient.TEST_URL + user.getImageUrl()).into(userCircleImageView);
+            userNameTextView.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
+            userGradeTextView.setText(user.getGrade());
             itemView.setOnClickListener(view -> listener.onUserClicked(user));
         }
     }

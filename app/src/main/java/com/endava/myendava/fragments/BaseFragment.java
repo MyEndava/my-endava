@@ -4,31 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
-
-import com.endava.myendava.R;
 
 
 public abstract class BaseFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
-        changeStatusBarColor();
         return provideFragmentView(inflater, viewGroup, savedInstanceState);
     }
 
     public abstract View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState);
-
-    void changeStatusBarColor() {
-        Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getActivity().getResources().getColor(R.color.secondary));
-    }
 
     void displayError(String error) {
         if (error != null) {
