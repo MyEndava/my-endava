@@ -1,21 +1,27 @@
 package com.endava.myendava.models;
 
+import com.endava.myendava.fragments.CalendarFragment;
+
 import java.util.List;
 
-public class Event {
+public class Event implements CalendarFragment.EventsSection {
 
     private String title;
     private String duration;
     private List<Tag> tags;
-    private int participantsNr;
+    private int participantsNumber;
     private String type;
 
     public Event(String title, String duration, List<Tag> tags, int participantsNr, String type) {
         this.title = title;
         this.duration = duration;
         this.tags = tags;
-        this.participantsNr = participantsNr;
+        this.participantsNumber = participantsNr;
         this.type = type;
+    }
+
+    public Event(String title) {
+        this.title = title;
     }
 
     public String getTitle() {
@@ -42,20 +48,16 @@ public class Event {
         this.tags = tags;
     }
 
-    public int getParticipantsNr() {
-        return participantsNr;
+    public int getParticipantsNumber() {
+        return participantsNumber;
     }
 
-    public void setParticipantsNr(int participantsNr) {
-        this.participantsNr = participantsNr;
+    public void setParticipantsNumber(int participantsNumber) {
+        this.participantsNumber = participantsNumber;
     }
 
     public String getType() {
         return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getFormattedTags() {
@@ -64,5 +66,15 @@ public class Event {
             s += tag.getTagName() + ", ";
         }
         return s.substring(0, s.length() - 2);
+    }
+
+    @Override
+    public boolean isHeader() {
+        return false;
+    }
+
+    @Override
+    public String getName() {
+        return title;
     }
 }

@@ -15,18 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
 import com.endava.myendava.adapters.CalendarDayAdapter;
-import com.endava.myendava.adapters.EventParentAdapter;
+import com.endava.myendava.adapters.EventsAdapter;
+import com.endava.myendava.adapters.StickHeaderItemDecoration;
 import com.endava.myendava.app.ApplicationServiceLocator;
-import com.endava.myendava.models.CalendarDay;
 import com.endava.myendava.models.Event;
-import com.endava.myendava.models.EventParent;
-import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.EventTitle;
+import com.endava.myendava.utils.CalendarDummyData;
 import com.endava.myendava.utils.MySharedPreferences;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,23 +42,21 @@ public class CalendarFragment extends BaseFragment {
     MySharedPreferences mSharedPreferences;
 
     @BindView(R.id.calendar_month_button)
-    Button mCalendarMonthButton;
+    Button calendarMonthButton;
     @BindView(R.id.calendar_list)
-    RecyclerView mCalendarRecycleView;
+    RecyclerView calendarRecycleView;
     @BindView(R.id.switch_my_events)
-    SwitchCompat mSwitchEvents;
+    SwitchCompat switchEvents;
     @BindView(R.id.filters)
-    Button mFiltersButton;
+    Button filtersButton;
     @BindView(R.id.events_list_parent)
-    RecyclerView mProjectsRecyclerView;
+    RecyclerView projectsRecyclerView;
     @BindView(R.id.progress_bar)
-    ProgressBar mProgressBar;
-
-    private EventParentAdapter mParentEventAdapter;
+    ProgressBar progressBar;
 
     private CalendarDayAdapter mCalendarDayAdapter;
-
-    private Unbinder mUnbinder;
+    private Unbinder unbinder;
+    private List<EventsSection> eventsList;
 
     public static CalendarFragment newInstance() {
         return new CalendarFragment();
@@ -73,17 +71,37 @@ public class CalendarFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mUnbinder = ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         setMonthButton();
         setupCalendarDayAdapter();
-        setupParentEventsAdapter();
+        eventsList = new ArrayList<>();
+        populateList();
+        setupMOFOAdapter();
+    }
+
+    private void populateList() {
+        LinkedHashMap<EventTitle, List<Event>> map = CalendarDummyData.getEventsListNew();
+        for (EventTitle eventTitle : map.keySet()) {
+            eventsList.add(eventTitle);
+            for (Event event : map.get(eventTitle)) {
+                eventsList.add(event);
+            }
+        }
+    }
+
+    private void setupMOFOAdapter() {
+        projectsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        EventsAdapter mofoAdapter = new EventsAdapter(getContext(), eventsList);
+        projectsRecyclerView.setAdapter(mofoAdapter);
+        StickHeaderItemDecoration stickHeaderDecoration = new StickHeaderItemDecoration(mofoAdapter);
+        projectsRecyclerView.addItemDecoration(stickHeaderDecoration);
     }
 
     private void setMonthButton() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat month_date = new SimpleDateFormat("MMMM");
         String month_name = month_date.format(calendar.getTime());
-        mCalendarMonthButton.setText(month_name + " " + calendar.get(Calendar.YEAR));
+        calendarMonthButton.setText(month_name + " " + calendar.get(Calendar.YEAR));
     }
 
     private void setupModule() {
@@ -91,51 +109,11 @@ public class CalendarFragment extends BaseFragment {
         locator.getDashboardComponent(this).inject(this);
     }
 
-    private void setupParentEventsAdapter() {
-        mParentEventAdapter = new EventParentAdapter(getContext(), getEventParentList());
-        mProjectsRecyclerView.setAdapter(mParentEventAdapter);
-        mProjectsRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    }
-
     private void setupCalendarDayAdapter() {
-        mCalendarDayAdapter = new CalendarDayAdapter(getContext(), getCalendarDayList());
-        mCalendarRecycleView.setAdapter(mCalendarDayAdapter);
+        mCalendarDayAdapter = new CalendarDayAdapter(getContext(), CalendarDummyData.getCalendarDayList());
+        calendarRecycleView.setAdapter(mCalendarDayAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mCalendarRecycleView.setLayoutManager(layoutManager);
-    }
-
-    private List<EventParent> getEventParentList() {
-        EventParent eventParent1 = new EventParent("30 OCTOBER", getEventList().get(0));
-        EventParent eventParent2 = new EventParent("31 OCTOBER", getEventList().get(1));
-        EventParent eventParent3 = new EventParent("1 NOVEMBER", getEventList().get(2));
-        return new ArrayList<>(Arrays.asList(eventParent1, eventParent2, eventParent3));
-    }
-
-    private List<List<Event>> getEventList() {
-        List<Tag> tags = new ArrayList<>(Arrays.asList(new Tag("", "", "", 2, "Android", ""),
-                new Tag("", "", "", 2, "MVP", "")));
-        Event event1 = new Event("Training title", "2h 30", tags, 4, "Training");
-        Event event2 = new Event("Certification title", "1h 30", tags, 2, "Certification");
-        Event event3 = new Event("Conference title", "2h", tags, 9, "Conference");
-        Event event4 = new Event("Training title", "3h 30", tags, 5, "Training");
-        List<Event> list1 = new ArrayList<>();
-        List<Event> list2 = new ArrayList<>(Arrays.asList(event1, event2, event3));
-        List<Event> list3 = new ArrayList<>(Arrays.asList(event1, event2, event3, event4));
-        return new ArrayList<>(Arrays.asList(list1, list2, list3));
-    }
-
-    private List<CalendarDay> getCalendarDayList() {
-        CalendarDay cd1 = new CalendarDay(1, "Mon", new ArrayList<>(Arrays.asList("Training", "Conference")));
-        CalendarDay cd2 = new CalendarDay(2, "Tue", new ArrayList<>(Arrays.asList("Conference")));
-        CalendarDay cd3 = new CalendarDay(3, "Wed", new ArrayList<>(Arrays.asList("Training", "Conference", "Certification")));
-        CalendarDay cd4 = new CalendarDay(4, "Thu", new ArrayList<>(Arrays.asList("Certification")));
-        CalendarDay cd5 = new CalendarDay(5, "Fri", new ArrayList<>(Arrays.asList("Certification", "Conference")));
-        CalendarDay cd6 = new CalendarDay(6, "Sat", new ArrayList<>(Arrays.asList("Training")));
-        CalendarDay cd7 = new CalendarDay(7, "Sun", new ArrayList<>(Arrays.asList("Certification", "Training")));
-        CalendarDay cd8 = new CalendarDay(8, "Mon", new ArrayList<>(Arrays.asList("Conference")));
-        CalendarDay cd9 = new CalendarDay(9, "Tue", new ArrayList<>());
-
-        return new ArrayList<>(Arrays.asList(cd1, cd2, cd3, cd4, cd5, cd6, cd7, cd8, cd9));
+        calendarRecycleView.setLayoutManager(layoutManager);
     }
 
     @Override
@@ -146,7 +124,12 @@ public class CalendarFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mUnbinder.unbind();
+        unbinder.unbind();
     }
 
+    public interface EventsSection {
+        boolean isHeader();
+
+        String getName();
+    }
 }

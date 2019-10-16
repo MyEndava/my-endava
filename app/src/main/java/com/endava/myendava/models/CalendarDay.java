@@ -3,22 +3,23 @@ package com.endava.myendava.models;
 import java.util.List;
 
 public class CalendarDay {
-    private int dayNr;
+
+    private int dayNumber;
     private String day;
     private List<String> events;
 
     public CalendarDay(int dayNr, String day, List<String> events) {
-        this.dayNr = dayNr;
+        this.dayNumber = dayNr;
         this.day = day;
         this.events = events;
     }
 
-    public int getDayNr() {
-        return dayNr;
+    public int getDayNumber() {
+        return dayNumber;
     }
 
-    public void setDayNr(int dayNr) {
-        this.dayNr = dayNr;
+    public void setDayNumber(int dayNumber) {
+        this.dayNumber = dayNumber;
     }
 
     public String getDay() {

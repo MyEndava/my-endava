@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
 import com.endava.myendava.models.CalendarDay;
+import com.endava.myendava.utils.EventsColorManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,44 +26,41 @@ import butterknife.ButterKnife;
 
 public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.CalendarViewHolder> {
 
-    public static final String TRAINING_EVENT = "Training";
-    public static final String CONFERENCE_EVENT = "Conference";
-    public static final String CERTIFICATION_EVENT = "Certification";
+    private static final int ELEMENTS_TO_SHOW = 5;
 
-    private final Context mContext;
-
-    private List<CalendarDay> mCalendarDayList;
+    private final Context context;
+    private List<CalendarDay> calendarDayList;
 
     public CalendarDayAdapter(Context context, List<CalendarDay> tags) {
-        this.mContext = context;
-        this.mCalendarDayList = tags;
+        this.context = context;
+        this.calendarDayList = tags;
     }
 
     @NonNull
     @Override
     public CalendarViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_calendar_day, parent, false);
-        view.getLayoutParams().width =  getRecyclerWidth() / 5;
+        view.getLayoutParams().width = getRecyclerWidth() / 5;
         return new CalendarViewHolder(view);
     }
 
     private int getRecyclerWidth() {
-        WindowManager wm = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        float margins = (26 * 2 + 8 * 5) * ((float) mContext.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        float margins = (26 * 2 + 8 * ELEMENTS_TO_SHOW) * ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
         return size.x - (int) margins;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
-        holder.bind(mCalendarDayList.get(position));
+        holder.bind(calendarDayList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mCalendarDayList.size();
+        return calendarDayList.size();
     }
 
     public class CalendarViewHolder extends RecyclerView.ViewHolder {
@@ -70,15 +68,15 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
         public View itemView;
 
         @BindView(R.id.day_nr)
-        public TextView mDayNr;
+        public TextView dayNumber;
         @BindView(R.id.day)
-        public TextView mDay;
+        public TextView day;
         @BindView(R.id.dot1)
-        public View mDot1;
+        public View dot1;
         @BindView(R.id.dot2)
-        public View mDot2;
+        public View dot2;
         @BindView(R.id.dot3)
-        public View mDot3;
+        public View dot3;
 
         private List<View> dotList;
 
@@ -86,29 +84,17 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
             super(itemView);
             this.itemView = itemView;
             ButterKnife.bind(this, itemView);
-            dotList = new ArrayList<>(Arrays.asList(mDot1, mDot2, mDot3));
+            dotList = new ArrayList<>(Arrays.asList(dot1, dot2, dot3));
         }
 
         public void bind(CalendarDay calendarDay) {
-            mDayNr.setText(String.valueOf(calendarDay.getDayNr()));
-            mDay.setText(calendarDay.getDay());
+            dayNumber.setText(String.valueOf(calendarDay.getDayNumber()));
+            day.setText(calendarDay.getDay());
             for (String event : calendarDay.getEvents()) {
                 View dot = dotList.get(calendarDay.getEvents().indexOf(event));
-                dot.setBackgroundTintList(mContext.getColorStateList(getDotColor(event)));
+                dot.setBackgroundTintList(context.getColorStateList(EventsColorManager.getEventColor(event)));
                 dot.setVisibility(View.VISIBLE);
             }
-        }
-
-        private int getDotColor(String event) {
-            switch (event) {
-                case TRAINING_EVENT:
-                    return R.color.primary;
-                case CERTIFICATION_EVENT:
-                    return R.color.yellow;
-                case CONFERENCE_EVENT:
-                    return R.color.blue2;
-            }
-            return R.color.secondary;
         }
     }
 }

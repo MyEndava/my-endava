@@ -26,7 +26,7 @@
     <color name="white">#ffffff</color>
     <color name="gray4">#bdbdbd</color>
     <color name="gray4_transparent">#CCbdbdbd</color>
-    <color name="grey3">#828282</color>
+    <color name="gray3">#828282</color>
     <color name="light_grey_blue">#acb1c0</color>
     <color name="very_light_grey">#eaeaea</color>
     <color name="pale_grey">#f7f8fa</color>
@@ -37,4 +37,5 @@
     <color name="other_info_color">#262626</color>
     <color name="technical_text_color">#263238</color>
     <color name="transparent_white">#00ffffff</color>
+
 </resources>

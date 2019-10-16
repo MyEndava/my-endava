@@ -2,10 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_checked="false">
         <shape android:dither="true" android:shape="rectangle" android:useLevel="false" android:visible="true">
-            <solid android:color="#ffffff" />
-            <corners android:radius="100dp" />
-            <size android:width="18dp" android:height="18dp" />
-            <stroke android:width="4dp" android:color="#0000ffff" />
+            <solid android:color="@color/white" />
+            <corners android:radius="@dimen/calendar_switch_thumb_selector_radius" />
+            <size android:width="@dimen/calendar_switch_thumb_selector_size" android:height="@dimen/calendar_switch_thumb_selector_size" />
         </shape>
     </item>
 </selector>

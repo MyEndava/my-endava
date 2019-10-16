@@ -2,18 +2,16 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background">
         <shape>
-            <corners android:radius="8dp" />
+            <corners android:radius="@dimen/event_item_progressbar_radius" />
             <solid android:color="@color/primary_transparent" />
-            <size android:height="10dp" />
         </shape>
     </item>
 
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <corners android:radius="8dp" />
+                <corners android:radius="@dimen/event_item_progressbar_radius" />
                 <solid android:color="@color/primary" />
-                <size android:height="10dp" />
             </shape>
         </clip>
     </item>
