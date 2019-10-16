@@ -6,5 +6,5 @@ public interface OnProfileEditedListener {
 
     void onEditClicked(boolean isEditable);
 
-    void onRemoveTag(Tag tag);
+    void onTagRemoved(Tag tag);
 }

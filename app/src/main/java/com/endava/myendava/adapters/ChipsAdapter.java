@@ -169,7 +169,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     if (currentTag.getTagId().equals(tag.getTagId())) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.AlertDialogRemoveTag));
                         builder.setMessage(R.string.title_alert_dialog_remove_tag);
-                        builder.setPositiveButton(R.string.button_text_yes_dialog_remove_tag, (dialog, which) -> onEditedListener.onRemoveTag(tag));
+                        builder.setPositiveButton(R.string.button_text_yes_dialog_remove_tag, (dialog, which) -> onEditedListener.onTagRemoved(tag));
                         builder.setNegativeButton(R.string.button_text_cancel_dialog_remove_tag, null);
                         AlertDialog dialog = builder.create();
                         dialog.show();

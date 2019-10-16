@@ -12,6 +12,7 @@ import com.endava.myendava.models.RemoveTagResponse;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.repositories.ProfileRepository;
 import com.endava.myendava.repositories.TagsRepository;
+import com.endava.myendava.utils.MySharedPreferences;
 
 import javax.inject.Inject;
 
@@ -23,17 +24,20 @@ import io.reactivex.schedulers.Schedulers;
 public class ProfileViewModel extends ViewModel {
 
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-    private final ProfileRepository mRepo;
+    private final ProfileRepository profileRepository;
     private final TagsRepository tagsRepository;
     private MutableLiveData<Profile> mProfile;
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
-    private MutableLiveData<Boolean> mIsTagRemoved = new MutableLiveData<>();
+    private MutableLiveData<String> mIsTagRemoved = new MutableLiveData<>();
+
+    @Inject
+    MySharedPreferences mSharedPreferences;
 
     @Inject
     public ProfileViewModel(ProfileRepository profileRepository,
                             TagsRepository tagsRepository) {
-        mRepo = profileRepository;
+        this.profileRepository = profileRepository;
         this.tagsRepository = tagsRepository;
     }
 
@@ -46,14 +50,20 @@ public class ProfileViewModel extends ViewModel {
     }
 
     private void onTagRemoved(RemoveTagResponse response) {
-        mIsTagRemoved.setValue(response.success);
+        if (response.success) {
+            mIsTagRemoved.setValue("Tag removed successfully");
+            loadData(mSharedPreferences.getUserEmail());
+        } else {
+            mIsTagRemoved.setValue("Sorry, an error occurred, try again later!");
+        }
     }
 
-    public LiveData<Boolean> tagRemoved() {
+    public LiveData<String> tagRemoved() {
         return mIsTagRemoved;
     }
 
-    private void onTagRemoveError(Throwable throwable) {}
+    private void onTagRemoveError(Throwable throwable) {
+    }
 
     public void removeTag(Tag tag) {
         mCompositeDisposable.add(tagsRepository.removeTagFromProfile(new RemoveTagRequest(tag.getTagId()))
@@ -64,8 +74,7 @@ public class ProfileViewModel extends ViewModel {
 
     public void loadData(String email) {
         mIsUpdating.setValue(true);
-
-        Disposable observable = mRepo.getProfile(email)
+        Disposable observable = profileRepository.getProfile(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccess,

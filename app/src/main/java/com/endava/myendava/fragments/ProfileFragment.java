@@ -101,14 +101,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
 
         mProfileViewModel.getProfile(getCurrentEmail()).observe(this, this::populateViews);
 
-        mProfileViewModel.tagRemoved().observe(this, isRemoved -> {
-            if (isRemoved) {
-                Toast.makeText(getContext(), "Tag removed", Toast.LENGTH_SHORT).show();
-                mProfileViewModel.loadData(getCurrentEmail());
-            } else {
-                Toast.makeText(getContext(), "Tag ERROR", Toast.LENGTH_SHORT).show();
-            }
-        });
+        mProfileViewModel.tagRemoved().observe(this, message -> Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show());
 
         mProfileViewModel.isUpdating().observe(this, aBoolean -> {
             if (aBoolean) {
@@ -203,7 +196,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     }
 
     @Override
-    public void onRemoveTag(Tag tag) {
+    public void onTagRemoved(Tag tag) {
         mProfileViewModel.removeTag(tag);
     }
 
