@@ -3,6 +3,8 @@ package com.endava.myendava.activities;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.endava.myendava.R;
 import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.fragments.DashboardFragment;
@@ -20,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class MainActivity extends BaseActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
+public class MainActivity extends BaseFullScreenActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
         TagsFragment.OnTagsFragmentInteractionListener, DashboardFragment.OnDashboardFragmentInteractionListener {
 
     @Inject
@@ -28,6 +30,9 @@ public class MainActivity extends BaseActivity implements ProfileFragment.OnProf
 
     @BindView(R.id.navigation_view)
     BottomNavigationView mNavigationView;
+
+    @BindView(R.id.container)
+    ConstraintLayout mContainer;
 
     private Unbinder mUnbinder;
 
@@ -64,12 +69,24 @@ public class MainActivity extends BaseActivity implements ProfileFragment.OnProf
         setContentView(R.layout.activity_main);
         mUnbinder = ButterKnife.bind(this);
         setupModule();
+        setFullScreen();
+        setNavigationBar();
         mNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mNavigationView.setSelectedItemId(R.id.navigation_calendar);
         int upFragmentId = mSharedPreferences.getUpNavigationId();
         if (upFragmentId != 0) {
             navigate(upFragmentId);
         }
+    }
+
+    @Override
+    protected ConstraintLayout getContainer() {
+        return mContainer;
+    }
+
+    @Override
+    protected int getBottomViewId() {
+        return mNavigationView.getId();
     }
 
     @Override

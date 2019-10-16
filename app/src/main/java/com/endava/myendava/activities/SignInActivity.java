@@ -55,6 +55,7 @@ public class SignInActivity extends BaseActivity {
         setContentView(R.layout.activity_sign_in);
         mUnbinder = ButterKnife.bind(this);
         setupModule();
+        setFullScreen();
     }
 
     private void setupModule() {

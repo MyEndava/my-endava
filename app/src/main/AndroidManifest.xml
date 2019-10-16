@@ -18,7 +18,7 @@
         <activity android:name=".activities.FilteredTagsActivity" />
         <activity
             android:name=".activities.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/FullScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +33,7 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activities.SignInActivity"
-            android:theme="@style/SignInTheme" />
+            android:theme="@style/FullScreenTheme"/>
         <activity
             android:name=".activities.SignInAsGuestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
