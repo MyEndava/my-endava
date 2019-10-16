@@ -1,69 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <include
+        android:id="@+id/background_image"
+        layout="@layout/background_layout_orange" />
+
+    <View
+        android:id="@+id/list_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="240dp"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-            app:scrimAnimationDuration="250"
-            app:titleEnabled="false">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="60dp">
-
-                <TextView
-                    android:id="@+id/tag_description_text_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:fontFamily="sans-serif-thin"
-                    android:textColor="@android:color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:titleTextAppearance="@style/AppTheme.Toolbar.Title" />
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/profile_screen_image_height"
+        android:background="@color/gray5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content"
         android:clipToPadding="false"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        android:paddingBottom="@dimen/nested_scroll_bottom_padding"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/arrow_back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/user_screen_margin_start_back_arrow"
+                android:layout_marginTop="@dimen/user_screen_margin_top_arrow"
+                android:background="@drawable/ic_arrow_back_white_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tag_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_screen_horizontal_margin_description"
+                android:layout_marginTop="@dimen/user_screen_margin_top_tag_title"
+                android:layout_marginEnd="@dimen/user_screen_horizontal_margin_description"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/white"
+                android:textSize="@dimen/user_screen_tag_name_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/arrow_back_button" />
+
+            <TextView
+                android:id="@+id/tag_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_screen_horizontal_margin_description"
+                android:layout_marginEnd="@dimen/user_screen_horizontal_margin_description"
+                android:fontFamily="@font/roboto_regular"
+                android:lineHeight="@dimen/user_screen_tag_type_line_height"
+                android:textColor="@color/white"
+                android:textSize="@dimen/user_screen_tag_type_font_size"
+                android:drawablePadding="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tag_title" />
+
+            <TextView
+                android:id="@+id/tag_description_text_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_screen_horizontal_margin_description"
+                android:layout_marginTop="@dimen/user_screen_tag_description_margin_top"
+                android:layout_marginEnd="@dimen/user_screen_horizontal_margin_description"
+                android:fontFamily="@font/roboto_regular"
+                android:lineHeight="@dimen/user_screen_tag_description_line_height"
+                android:minLines="9"
+                android:textColor="@color/white"
+                android:textSize="@dimen/user_screen_tag_description_font_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tag_type" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/people_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/user_screen_padding_item_user"
+                android:paddingLeft="@dimen/user_screen_padding_item_user"
+                android:paddingRight="@dimen/user_screen_padding_item_user"
+                android:paddingBottom="@dimen/item_user_recycle_view_padding_bottom"
+                android:layout_marginTop="@dimen/user_screen_tag_recycle_view_margin_top"
+                android:layout_marginLeft="@dimen/profile_screen_other_info_margin"
+                android:layout_marginRight="@dimen/profile_screen_other_info_margin"
+                android:background="@drawable/about_me_shape"
+                app:layout_constraintTop_toBottomOf="@id/tag_description_text_view"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -73,9 +109,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     </androidx.core.widget.NestedScrollView>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
