@@ -5,7 +5,6 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context=".activities.MainActivity">
 
     <FrameLayout
@@ -23,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
         android:layout_marginEnd="0dp"
+        android:outlineProvider="none"
         android:background="?android:attr/windowBackground"
         app:itemIconTint="@drawable/bottomnav_selector"
         app:itemTextColor="@drawable/bottomnav_selector"
