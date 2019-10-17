@@ -25,7 +25,7 @@ public abstract class BaseFullScreenActivity extends BaseActivity {
         }
 
         //todo Handle this for the phones that can hide the navigation bar from it
-        if (!isNavigationBarInvisible()) {
+        if (isNavigationBarInvisible()) {
             setBottomNavigationConstraints(getNavigationBarHeight());
         }
 
