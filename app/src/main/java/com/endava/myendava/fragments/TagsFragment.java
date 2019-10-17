@@ -183,7 +183,7 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
             mSelectedTagsList = new ArrayList<>();
         } else {
             if (mSelectedTagsList.size() > 0) {
-                listener.onMultipleTagsSearch(mSelectedTagsList, R.id.navigation_tags);
+                listener.onTagsSearch(mSelectedTagsList, R.id.navigation_tags);
             }
         }
     }
@@ -228,7 +228,9 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
             if (mIsMultiSearchClicked) {
                 addSelectedTagsToList(tag);
             } else {
-                listener.onSkillSelected(tag, R.id.navigation_tags);
+                List<Tag> tagList = new ArrayList<>();
+                tagList.add(tag);
+                listener.onTagsSearch(tagList, R.id.navigation_tags);
             }
         }
     }
@@ -245,11 +247,9 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
 
     public interface OnTagsFragmentInteractionListener {
 
-        void onSkillSelected(Tag tag, int navigationId);
-
         void onAddSkillClicked();
 
-        void onMultipleTagsSearch(List<Tag> selectedTagsList, int navigationId);
+        void onTagsSearch(List<Tag> selectedTagsList, int navigationId);
     }
 
     @Override

@@ -7,10 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,12 +32,11 @@ import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_PROJECT;
 import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_SOFT;
 import static com.endava.myendava.adapters.TagsAdapter.CATEGORY_TECHNICAL;
 
-public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnUserClickListener {
+public class UsersActivity extends BaseFullScreenActivity implements UsersAdapter.OnUserClickListener {
 
     @Inject
     UsersViewModel usersViewModel;
 
-    public static final String ARG_TAG = "arg_tag";
     public static final String ARG_TAG_LIST = "arg_tag_list";
 
     @BindView(R.id.tag_description_text_view)
@@ -48,13 +45,16 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     TextView tagTitle;
     @BindView(R.id.tag_type)
     TextView tagType;
-    @BindView(R.id.progress_bar)
-    ProgressBar mProgressBar;
     @BindView(R.id.arrow_back_button)
     ImageView backImageView;
+    @BindView(R.id.progress_bar)
     ProgressBar progressBar;
+    @BindView(R.id.my_container)
+    ConstraintLayout container;
+    @BindView(R.id.bottom_view)
+    View bottomView;
 
-    private Tag tag;
+
     private List<Tag> tagList;
     private UsersAdapter usersAdapter;
 
@@ -64,11 +64,14 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
         setContentView(R.layout.activity_users);
         ButterKnife.bind(this);
         setupModule();
+        setFullScreen();
+        setNavigationBar();
+        initData();
         setupRecyclerView();
-        populateSelectedTag();
     }
 
-    private void setIconToTagType(){
+    private void setIconToTagType(Tag tag) {
+        tagType.setVisibility(View.VISIBLE);
         Drawable icon = null;
         switch (tag.getSubcategory()) {
             case CATEGORY_TECHNICAL:
@@ -89,39 +92,22 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
         tagType.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
     }
 
-    private void populateSelectedTag() {
-        tag = (Tag) getIntent().getSerializableExtra(ARG_TAG);
-        tagTitle.setText(tag.getTagName());
-        backImageView.setOnClickListener(view -> onBackPressed());
-        tagDescription.setText(tag.getTagDescription());
-        tagType.setText(tag.getCategory());
-        setIconToTagType();
-        setFieldsColor(getResources().getColor(R.color.white));
-    }
-
-    private void setFieldsColor(int color) {
-        tagTitle.setTextColor(color);
-        tagDescription.setTextColor(color);
-        tagType.setTextColor(color);
-    }
-
     private void initData() {
-        if (getIntent().getSerializableExtra(ARG_TAG) != null) {
-            tag = (Tag) getIntent().getSerializableExtra(ARG_TAG);
-        } else if (getIntent().getSerializableExtra(ARG_TAG_LIST) != null) {
+        if (getIntent().getSerializableExtra(ARG_TAG_LIST) != null) {
             tagList = (List<Tag>) getIntent().getSerializableExtra(ARG_TAG_LIST);
         }
     }
 
-    private void setTitleAndDescription(Tag tag) {
+    private void populateViews(Tag tag) {
         tagTitle.setText(tag.getTagName());
         tagDescription.setText(tag.getTagDescription());
+        setIconToTagType(tag);
     }
 
-    private void setTitleAndDescription(List<Tag> tagsList, int usersListSize) {
+    private void populateViews(List<Tag> tagsList, int usersListSize) {
         String iteratedTagsList = usersViewModel.mapTagsList(tagsList).replace(",", ", ");
         tagTitle.setText(iteratedTagsList);
-        tagDescription.setText(getDescriptionByTagsList(usersListSize).concat(iteratedTagsList));
+        tagDescription.setText(getDescriptionForTagsList(usersListSize).concat(iteratedTagsList));
     }
 
     private void setupRecyclerView() {
@@ -142,50 +128,35 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     protected void onResume() {
         super.onResume();
 
-        if (tag != null) {
-            usersViewModel.getUsersByTag(tag).observe(this, users -> {
-                usersAdapter.setData(users);
-                setTitleAndDescription(tag);
-            });
-        } else if (tagList != null) {
-            usersViewModel.getUsersByTagList(tagList).observe(this, users -> {
-                usersAdapter.setData(users);
-                setTitleAndDescription(tagList, users.size());
-            });
-        }
+        backImageView.setOnClickListener(view -> onBackPressed());
+
+        usersViewModel.getUsersByTagList(tagList).observe(this, users -> {
+            usersAdapter.setData(users);
+            if (tagList.size() == 1) {
+                populateViews(tagList.get(0));
+            } else {
+                populateViews(tagList, users.size());
+            }
+        });
 
         usersViewModel.isUpdating().observe(this, aBoolean -> {
             if (aBoolean) {
-                showProgressBar();
+                showProgressBar(progressBar);
             } else {
-                hideProgressbar();
+                hideProgressBar(progressBar);
             }
         });
         usersViewModel.getError().observe(this, this::displayError);
     }
 
-    private String getDescriptionByTagsList(int usersListSize) {
-        String description = "";
+    private String getDescriptionForTagsList(int usersListSize) {
+        String description;
         if (usersListSize == 0) {
             description = getResources().getString(R.string.no_users_found);
         } else {
             description = getResources().getString(R.string.multiple_search_description);
         }
         return description;
-    }
-
-    private void displayError(String message) {
-        if (message != null) {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void showProgressBar() {
-        progressBar.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgressbar() {
-        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -206,5 +177,15 @@ public class UsersActivity extends AppCompatActivity implements UsersAdapter.OnU
     protected void onDestroy() {
         super.onDestroy();
         usersViewModel.onCleared();
+    }
+
+    @Override
+    protected ConstraintLayout getContainer() {
+        return container;
+    }
+
+    @Override
+    protected int getBottomViewId() {
+        return bottomView.getId();
     }
 }

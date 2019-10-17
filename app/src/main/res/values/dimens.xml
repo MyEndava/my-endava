@@ -241,8 +241,8 @@
 
     <!--    User Activity screen-->
     <dimen name="user_screen_tag_name_font_size">24sp</dimen>
-    <dimen name="user_screen_margin_top_arrow">40dp</dimen>
-    <dimen name="user_screen_margin_start_back_arrow">28dp</dimen>
+    <dimen name="user_screen_margin_top_arrow">20dp</dimen>
+    <dimen name="user_screen_margin_start_back_arrow">20dp</dimen>
     <dimen name="user_screen_margin_top_tag_title">22dp</dimen>
     <dimen name="user_screen_horizontal_margin_description">25dp</dimen>
     <dimen name="user_screen_tag_description_font_size">14sp</dimen>
@@ -261,5 +261,7 @@
     <dimen name="item_user_title_margin_end">57dp</dimen>
     <dimen name="item_user_circle_image_vertical_margin">12dp</dimen>
     <dimen name="user_screen_padding_item_user">24dp</dimen>
+    <dimen name="user_screen_arrow_padding">8dp</dimen>
+    <dimen name="scroll_view_top_margin">20dp</dimen>
 
 </resources>

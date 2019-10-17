@@ -30,14 +30,6 @@ public class UsersViewModel extends ViewModel {
         mRepo = usersRepository;
     }
 
-    public LiveData<List<User>> getUsersByTag(Tag tag) {
-        if (mUsers == null) {
-            mUsers = new MutableLiveData<>();
-            loadData(tag.getTagName());
-        }
-        return mUsers;
-    }
-
     public LiveData<List<User>> getUsersByTagList(List<Tag> tagsList) {
         if (mUsers == null) {
             mUsers = new MutableLiveData<>();

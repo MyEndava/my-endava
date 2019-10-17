@@ -23,9 +23,12 @@ public abstract class BaseFullScreenActivity extends BaseActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
         }
+
+        //todo Handle this for the phones that can hide the navigation bar from it
         if (!isNavigationBarInvisible()) {
             setBottomNavigationConstraints(getNavigationBarHeight());
         }
+
         decorView.setOnSystemUiVisibilityChangeListener(
                 (int visibility) -> {
                     if (visibility == 0) {
@@ -48,7 +51,7 @@ public abstract class BaseFullScreenActivity extends BaseActivity {
         }
     }
 
-    private boolean isNavigationBarInvisible(){
+    private boolean isNavigationBarInvisible() {
         boolean hasMenuKey = ViewConfiguration.get(this).hasPermanentMenuKey();
         boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
         return !hasMenuKey && !hasBackKey;

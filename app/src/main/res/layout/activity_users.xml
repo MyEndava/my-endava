@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
         android:id="@+id/background_image"
-        layout="@layout/background_layout_orange" />
+        layout="@layout/background_layout_orange"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <View
         android:id="@+id/list_container"
@@ -22,10 +24,13 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/scroll_view_top_margin"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/nested_scroll_bottom_padding"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintBottom_toTopOf="@id/bottom_view"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -41,6 +46,7 @@
                 android:layout_marginLeft="@dimen/user_screen_margin_start_back_arrow"
                 android:layout_marginTop="@dimen/user_screen_margin_top_arrow"
                 android:background="@drawable/ic_arrow_back_white_24dp"
+                android:padding="@dimen/user_screen_arrow_padding"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,11 +69,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_screen_horizontal_margin_description"
                 android:layout_marginEnd="@dimen/user_screen_horizontal_margin_description"
+                android:drawablePadding="1dp"
                 android:fontFamily="@font/roboto_regular"
                 android:lineHeight="@dimen/user_screen_tag_type_line_height"
                 android:textColor="@color/white"
                 android:textSize="@dimen/user_screen_tag_type_font_size"
-                android:drawablePadding="1dp"
+                android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tag_title" />
 
@@ -90,16 +97,17 @@
                 android:id="@+id/people_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="@dimen/user_screen_padding_item_user"
-                android:paddingLeft="@dimen/user_screen_padding_item_user"
-                android:paddingRight="@dimen/user_screen_padding_item_user"
-                android:paddingBottom="@dimen/item_user_recycle_view_padding_bottom"
-                android:layout_marginTop="@dimen/user_screen_tag_recycle_view_margin_top"
                 android:layout_marginLeft="@dimen/profile_screen_other_info_margin"
+                android:layout_marginTop="@dimen/user_screen_tag_recycle_view_margin_top"
                 android:layout_marginRight="@dimen/profile_screen_other_info_margin"
                 android:background="@drawable/about_me_shape"
-                app:layout_constraintTop_toBottomOf="@id/tag_description_text_view"
-                app:layout_constraintStart_toStartOf="parent" />
+                android:paddingLeft="@dimen/user_screen_padding_item_user"
+                android:paddingTop="@dimen/user_screen_padding_item_user"
+                android:paddingRight="@dimen/user_screen_padding_item_user"
+                android:paddingBottom="@dimen/item_user_recycle_view_padding_bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tag_description_text_view" />
 
             <ProgressBar
                 android:id="@+id/progress_bar"
@@ -114,4 +122,10 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
