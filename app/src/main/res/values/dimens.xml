@@ -153,7 +153,7 @@
     <dimen name="search_drawable_padding">8dp</dimen>
     <dimen name="search_start_padding">12dp</dimen>
     <dimen name="tags_list_margin_side">10dp</dimen>
-
+    <dimen name="tags_search_drawable_padding">8dp</dimen>
     <dimen name="floating_button_margin_left">314dp</dimen>
     <dimen name="floating_button_margin_right">11dp</dimen>
     <dimen name="floating_button_margin_bottom">13dp</dimen>

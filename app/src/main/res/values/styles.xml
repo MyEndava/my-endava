@@ -64,4 +64,12 @@
         <item name="colorControlHighlight">@color/secondary</item>
     </style>
 
+    <style name="AlertDialogRemoveTag" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:textColor">@color/primary</item>
+        <item name="android:typeface">normal</item>
+        <item name="android:fontFamily">roboto-bold</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>

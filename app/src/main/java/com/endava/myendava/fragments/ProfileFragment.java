@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -100,6 +101,8 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
 
         mProfileViewModel.getProfile(getCurrentEmail()).observe(this, this::populateViews);
 
+        mProfileViewModel.tagRemoved().observe(this, message -> Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show());
+
         mProfileViewModel.isUpdating().observe(this, aBoolean -> {
             if (aBoolean) {
                 showProgressBar(mProgressBar);
@@ -190,6 +193,11 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     public void onEditClicked(boolean isEditable) {
         mLocationTextView.setEnabled(isEditable);
         mEmailTextView.setEnabled(isEditable);
+    }
+
+    @Override
+    public void onTagRemoved(Tag tag) {
+        mProfileViewModel.removeTag(tag);
     }
 
     public interface OnProfileFragmentInteractionListener {
