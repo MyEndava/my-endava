@@ -168,12 +168,14 @@ public class FaqFragment extends BaseFragment implements OnChipClickedListener {
     @Override
     public void onChipClicked(Tag tag) {
         if (mListener != null) {
-            mListener.onSkillSelected(tag, R.id.navigation_faq);
+            List<Tag> tagList = new ArrayList<>();
+            tagList.add(tag);
+            mListener.onTagsSearch(tagList, R.id.navigation_faq);
         }
     }
 
     public interface OnFaqFragmentInteractionListener {
 
-        void onSkillSelected(Tag tag, int navigationId);
+        void onTagsSearch(List<Tag> tagList, int navigationId);
     }
 }

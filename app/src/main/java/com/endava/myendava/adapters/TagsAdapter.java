@@ -136,6 +136,7 @@ public class TagsAdapter extends RecyclerView.Adapter<TagsAdapter.TagViewHolder>
             mTagTitle.setTextColor(color);
             mTagType.setTextColor(color);
             mTagInfo.setTextColor(color);
+            mCheckIcon.setColorFilter(color);
         }
     }
 

@@ -180,7 +180,9 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     @Override
     public void onChipClicked(Tag tag) {
         if (listener != null) {
-            listener.onSkillSelected(tag, R.id.navigation_profile);
+            List<Tag> tagList = new ArrayList<>();
+            tagList.add(tag);
+            listener.onTagsSearch(tagList, R.id.navigation_profile);
         }
     }
 
@@ -192,7 +194,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
 
     public interface OnProfileFragmentInteractionListener {
 
-        void onSkillSelected(Tag tag, int navigationId);
+        void onTagsSearch(List<Tag> tagList, int navigationId);
     }
 
     @Override

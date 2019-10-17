@@ -16,6 +16,7 @@
         android:layout_marginLeft="@dimen/search_bar_side_margin"
         android:layout_marginRight="@dimen/search_bar_side_margin"
         android:layout_marginTop="@dimen/search_bar_margin_top"
+        android:imeOptions="actionDone"
         android:inputType="text"
         android:background="@drawable/tag_search_shape"
         android:drawableStart="@drawable/icons_24_px_search"
@@ -24,7 +25,6 @@
         android:paddingEnd="@dimen/search_start_padding"
         android:fontFamily="@font/sf_pro_text_regular"
         android:hint="@string/faq_search_hint"
-        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

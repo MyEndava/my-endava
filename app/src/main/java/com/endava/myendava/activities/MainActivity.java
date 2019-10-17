@@ -16,6 +16,9 @@ import com.endava.myendava.utils.EmailType;
 import com.endava.myendava.utils.MySharedPreferences;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -23,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MainActivity extends BaseFullScreenActivity implements ProfileFragment.OnProfileFragmentInteractionListener, FaqFragment.OnFaqFragmentInteractionListener,
-        TagsFragment.OnTagsFragmentInteractionListener{
+        TagsFragment.OnTagsFragmentInteractionListener {
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -101,16 +104,16 @@ public class MainActivity extends BaseFullScreenActivity implements ProfileFragm
     }
 
     @Override
-    public void onSkillSelected(Tag tag, int fragmentID) {
-        mSharedPreferences.setUpNavigationId(fragmentID);
-        Intent intent = new Intent(MainActivity.this, UsersActivity.class);
-        intent.putExtra(UsersActivity.ARG_TAG, tag);
+    public void onAddSkillClicked() {
+        Intent intent = new Intent(MainActivity.this, SuggestTagActivity.class);
         startActivity(intent);
     }
 
     @Override
-    public void onAddSkillClicked() {
-        Intent intent = new Intent(MainActivity.this, SuggestTagActivity.class);
+    public void onTagsSearch(List<Tag> selectedTagsList, int fragmentID) {
+        mSharedPreferences.setUpNavigationId(fragmentID);
+        Intent intent = new Intent(MainActivity.this, UsersActivity.class);
+        intent.putExtra(UsersActivity.ARG_TAG_LIST, (Serializable) selectedTagsList);
         startActivity(intent);
     }
 
