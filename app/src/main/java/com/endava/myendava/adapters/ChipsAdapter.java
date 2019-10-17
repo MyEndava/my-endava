@@ -144,10 +144,14 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         void bind(final Map<String, List<Tag>> tagsMap) {
             if (tagsMap != null) {
-                addTagTextView.setOnClickListener(view -> {
-                    Intent intent = new Intent(context, FilteredTagsActivity.class);
-                    context.startActivity(intent);
-                });
+                if (profile.getEmail() != null && !profile.getEmail().equals(email)) {
+                    addTagTextView.setVisibility(View.GONE);
+                } else {
+                    addTagTextView.setOnClickListener(view -> {
+                        Intent intent = new Intent(context, FilteredTagsActivity.class);
+                        context.startActivity(intent);
+                    });
+                }
             }
         }
 
