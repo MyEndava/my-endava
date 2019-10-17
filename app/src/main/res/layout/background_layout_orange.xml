@@ -17,8 +17,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primary_transparent"
+        android:background="@color/primary_transparent_user_screen"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
