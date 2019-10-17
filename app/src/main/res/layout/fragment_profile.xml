@@ -22,11 +22,12 @@
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/scroll_view_top_margin"
         android:clipToPadding="false"
         android:paddingBottom="@dimen/nested_scroll_bottom_padding"
-        android:layout_marginTop="@dimen/scroll_view_top_margin"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -45,19 +46,18 @@
                 app:civ_border_width="@dimen/profile_screen_border_circle_image_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/name_text_view"
                 style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/profile_screen_margin_top_title_text_view"
                 android:fontFamily="@font/roboto_medium"
                 android:lineHeight="@dimen/profile_screen_name_line_height_size"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/profile_screen_name_font_size"
-                android:layout_marginTop="@dimen/profile_screen_margin_top_title_text_view"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_picture_image_view" />
