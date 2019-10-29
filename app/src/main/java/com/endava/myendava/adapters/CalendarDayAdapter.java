@@ -30,10 +30,12 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
 
     private final Context context;
     private List<CalendarDay> calendarDayList;
+    private OnCalendarDayAdapterListener listener;
 
-    public CalendarDayAdapter(Context context, List<CalendarDay> tags) {
+    public CalendarDayAdapter(Context context, List<CalendarDay> tags, OnCalendarDayAdapterListener listener) {
         this.context = context;
         this.calendarDayList = tags;
+        this.listener = listener;
     }
 
     @NonNull
@@ -85,6 +87,7 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
             this.itemView = itemView;
             ButterKnife.bind(this, itemView);
             dotList = new ArrayList<>(Arrays.asList(dot1, dot2, dot3));
+            itemView.setOnClickListener(v->listener.scrollListToPosition(getAdapterPosition()));
         }
 
         public void bind(CalendarDay calendarDay) {
@@ -96,5 +99,9 @@ public class CalendarDayAdapter extends RecyclerView.Adapter<CalendarDayAdapter.
                 dot.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public interface OnCalendarDayAdapterListener {
+        void scrollListToPosition(int position);
     }
 }

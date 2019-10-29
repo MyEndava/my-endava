@@ -1,6 +1,7 @@
 package com.endava.myendava.models;
 
 import com.endava.myendava.fragments.CalendarFragment;
+import com.endava.myendava.utils.EventState;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ public class Event implements CalendarFragment.EventsSection {
     private int participantsNumber;
     private int eventCapacity;
     private String type;
+    private EventState state;
 
     public Event(String title, String duration, List<Tag> tags, int participantsNr, int eventCapacity, String type) {
         this.title = title;
@@ -20,6 +22,7 @@ public class Event implements CalendarFragment.EventsSection {
         this.participantsNumber = participantsNr;
         this.eventCapacity = eventCapacity;
         this.type = type;
+        state=EventState.UNCHECKED;
     }
 
     public Event(String title) {
@@ -86,5 +89,17 @@ public class Event implements CalendarFragment.EventsSection {
 
     public void setEventCapacity(int eventCapacity) {
         this.eventCapacity = eventCapacity;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public EventState getState() {
+        return state;
+    }
+
+    public void setState(EventState state) {
+        this.state = state;
     }
 }

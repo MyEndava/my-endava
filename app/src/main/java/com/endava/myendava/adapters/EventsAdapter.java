@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import com.endava.myendava.R;
 import com.endava.myendava.fragments.CalendarFragment;
 import com.endava.myendava.models.Event;
 import com.endava.myendava.models.EventTitle;
+import com.endava.myendava.utils.EventState;
 import com.endava.myendava.utils.EventsColorManager;
 
 import java.util.List;
@@ -28,10 +30,12 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private Context context;
     private List<CalendarFragment.EventsSection> eventLists;
+    private OnEventsAdapterListener listener;
 
-    public EventsAdapter(Context context, List<CalendarFragment.EventsSection> eventLists) {
+    public EventsAdapter(Context context, List<CalendarFragment.EventsSection> eventLists, OnEventsAdapterListener listener) {
         this.context = context;
         this.eventLists = eventLists;
+        this.listener = listener;
     }
 
     @Override
@@ -88,6 +92,11 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return headerPosition;
     }
 
+    public void setList(List<CalendarFragment.EventsSection> list) {
+        eventLists = list;
+        notifyDataSetChanged();
+    }
+
     class TitleViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.date)
         TextView date;
@@ -116,6 +125,8 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         TextView eventNumberPeople;
         @BindView(R.id.progressBar)
         ProgressBar progressBar;
+        @BindView(R.id.heart_button)
+        ImageButton favourite;
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -130,6 +141,19 @@ public class EventsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             int f = (int) ((event.getParticipantsNumber() / (double) event.getEventCapacity()) * 100);
             progressBar.setProgress(f);
             eventType.setBackgroundTintList(context.getColorStateList(EventsColorManager.getEventColor(event.getType())));
+            favourite.setOnClickListener(v -> {
+                if (event.getState() == EventState.UNCHECKED) {
+                    favourite.setImageResource(R.drawable.ic_red_heart);
+                    listener.setEventState(getAdapterPosition(), EventState.CHECKED);
+                } else {
+                    favourite.setImageResource(R.drawable.ic_empty_heart);
+                    listener.setEventState(getAdapterPosition(), EventState.UNCHECKED);
+                }
+            });
         }
+    }
+
+    public interface OnEventsAdapterListener {
+        void setEventState(int position, EventState eventState);
     }
 }

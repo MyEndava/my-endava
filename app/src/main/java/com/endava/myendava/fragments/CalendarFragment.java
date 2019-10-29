@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
@@ -18,9 +19,11 @@ import com.endava.myendava.adapters.CalendarDayAdapter;
 import com.endava.myendava.adapters.EventsAdapter;
 import com.endava.myendava.adapters.StickHeaderItemDecoration;
 import com.endava.myendava.app.ApplicationServiceLocator;
+import com.endava.myendava.models.CalendarDay;
 import com.endava.myendava.models.Event;
 import com.endava.myendava.models.EventTitle;
 import com.endava.myendava.utils.CalendarDummyDataGenerator;
+import com.endava.myendava.utils.EventState;
 import com.endava.myendava.utils.MySharedPreferences;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class CalendarFragment extends BaseFragment {
+public class CalendarFragment extends BaseFragment implements CalendarDayAdapter.OnCalendarDayAdapterListener, EventsAdapter.OnEventsAdapterListener {
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -52,13 +55,16 @@ public class CalendarFragment extends BaseFragment {
     @BindView(R.id.filters)
     Button filtersButton;
     @BindView(R.id.events_list_parent)
-    RecyclerView projectsRecyclerView;
+    RecyclerView eventsRecyclerView;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
 
     private CalendarDayAdapter mCalendarDayAdapter;
+    private EventsAdapter eventsAdapter;
+    private LinearLayoutManager eventsLayoutManager;
     private Unbinder unbinder;
     private List<EventsSection> eventsList;
+    LinkedHashMap<EventTitle, List<Event>> mockedEvents;
 
     public static CalendarFragment newInstance() {
         return new CalendarFragment();
@@ -74,29 +80,57 @@ public class CalendarFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         unbinder = ButterKnife.bind(this, view);
+        mockedEvents = calendarDummyDataGenerator.getMockedEvents();
         setMonthButton();
         setupCalendarDayAdapter();
         eventsList = new ArrayList<>();
         populateList();
         setupEventsAdapter();
+        setupMyEventsSwitch();
+    }
+
+    private void setupMyEventsSwitch() {
+        switchEvents.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            if (!isChecked) {
+                List<EventsSection> favouriteEvents = new ArrayList<>();
+                EventTitle title = null;
+                for (EventsSection section : eventsList) {
+                    if (section instanceof EventTitle) {
+                        title = (EventTitle) section;
+                    } else {
+                        Event event = (Event) section;
+                        if (event.getState() == EventState.CHECKED) {
+                            if (!favouriteEvents.contains(title))
+                                favouriteEvents.add(title);
+                            favouriteEvents.add(event);
+                        }
+                    }
+                }
+                eventsAdapter.setList(favouriteEvents);
+            } else {
+                populateList();
+                eventsAdapter.setList(eventsList);
+            }
+        });
     }
 
     private void populateList() {
-        LinkedHashMap<EventTitle, List<Event>> map = calendarDummyDataGenerator.getMockedEvents();
-        for (EventTitle eventTitle : map.keySet()) {
+        for (EventTitle eventTitle : mockedEvents.keySet()) {
             eventsList.add(eventTitle);
-            for (Event event : map.get(eventTitle)) {
+            for (Event event : mockedEvents.get(eventTitle)) {
                 eventsList.add(event);
             }
         }
     }
 
     private void setupEventsAdapter() {
-        projectsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        EventsAdapter mofoAdapter = new EventsAdapter(getContext(), eventsList);
-        projectsRecyclerView.setAdapter(mofoAdapter);
-        StickHeaderItemDecoration stickHeaderDecoration = new StickHeaderItemDecoration(mofoAdapter);
-        projectsRecyclerView.addItemDecoration(stickHeaderDecoration);
+        eventsLayoutManager = new LinearLayoutManager(getContext());
+        eventsRecyclerView.setLayoutManager(eventsLayoutManager);
+        eventsAdapter = new EventsAdapter(getContext(), eventsList, this);
+        eventsRecyclerView.setAdapter(eventsAdapter);
+        StickHeaderItemDecoration stickHeaderDecoration = new StickHeaderItemDecoration(eventsAdapter);
+        eventsRecyclerView.addItemDecoration(stickHeaderDecoration);
     }
 
     private void setMonthButton() {
@@ -112,7 +146,7 @@ public class CalendarFragment extends BaseFragment {
     }
 
     private void setupCalendarDayAdapter() {
-        mCalendarDayAdapter = new CalendarDayAdapter(getContext(), calendarDummyDataGenerator.getMockedCalendarDays());
+        mCalendarDayAdapter = new CalendarDayAdapter(getContext(), calendarDummyDataGenerator.getMockedCalendarDays(), this);
         calendarRecycleView.setAdapter(mCalendarDayAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         calendarRecycleView.setLayoutManager(layoutManager);
@@ -127,6 +161,32 @@ public class CalendarFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public void scrollListToPosition(int position) {
+        int newPos = 0, titleIndex = 0;
+        CalendarDay day = calendarDummyDataGenerator.getMockedCalendarDays().get(position);
+        for (EventTitle title : mockedEvents.keySet()) {
+            if (title.getName().substring(0, 2).equals(day.getDayNumber() + "")) {
+                break;
+            }
+            newPos += titleIndex + mockedEvents.get(title).size() + 1;
+        }
+        LinearSmoothScroller smoothScroller = new LinearSmoothScroller(getContext()) {
+            @Override
+            protected int getVerticalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_START;
+            }
+        };
+        smoothScroller.setTargetPosition(newPos);
+        eventsRecyclerView.getLayoutManager().startSmoothScroll(smoothScroller);
+    }
+
+    @Override
+    public void setEventState(int position, EventState eventState) {
+        Event event = (Event) eventsList.get(position);
+        event.setState(eventState);
     }
 
     public interface EventsSection {
