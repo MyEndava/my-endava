@@ -3,7 +3,7 @@ package com.endava.myendava.di;
 import android.content.Context;
 
 import com.endava.myendava.app.MyEndavaApplication;
-import com.endava.myendava.di.FragmentsDi.CalendarComponent;
+import com.endava.myendava.di.fragments.CalendarComponent;
 import com.endava.myendava.di.fragments.FaqComponent;
 import com.endava.myendava.di.fragments.GuestInfoComponent;
 import com.endava.myendava.di.fragments.ProfileComponent;

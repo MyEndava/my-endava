@@ -5,7 +5,7 @@ import com.endava.myendava.activities.SignInActivity;
 import com.endava.myendava.activities.SignInAsGuestActivity;
 import com.endava.myendava.activities.SplashActivity;
 import com.endava.myendava.activities.UsersActivity;
-import com.endava.myendava.di.fragments.DashboardComponent;
+import com.endava.myendava.di.fragments.CalendarComponent;
 import com.endava.myendava.di.fragments.FaqComponent;
 import com.endava.myendava.di.fragments.GuestInfoComponent;
 import com.endava.myendava.di.fragments.ProfileComponent;

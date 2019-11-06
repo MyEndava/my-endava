@@ -1,9 +1,7 @@
 package com.endava.myendava.fragments;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
@@ -65,13 +63,6 @@ public class CalendarFragment extends BaseFragment {
     }
 
     @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_calendar, parent, false);
-        setupModule();
-        return view;
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         unbinder = ButterKnife.bind(this, view);
         setMonthButton();
@@ -106,7 +97,12 @@ public class CalendarFragment extends BaseFragment {
         calendarMonthButton.setText(month_name + " " + calendar.get(Calendar.YEAR));
     }
 
-    private void setupModule() {
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_calendar;
+    }
+
+    public void setupModule() {
         ApplicationServiceLocator locator = (ApplicationServiceLocator) Objects.requireNonNull(getActivity()).getApplicationContext();
         locator.getDashboardComponent(this).inject(this);
     }

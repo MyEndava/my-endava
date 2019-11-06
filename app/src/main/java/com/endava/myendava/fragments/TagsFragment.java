@@ -6,16 +6,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,11 +22,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
-import com.endava.myendava.SuggestDialogFragment;
 import com.endava.myendava.adapters.TagsAdapter;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.utils.KeyboardHelper;
-import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.viewmodels.TagsViewModel;
 
 import java.util.ArrayList;

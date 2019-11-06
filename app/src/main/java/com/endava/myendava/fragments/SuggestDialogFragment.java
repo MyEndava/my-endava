@@ -1,4 +1,4 @@
-package com.endava.myendava;
+package com.endava.myendava.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.endava.myendava.R;
 import com.endava.myendava.adapters.TagCategoriesAdapter;
 import com.endava.myendava.models.TagCategory;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
