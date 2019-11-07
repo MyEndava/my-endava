@@ -3,6 +3,7 @@ package com.endava.myendava.repositories;
 import com.endava.myendava.models.AddTagRequest;
 import com.endava.myendava.models.RemoveTagRequest;
 import com.endava.myendava.models.RemoveTagResponse;
+import com.endava.myendava.models.SuggestTagRequest;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.rest.RetrofitClient;
@@ -38,5 +39,9 @@ public class TagsRepository {
 
     public Observable<List<TagCategory>> getAllTagCategories() {
         return mRetrofitClient.getRetrofitClient().getAllTagCategories();
+    }
+
+    public Completable suggestTag(SuggestTagRequest request) {
+        return mRetrofitClient.getRetrofitClient().suggestTag(request);
     }
 }

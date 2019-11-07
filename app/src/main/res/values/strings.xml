@@ -75,4 +75,7 @@
     <string name="suggest_tag_label">SUGGEST TAG</string>
     <string name="tag_title_label">Tag title</string>
     <string name="tag_description_label">Tell us what this tag represents and why should be added …</string>
+    <string name="tag_suggestion_success">Tag successfully submitted</string>
+    <string name="tag_suggestion_error">There has been an error while submitting the suggestion</string>
+    <string name="please_fill_all_the_fields">Please choose a category and fill all the fields in order to submit a tag</string>
 </resources>

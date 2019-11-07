@@ -20,6 +20,7 @@ import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.fragments.FilteredTagsFragment;
 import com.endava.myendava.fragments.GuestInfoFragment;
 import com.endava.myendava.fragments.ProfileFragment;
+import com.endava.myendava.fragments.SuggestDialogFragment;
 import com.endava.myendava.fragments.TagsFragment;
 
 public interface ApplicationServiceLocator {
@@ -45,4 +46,6 @@ public interface ApplicationServiceLocator {
     TagsComponent getTagsComponent(TagsFragment fragment);
 
     TagsComponent getTagsComponent(FilteredTagsFragment fragment);
+
+    TagsComponent getTagsComponent(SuggestDialogFragment fragment);
 }

@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.endava.myendava.R;
 import com.endava.myendava.adapters.TagsAdapter;
 import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.utils.KeyboardHelper;
 import com.endava.myendava.viewmodels.TagsViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,8 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     EditText mSearchBar;
     @BindView(R.id.multi_search)
     Button mMultiSearchButton;
+    @BindView(R.id.suggest_tag_button)
+    FloatingActionButton mSuggestTagButton;
 
     private TagsAdapter mAdapter;
     private OnTagsFragmentInteractionListener listener;
@@ -108,6 +112,7 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUnbinder = ButterKnife.bind(this, view);
+        setupRecyclerView(view);
 
         mTagsViewModel.getTags().observe(this, tags -> {
             mTagsList = tags;
@@ -121,11 +126,10 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
                 hideProgressBar(mProgressBar);
             }
         });
+
         mTagsViewModel.getError().observe(this, this::displayError);
 
-        setupRecyclerView(view);
         mSearchBar.addTextChangedListener(getSearchWatcher());
-
         mSearchBar.setOnKeyListener((v, keyCode, event) -> {
             if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                     (keyCode == KeyEvent.KEYCODE_ENTER)) {
@@ -184,8 +188,13 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     }
 
     @OnClick(R.id.suggest_tag_button)
-    public void onSuggestTag() {
-        mTagsViewModel.fetchTagCategories();
+    void onSuggestTag() {
+        mTagsViewModel.getTagCategoriesLiveData().observe(this, this::displaySuggestTagDialog);
+    }
+
+    private void displaySuggestTagDialog(List<TagCategory> tagCategories){
+        SuggestDialogFragment.newInstance(new ArrayList<>(tagCategories))
+                .show(getActivity().getSupportFragmentManager(), SuggestDialogFragment.TAG);
     }
 
     private void addSelectedTagsToList(Tag tag) {

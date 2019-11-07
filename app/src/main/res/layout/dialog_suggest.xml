@@ -1,64 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/suggest_tag_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
-        android:layout_marginBottom="24dp"
-        android:background="#0a1f44"
-        android:text="@string/suggest_tag_label"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tag_description_edit_Text" />
-
-    <EditText
-        android:id="@+id/tag_description_edit_Text"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
-        android:background="@drawable/tag_suggestion_rounded_edit_text"
-        android:hint="@string/tag_description_label"
-        android:padding="16dp"
-        android:textSize="14sp"
-        android:maxLines="5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tag_title_edit_text" />
-
     <EditText
         android:id="@+id/tag_title_edit_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
-        android:maxLines="1"
+        android:layout_marginStart="@dimen/suggest_dialog_input_margins"
+        android:layout_marginTop="@dimen/suggest_dialog_input_margins"
+        android:layout_marginEnd="@dimen/suggest_dialog_input_margins"
         android:background="@drawable/tag_suggestion_rounded_edit_text"
         android:hint="@string/tag_title_label"
-        android:padding="8dp"
-        android:textSize="16sp"
+        android:maxLines="1"
+        android:padding="@dimen/suggest_dialog_title_padding"
+        android:textSize="@dimen/suggest_dialog_title_text_size"
+        android:imeOptions="actionNext"
+        android:inputType="textNoSuggestions"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tag_details_text_view" />
+
+    <EditText
+        android:id="@+id/tag_description_edit_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_input_margins"
+        android:layout_marginTop="@dimen/suggest_dialog_input_margins"
+        android:layout_marginEnd="@dimen/suggest_dialog_input_margins"
+        android:background="@drawable/tag_suggestion_rounded_edit_text"
+        android:hint="@string/tag_description_label"
+        android:maxLines="5"
+        android:padding="@dimen/suggest_dialog_description_padding"
+        android:textSize="@dimen/suggest_dialog_description_text_size"
+        android:imeOptions="actionDone"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_title_edit_text" />
 
     <TextView
         android:id="@+id/tag_details_text_view"
         style="@style/SuggestTagTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="@dimen/suggest_dialog_input_margins"
+        android:layout_marginTop="@dimen/suggest_dialog_input_margins"
         android:text="@string/tag_details_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider" />
@@ -68,8 +58,8 @@
         style="@style/SuggestTagTitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="@dimen/suggest_dialog_tag_group_start_margin"
+        android:layout_marginTop="@dimen/suggest_dialog_tag_group_top_margin"
         android:text="@string/tag_group_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,19 +68,35 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="@dimen/suggest_dialog_divider_top_margin"
         android:background="#eaecef"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/categories_recycler_view" />
 
+    <android.widget.Button
+        android:id="@+id/suggest_tag_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_button_horizontal_margins"
+        android:layout_marginTop="@dimen/suggest_dialog_button_vertical_margins"
+        android:layout_marginEnd="@dimen/suggest_dialog_button_horizontal_margins"
+        android:layout_marginBottom="@dimen/suggest_dialog_button_vertical_margins"
+        android:text="@string/suggest_tag_label"
+        android:textColor="@color/white"
+        android:background="@drawable/suggest_tag_button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_description_edit_text" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categories_recycler_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/suggest_dialog_margin_start"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="@dimen/suggest_dialog_margin_end"
+        android:layout_marginStart="@dimen/suggest_dialog_recycler_margins"
+        android:layout_marginTop="@dimen/suggest_dialog_recycler_margins"
+        android:layout_marginEnd="@dimen/suggest_dialog_recycler_margins"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tag_group_text_view" />

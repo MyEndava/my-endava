@@ -46,6 +46,15 @@ public class TagCategoriesAdapter extends RecyclerView.Adapter<TagCategoriesAdap
         return tagCategories.size();
     }
 
+    public TagCategory getSelectedTag() {
+        for (TagCategory everyTagCategory : tagCategories) {
+            if (everyTagCategory.isSelected()) {
+                return everyTagCategory;
+            }
+        }
+        return null;
+    }
+
     public class TagCategoryViewHolder extends RecyclerView.ViewHolder {
 
         private View itemView;
@@ -60,32 +69,36 @@ public class TagCategoriesAdapter extends RecyclerView.Adapter<TagCategoriesAdap
         }
 
         public void bind(TagCategory tagCategory) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    for (TagCategory everyTagCategory : tagCategories) {
-                        if (!everyTagCategory.equals(tagCategory)) {
-                            everyTagCategory.setSelected(false);
-                        }
+            itemView.setOnClickListener(v -> {
+                for (TagCategory everyTagCategory : tagCategories) {
+                    if (!everyTagCategory.equals(tagCategory)) {
+                        everyTagCategory.setSelected(false);
                     }
-                    boolean isSelected = tagCategory.isSelected();
-                    tagCategory.setSelected(!isSelected);
-                    notifyDataSetChanged();
                 }
+                boolean isSelected = tagCategory.isSelected();
+                tagCategory.setSelected(!isSelected);
+                notifyDataSetChanged();
             });
             itemView.setSelected(tagCategory.isSelected());
             titleTextView.setText(tagCategory.getTitle());
             iconImageView.setImageDrawable(context.getDrawable(getDrawableByTagCategory(tagCategory.getTitle())));
         }
 
+        //todo change the drawables when the backend implementation is done
         private int getDrawableByTagCategory(String category) {
             switch (category) {
-                case "Technical skill":
+                case "Technical Skill":
                     return R.drawable.ic_technical_tag_selector;
-                case "Soft":
+                case "Soft Skill":
                     return R.drawable.ic_technical_tag_selector;
                 case "Project":
+                    return R.drawable.ic_project_tag_selector;
+                case "Service":
                     return R.drawable.ic_technical_tag_selector;
+                case "Training":
+                    return R.drawable.ic_soft_tag_selector;
+                case "Conference":
+                    return R.drawable.ic_soft_tag_selector;
                 default:
                     return R.drawable.ic_technical_tag_selector;
             }

@@ -265,6 +265,17 @@
     <dimen name="scroll_view_top_margin">20dp</dimen>
 
     <dimen name="suggest_tag_category_container_size">100dp</dimen>
-    <dimen name="suggest_dialog_margin_start">16dp</dimen>
-    <dimen name="suggest_dialog_margin_end">16dp</dimen>
+    <dimen name="suggest_dialog_input_margins">16dp</dimen>
+    <dimen name="suggest_dialog_corner_radius">25dp</dimen>
+    <dimen name="suggest_tag_button_radius">22dp</dimen>
+    <dimen name="suggest_dialog_title_text_size">16sp</dimen>
+    <dimen name="suggest_dialog_title_padding">8dp</dimen>
+    <dimen name="suggest_dialog_description_padding">16dp</dimen>
+    <dimen name="suggest_dialog_description_text_size">14sp</dimen>
+    <dimen name="suggest_dialog_tag_group_start_margin">16dp</dimen>
+    <dimen name="suggest_dialog_tag_group_top_margin">24dp</dimen>
+    <dimen name="suggest_dialog_divider_top_margin">24dp</dimen>
+    <dimen name="suggest_dialog_button_horizontal_margins">16dp</dimen>
+    <dimen name="suggest_dialog_button_vertical_margins">24dp</dimen>
+    <dimen name="suggest_dialog_recycler_margins">16dp</dimen>
 </resources>

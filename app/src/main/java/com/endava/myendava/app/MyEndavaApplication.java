@@ -34,6 +34,7 @@ import com.endava.myendava.fragments.FaqFragment;
 import com.endava.myendava.fragments.FilteredTagsFragment;
 import com.endava.myendava.fragments.GuestInfoFragment;
 import com.endava.myendava.fragments.ProfileFragment;
+import com.endava.myendava.fragments.SuggestDialogFragment;
 import com.endava.myendava.fragments.TagsFragment;
 import com.facebook.stetho.Stetho;
 
@@ -157,6 +158,13 @@ public class MyEndavaApplication extends Application implements ApplicationServi
 
     @Override
     public TagsComponent getTagsComponent(FilteredTagsFragment fragment) {
+        return mTagsComponentProvider.get()
+                .tagsBuilder(new TagsModule(fragment))
+                .build();
+    }
+
+    @Override
+    public TagsComponent getTagsComponent(SuggestDialogFragment fragment) {
         return mTagsComponentProvider.get()
                 .tagsBuilder(new TagsModule(fragment))
                 .build();

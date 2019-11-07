@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.endava.myendava.models.AddTagRequest;
+import com.endava.myendava.models.SuggestTagRequest;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.repositories.TagsRepository;
@@ -29,7 +30,8 @@ public class TagsViewModel extends ViewModel {
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsTagAdded = new MutableLiveData<>();
-    private MutableLiveData<List<TagCategory>> tagCategoriesLiveData = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsTagSuggested = new MutableLiveData<>();
+    private MutableLiveData<List<TagCategory>> tagCategoriesLiveData;
     private boolean areAllTags;
 
     @Inject
@@ -53,6 +55,24 @@ public class TagsViewModel extends ViewModel {
 
     private void onTagAdded() {
         mIsTagAdded.setValue(true);
+    }
+
+    public LiveData<Boolean> suggestTag(SuggestTagRequest suggestTagRequest) {
+        submitTag(suggestTagRequest);
+        return mIsTagSuggested;
+    }
+
+    private void submitTag(SuggestTagRequest suggestTagRequest) {
+        mIsUpdating.setValue(true);
+        mIsTagAdded.setValue(false);
+        mCompositeDisposable.add(tagsRepository.suggestTag(suggestTagRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onTagSuggested));
+    }
+
+    private void onTagSuggested() {
+        mIsTagSuggested.setValue(true);
     }
 
     public LiveData<List<Tag>> getTags() {
@@ -119,16 +139,13 @@ public class TagsViewModel extends ViewModel {
         mError.setValue(null);
     }
 
-    @Override
-    public void onCleared() {
-        mCompositeDisposable.dispose();
-    }
-
-    public MutableLiveData<List<TagCategory>> getTagCategoriesLiveData() {
+    public LiveData<List<TagCategory>> getTagCategoriesLiveData() {
+        tagCategoriesLiveData = new MutableLiveData<>();
+        fetchTagCategories();
         return tagCategoriesLiveData;
     }
 
-    public void fetchTagCategories() {
+    private void fetchTagCategories() {
         Disposable observable = tagsRepository.getAllTagCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -136,5 +153,10 @@ public class TagsViewModel extends ViewModel {
                     tagCategoriesLiveData.setValue(tagCategories);
                 });
         mCompositeDisposable.add(observable);
+    }
+
+    @Override
+    public void onCleared() {
+        mCompositeDisposable.dispose();
     }
 }
