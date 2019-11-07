@@ -2,6 +2,7 @@ package com.endava.myendava.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.endava.myendava.R;
 import com.endava.myendava.adapters.ChipsAdapter;
-import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.listeners.OnChipClickedListener;
 import com.endava.myendava.listeners.OnProfileEditedListener;
 import com.endava.myendava.models.Profile;
@@ -81,13 +81,6 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     }
 
     @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, parent, false);
-        setupModule();
-        return view;
-    }
-
-    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
@@ -120,8 +113,13 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
         mRecyclerView.setAdapter(adapter);
     }
 
-    private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_profile;
+    }
+
+    @Override
+    public void setupModule() {
         locator.getProfileComponent(this).inject(this);
     }
 

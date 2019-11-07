@@ -16,8 +16,8 @@
         android:id="@+id/logo"
         android:layout_width="@dimen/sign_in_logo_width"
         android:layout_height="@dimen/sign_in_logo_height"
-        android:layout_marginLeft="@dimen/sign_in_logo_margin_left"
-        android:layout_marginRight="@dimen/sign_in_logo_margin_right"
+        android:layout_marginStart="@dimen/sign_in_logo_margin_left"
+        android:layout_marginEnd="@dimen/sign_in_logo_margin_right"
         android:layout_marginBottom="@dimen/sign_in_logo_margin_bottom"
         android:contentDescription="@string/sign_in_logo"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -102,7 +102,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/password_container" />
 
-
         <Button
             android:id="@+id/sign_in_as_guest_button"
             style="@style/SignInTextStyle"
@@ -128,7 +127,7 @@
             style="@style/SignInButtonStyle"
             android:layout_width="@dimen/sign_in_button_width"
             android:layout_height="@dimen/sign_in_button_height"
-            android:layout_marginLeft="@dimen/signin_margin_left"
+            android:layout_marginStart="@dimen/signin_margin_left"
             android:layout_marginTop="@dimen/login_buttons_margin_top"
             android:drawableEnd="@drawable/ic_arrow_forward_white_24dp"
             android:drawableTint="@color/white"

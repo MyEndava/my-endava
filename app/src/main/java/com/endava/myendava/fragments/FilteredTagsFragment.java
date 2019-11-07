@@ -2,10 +2,7 @@ package com.endava.myendava.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -17,11 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
 import com.endava.myendava.adapters.TagsAdapter;
-import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.models.AddTagRequest;
 import com.endava.myendava.models.Tag;
-import com.endava.myendava.rest.RetrofitClient;
-import com.endava.myendava.rest.RetrofitServiceApi;
 import com.endava.myendava.utils.MySharedPreferences;
 import com.endava.myendava.viewmodels.TagsViewModel;
 
@@ -33,9 +27,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 public class FilteredTagsFragment extends BaseFragment implements TagsAdapter.OnTagClickListener {
 
@@ -56,13 +47,7 @@ public class FilteredTagsFragment extends BaseFragment implements TagsAdapter.On
     private OnFilteredTagsFragmentInteractionListener listener;
 
     public FilteredTagsFragment() {
-    }
-
-    @Override
-    public View provideFragmentView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_filtered_tags, parent, false);
-        setupModule();
-        return view;
+        // required empty constructor
     }
 
     @Override
@@ -95,8 +80,13 @@ public class FilteredTagsFragment extends BaseFragment implements TagsAdapter.On
         recyclerView.setAdapter(mAdapter);
     }
 
-    private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_filtered_tags;
+    }
+
+    @Override
+    public void setupModule() {
         locator.getTagsComponent(this).inject(this);
     }
 

@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.endava.myendava.models.AddTagRequest;
+import com.endava.myendava.models.SuggestTagRequest;
 import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.repositories.TagsRepository;
 
 import java.util.List;
@@ -22,17 +24,19 @@ import io.reactivex.schedulers.Schedulers;
 public class TagsViewModel extends ViewModel {
 
     private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
-    private final TagsRepository mRepo;
+    private final TagsRepository tagsRepository;
     private MutableLiveData<List<Tag>> mTags;
     private MutableLiveData<List<Tag>> mFilteredTags;
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsTagAdded = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsTagSuggested = new MutableLiveData<>();
+    private MutableLiveData<List<TagCategory>> tagCategoriesLiveData;
     private boolean areAllTags;
 
     @Inject
     public TagsViewModel(TagsRepository tagsRepository) {
-        mRepo = tagsRepository;
+        this.tagsRepository = tagsRepository;
     }
 
     public LiveData<Boolean> addTag(AddTagRequest addTagRequest) {
@@ -40,10 +44,10 @@ public class TagsViewModel extends ViewModel {
         return mIsTagAdded;
     }
 
-    private void insertTag(AddTagRequest addTagRequest){
+    private void insertTag(AddTagRequest addTagRequest) {
         mIsUpdating.setValue(true);
         mIsTagAdded.setValue(false);
-        mCompositeDisposable.add(mRepo.addTagToProfile(addTagRequest)
+        mCompositeDisposable.add(tagsRepository.addTagToProfile(addTagRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onTagAdded));
@@ -53,8 +57,26 @@ public class TagsViewModel extends ViewModel {
         mIsTagAdded.setValue(true);
     }
 
+    public LiveData<Boolean> suggestTag(SuggestTagRequest suggestTagRequest) {
+        submitTag(suggestTagRequest);
+        return mIsTagSuggested;
+    }
+
+    private void submitTag(SuggestTagRequest suggestTagRequest) {
+        mIsUpdating.setValue(true);
+        mIsTagAdded.setValue(false);
+        mCompositeDisposable.add(tagsRepository.suggestTag(suggestTagRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onTagSuggested));
+    }
+
+    private void onTagSuggested() {
+        mIsTagSuggested.setValue(true);
+    }
+
     public LiveData<List<Tag>> getTags() {
-        if(mTags == null){
+        if (mTags == null) {
             mTags = new MutableLiveData<>();
             loadTagsData();
         }
@@ -65,7 +87,7 @@ public class TagsViewModel extends ViewModel {
         areAllTags = true;
         mIsUpdating.setValue(true);
 
-        Disposable observable = mRepo.getTags()
+        Disposable observable = tagsRepository.getTags()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccess,
@@ -74,7 +96,7 @@ public class TagsViewModel extends ViewModel {
     }
 
     public LiveData<List<Tag>> getFilteredTags(String email) {
-        if(mFilteredTags == null){
+        if (mFilteredTags == null) {
             mFilteredTags = new MutableLiveData<>();
             loadFilteredTagsData(email);
         }
@@ -85,7 +107,7 @@ public class TagsViewModel extends ViewModel {
         areAllTags = false;
         mIsUpdating.setValue(true);
 
-        Disposable observable = mRepo.getFilteredTags(email)
+        Disposable observable = tagsRepository.getFilteredTags(email)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::handleSuccess,
@@ -108,13 +130,29 @@ public class TagsViewModel extends ViewModel {
     }
 
     private void handleSuccess(List<Tag> faqs) {
-        if(areAllTags){
+        if (areAllTags) {
             mTags.setValue(faqs);
         } else {
             mFilteredTags.setValue(faqs);
         }
         mIsUpdating.setValue(false);
         mError.setValue(null);
+    }
+
+    public LiveData<List<TagCategory>> getTagCategoriesLiveData() {
+        tagCategoriesLiveData = new MutableLiveData<>();
+        fetchTagCategories();
+        return tagCategoriesLiveData;
+    }
+
+    private void fetchTagCategories() {
+        Disposable observable = tagsRepository.getAllTagCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(tagCategories -> {
+                    tagCategoriesLiveData.setValue(tagCategories);
+                });
+        mCompositeDisposable.add(observable);
     }
 
     @Override

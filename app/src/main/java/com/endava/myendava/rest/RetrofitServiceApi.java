@@ -7,7 +7,9 @@ import com.endava.myendava.models.Profile;
 import com.endava.myendava.models.Project;
 import com.endava.myendava.models.RemoveTagRequest;
 import com.endava.myendava.models.RemoveTagResponse;
+import com.endava.myendava.models.SuggestTagRequest;
 import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.models.User;
 
 import java.util.List;
@@ -50,4 +52,11 @@ public interface RetrofitServiceApi {
 
     @GET("faq/getAll")
     Observable<List<Faq>> getAllFaqs();
+
+    @GET("tag/category/getAll")
+    Observable<List<TagCategory>> getAllTagCategories();
+
+    @POST("tag/suggest")
+    @Headers("Content-Type: application/json")
+    Completable suggestTag(@Body SuggestTagRequest request);
 }
