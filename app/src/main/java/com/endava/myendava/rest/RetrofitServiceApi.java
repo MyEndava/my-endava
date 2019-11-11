@@ -4,12 +4,13 @@ import com.endava.myendava.models.AddTagRequest;
 import com.endava.myendava.models.Faq;
 import com.endava.myendava.models.LoginResult;
 import com.endava.myendava.models.Profile;
+import com.endava.myendava.models.UpdateProfileRequest;
 import com.endava.myendava.models.Project;
 import com.endava.myendava.models.RemoveTagRequest;
-import com.endava.myendava.models.RemoveTagResponse;
 import com.endava.myendava.models.SuggestTagRequest;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.TagCategory;
+import com.endava.myendava.models.TagSubCategory;
 import com.endava.myendava.models.User;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public interface RetrofitServiceApi {
 
     @POST("user/removeTag")
     @Headers("Content-Type: application/json")
-    Observable<RemoveTagResponse> removeTagFromProfile(@Body RemoveTagRequest request);
+    Completable removeTagFromProfile(@Body RemoveTagRequest request);
 
     @GET("faq/getAll")
     Observable<List<Faq>> getAllFaqs();
@@ -56,7 +57,14 @@ public interface RetrofitServiceApi {
     @GET("tag/category/getAll")
     Observable<List<TagCategory>> getAllTagCategories();
 
+    @GET("tag/subcategory/getAll")
+    Observable<List<TagSubCategory>> getAllTagSubCategories();
+
     @POST("tag/suggest")
     @Headers("Content-Type: application/json")
     Completable suggestTag(@Body SuggestTagRequest request);
+
+    @POST("user/profile/edit")
+    @Headers("Content-Type: application/json")
+    Completable updateProfile(@Body UpdateProfileRequest request);
 }

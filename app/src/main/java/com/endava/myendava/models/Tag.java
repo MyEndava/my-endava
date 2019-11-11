@@ -23,6 +23,10 @@ public class Tag implements Serializable {
     @Expose
     private Integer tagId;
 
+    @SerializedName("user_tag_id")
+    @Expose
+    private Integer userTagId;
+
     @SerializedName("tag_name")
     @Expose
     private String tagName;
@@ -35,12 +39,13 @@ public class Tag implements Serializable {
 
     }
 
-    public Tag(String category, String subcategory, String tagData, Integer tagId, String tagName,
-               String tagDescription) {
+    public Tag(String category, String subcategory, String tagData, Integer tagId, Integer userTagId,
+               String tagName, String tagDescription) {
         this.category = category;
         this.subcategory = subcategory;
         this.tagData = tagData;
         this.tagId = tagId;
+        this.userTagId = userTagId;
         this.tagName = tagName;
         this.tagDescription = tagDescription;
     }
@@ -77,6 +82,14 @@ public class Tag implements Serializable {
         this.tagId = tagId;
     }
 
+    public Integer getUserTagId() {
+        return userTagId;
+    }
+
+    public void setUserTagId(Integer userTagId) {
+        this.userTagId = userTagId;
+    }
+
     public String getTagName() {
         return tagName;
     }
@@ -99,7 +112,8 @@ public class Tag implements Serializable {
                 "category='" + category + '\'' +
                 ", subcategory='" + subcategory + '\'' +
                 ", tagData='" + tagData + '\'' +
-                ", tagId=" + tagId +
+                ", tagId=" + tagId + '\'' +
+                ", userTagId=" + userTagId + '\'' +
                 ", tagName='" + tagName + '\'' +
                 ", tagDescription='" + tagDescription + '\'' +
                 '}';

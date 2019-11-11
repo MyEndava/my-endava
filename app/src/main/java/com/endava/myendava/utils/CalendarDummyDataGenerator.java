@@ -33,17 +33,17 @@ public class CalendarDummyDataGenerator {
 
     private List<List<Event>> getEventList() {
         List<Tag> androidTag = new ArrayList<>(Arrays.asList(new Tag("1", "1",
-                "", 2, "Android", "Android is a mobile operating system developed by Google. It is based on a modified version of the Linux kernel and other open source software, and is designed primarily for touchscreen mobile devices such as smartphones and tablets.")));
+                "", 2, 5, "Android", "Android is a mobile operating system developed by Google. It is based on a modified version of the Linux kernel and other open source software, and is designed primarily for touchscreen mobile devices such as smartphones and tablets.")));
         List<Tag> iosTag = new ArrayList<>(Arrays.asList(new Tag("1", "1",
-                "", 27, "iOS", "iOS is a mobile operating system created and developed by Apple Inc. exclusively for its hardware. It is the operating system that presently powers many of the company's mobile devices, including the iPhone, and iPod Touch.")));
+                "", 27, 5, "iOS", "iOS is a mobile operating system created and developed by Apple Inc. exclusively for its hardware. It is the operating system that presently powers many of the company's mobile devices, including the iPhone, and iPod Touch.")));
         List<Tag> careerCouchTag = new ArrayList<>(Arrays.asList(new Tag("1", "2",
-                "", 16, "Career Coach", "Random Career Coach Description")));
+                "", 16, 5, "Career Coach", "Random Career Coach Description")));
         List<Tag> benchTag = new ArrayList<>(Arrays.asList(new Tag("3", "5",
-                "", 33, "Bench", "Random Bench Description")));
+                "", 33, 5, "Bench", "Random Bench Description")));
         List<Tag> javaTag = new ArrayList<>(Arrays.asList(new Tag("1", "1",
-                "", 31, "Java", "Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.")));
+                "", 31, 5, "Java", "Java is a general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.")));
         List<Tag> phpTag = new ArrayList<>(Arrays.asList(new Tag("1", "1",
-                "", 32, "PHP", "Random php Description")));
+                "", 32, 5, "PHP", "Random php Description")));
 
         Event event1 = new Event("Swift Fundamentals", "3h", iosTag, 47, 60, "Training");
         Event event2 = new Event("Android Developer Fundamentals", "3h", androidTag, 66, 70, "Training");

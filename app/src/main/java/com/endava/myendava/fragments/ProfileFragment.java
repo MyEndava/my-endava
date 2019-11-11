@@ -2,10 +2,7 @@ package com.endava.myendava.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +18,9 @@ import com.endava.myendava.adapters.ChipsAdapter;
 import com.endava.myendava.listeners.OnChipClickedListener;
 import com.endava.myendava.listeners.OnProfileEditedListener;
 import com.endava.myendava.models.Profile;
+import com.endava.myendava.models.RemoveTagRequest;
 import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.UpdateProfileRequest;
 import com.endava.myendava.rest.RetrofitClient;
 import com.endava.myendava.utils.EmailType;
 import com.endava.myendava.utils.MySharedPreferences;
@@ -30,7 +29,6 @@ import com.endava.myendava.viewmodels.ProfileViewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -44,28 +42,30 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     @Inject
     MySharedPreferences mSharedPreferences;
     @Inject
-    ProfileViewModel mProfileViewModel;
+    ProfileViewModel profileViewModel;
+
     @BindView(R.id.progress_bar)
-    ProgressBar mProgressBar;
+    ProgressBar progressBar;
     @BindView(R.id.name_text_view)
-    TextView mNameTextView;
+    TextView nameTextView;
     @BindView(R.id.grade_text_view)
-    TextView mGradeTextView;
+    TextView gradeTextView;
     @BindView(R.id.location_text_view)
-    TextView mLocationTextView;
+    TextView locationTextView;
     @BindView(R.id.email_text_view)
-    TextView mEmailTextView;
+    TextView emailTextView;
     @BindView(R.id.profile_picture_image_view)
-    CircleImageView mPhotoImageView;
+    CircleImageView photoImageView;
     @BindView(R.id.tags_recycler_view)
-    RecyclerView mRecyclerView;
+    RecyclerView tagsRecycler;
 
     private static final String ARG_EMAIL = "arg_email";
     private static final String ARG_IS_USER_PROFILE = "arg_is_user_profile";
 
     private OnProfileFragmentInteractionListener listener;
     private ChipsAdapter adapter;
-    private Unbinder mUnbinder;
+    private Unbinder unbinder;
+    private boolean isProfileEditable = false;
 
     public ProfileFragment() {
         // required empty constructor
@@ -89,28 +89,32 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mUnbinder = ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
         setViews();
 
-        mProfileViewModel.getProfile(getCurrentEmail()).observe(this, this::populateViews);
+        profileViewModel.getProfile(getCurrentEmail()).observe(this, this::populateViews);
 
-        mProfileViewModel.tagRemoved().observe(this, message -> Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show());
+        profileViewModel.getTagSubCategoriesLiveData().observe(this,
+                tagSubCategories -> adapter.setData(tagSubCategories));
 
-        mProfileViewModel.isUpdating().observe(this, aBoolean -> {
+        profileViewModel.isUpdating().observe(this, aBoolean -> {
             if (aBoolean) {
-                showProgressBar(mProgressBar);
+                showProgressBar(progressBar);
             } else {
-                hideProgressBar(mProgressBar);
+                hideProgressBar(progressBar);
             }
         });
-        mProfileViewModel.getError().observe(this, this::displayError);
+
+        profileViewModel.getError().observe(this, this::displayError);
     }
 
     private void setViews() {
-        mRecyclerView.setHasFixedSize(true);
+        tagsRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setAdapter(adapter);
+        tagsRecycler.setLayoutManager(layoutManager);
+        adapter = new ChipsAdapter(getContext(), mSharedPreferences.getUserEmail(), isProfileEditable,
+                new Profile(), new HashMap<>(), this, this);
+        tagsRecycler.setAdapter(adapter);
     }
 
     @Override
@@ -134,34 +138,14 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     }
 
     private void populateViews(Profile profile) {
-        mNameTextView.setText(profile.getFirstname() + " " + profile.getLastName());
-        mGradeTextView.setText(profile.getGrade());
-        mEmailTextView.setText(profile.getEmail());
-        mLocationTextView.setText(profile.getLocation());
+        nameTextView.setText(profile.getFirstname() + " " + profile.getLastName());
+        gradeTextView.setText(profile.getGrade());
+        emailTextView.setText(profile.getEmail());
+        locationTextView.setText(profile.getLocation());
         String url = RetrofitClient.TEST_URL + profile.getImageUrl();
         Glide.with(getContext()).load(url)
-                .into(mPhotoImageView);
-        adapter = new ChipsAdapter(getContext(), mSharedPreferences.getUserEmail(), false, profile, toTagsMap(profile.getTags()), this, this);
-        mRecyclerView.setAdapter(adapter);
-    }
-
-    private Map<String, List<Tag>> toTagsMap(List<Tag> tags) {
-        Map<String, List<Tag>> tagsMap = new HashMap<>();
-        for (Tag tag : tags) {
-            addTagToMap(tagsMap, tag.getSubcategory(), tag);
-        }
-        return tagsMap;
-    }
-
-    private void addTagToMap(Map<String, List<Tag>> tagsMap, String key, Tag tag) {
-        List<Tag> tags;
-        if (tagsMap.containsKey(key)) {
-            tags = tagsMap.get(key);
-        } else {
-            tags = new ArrayList<>();
-        }
-        tags.add(tag);
-        tagsMap.put(key, tags);
+                .into(photoImageView);
+        adapter.setData(profile);
     }
 
     @Override
@@ -188,14 +172,34 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     }
 
     @Override
-    public void onEditClicked(boolean isEditable) {
-        mLocationTextView.setEnabled(isEditable);
-        mEmailTextView.setEnabled(isEditable);
+    public void onEditClicked(boolean isEditable, String description) {
+        if (!isEditable) {
+            updateProfile(description);
+        }
+    }
+
+    private void updateProfile(String newDescription) {
+        profileViewModel.updateProfile(new UpdateProfileRequest(getCurrentEmail(), newDescription))
+                .observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.profile_update_success), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.profile_update_error), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
-    public void onTagRemoved(Tag tag) {
-        mProfileViewModel.removeTag(tag);
+    public void onTagRemove(Tag tag) {
+        profileViewModel.removeTag(new RemoveTagRequest(tag.getUserTagId())).observe(this, aBoolean -> {
+            if (aBoolean) {
+                Toast.makeText(getActivity(), getResources().getString(R.string.tag_remove_success), Toast.LENGTH_SHORT).show();
+                profileViewModel.loadData(getCurrentEmail());
+                isProfileEditable = true;
+            } else {
+                Toast.makeText(getActivity(), getResources().getString(R.string.tag_remove_error), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public interface OnProfileFragmentInteractionListener {
@@ -206,7 +210,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mUnbinder.unbind();
-        mProfileViewModel.onCleared();
+        unbinder.unbind();
+        profileViewModel.onCleared();
     }
 }

@@ -4,7 +4,7 @@ import com.endava.myendava.models.Tag;
 
 public interface OnProfileEditedListener {
 
-    void onEditClicked(boolean isEditable);
+    void onEditClicked(boolean isEditable, String description);
 
-    void onTagRemoved(Tag tag);
+    void onTagRemove(Tag tag);
 }
