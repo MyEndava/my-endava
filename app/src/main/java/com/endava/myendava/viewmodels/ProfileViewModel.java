@@ -7,12 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.endava.myendava.models.Profile;
+import com.endava.myendava.models.UpdateProfileRequest;
 import com.endava.myendava.models.RemoveTagRequest;
-import com.endava.myendava.models.RemoveTagResponse;
-import com.endava.myendava.models.Tag;
+import com.endava.myendava.models.TagSubCategory;
 import com.endava.myendava.repositories.ProfileRepository;
 import com.endava.myendava.repositories.TagsRepository;
-import com.endava.myendava.utils.MySharedPreferences;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,14 +30,12 @@ public class ProfileViewModel extends ViewModel {
     private MutableLiveData<Profile> mProfile;
     private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
     private MutableLiveData<String> mError = new MutableLiveData<>();
-    private MutableLiveData<String> mIsTagRemoved = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsTagRemoved = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsProfileUpdated = new MutableLiveData<>();
+    private MutableLiveData<List<TagSubCategory>> tagSubCategoriesLiveData;
 
     @Inject
-    MySharedPreferences mSharedPreferences;
-
-    @Inject
-    public ProfileViewModel(ProfileRepository profileRepository,
-                            TagsRepository tagsRepository) {
+    public ProfileViewModel(ProfileRepository profileRepository, TagsRepository tagsRepository) {
         this.profileRepository = profileRepository;
         this.tagsRepository = tagsRepository;
     }
@@ -47,29 +46,6 @@ public class ProfileViewModel extends ViewModel {
             loadData(email);
         }
         return mProfile;
-    }
-
-    private void onTagRemoved(RemoveTagResponse response) {
-        if (response.success) {
-            mIsTagRemoved.setValue("Tag removed successfully");
-            loadData(mSharedPreferences.getUserEmail());
-        } else {
-            mIsTagRemoved.setValue("Sorry, an error occurred, try again later!");
-        }
-    }
-
-    public LiveData<String> tagRemoved() {
-        return mIsTagRemoved;
-    }
-
-    private void onTagRemoveError(Throwable throwable) {
-    }
-
-    public void removeTag(Tag tag) {
-        mCompositeDisposable.add(tagsRepository.removeTagFromProfile(new RemoveTagRequest(tag.getTagId()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onTagRemoved, this::onTagRemoveError));
     }
 
     public void loadData(String email) {
@@ -83,15 +59,90 @@ public class ProfileViewModel extends ViewModel {
     }
 
     private void handleError(Throwable throwable) {
-        Log.d(getClass().getSimpleName(), throwable.getLocalizedMessage());
         mIsUpdating.setValue(false);
         mError.setValue(throwable.getLocalizedMessage());
+        Log.e(getClass().getSimpleName(), throwable.getLocalizedMessage());
     }
 
     private void handleSuccess(Profile profile) {
         mProfile.setValue(profile);
         mIsUpdating.setValue(false);
         mError.setValue(null);
+    }
+
+    public LiveData<Boolean> removeTag(RemoveTagRequest removeTagRequest) {
+        eraseTag(removeTagRequest);
+        return mIsTagRemoved;
+    }
+
+    private void eraseTag(RemoveTagRequest removeTagRequest) {
+        mIsUpdating.setValue(true);
+        mCompositeDisposable.add(tagsRepository.removeTag(removeTagRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onTagRemoveSuccess, this::onTagRemoveError));
+    }
+
+    private void onTagRemoveError(Throwable throwable) {
+        mIsUpdating.setValue(false);
+        mIsTagRemoved.setValue(false);
+        Log.e(getClass().getSimpleName(), throwable.getLocalizedMessage());
+    }
+
+    private void onTagRemoveSuccess() {
+        mIsUpdating.setValue(false);
+        mIsTagRemoved.setValue(true);
+    }
+
+    public LiveData<Boolean> updateProfile(UpdateProfileRequest updateProfileRequest) {
+        renewProfile(updateProfileRequest);
+        return mIsProfileUpdated;
+    }
+
+    private void renewProfile(UpdateProfileRequest updateProfileRequest) {
+        mIsUpdating.setValue(true);
+        mCompositeDisposable.add(profileRepository.updateProfile(updateProfileRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onProfileUpdatedSuccessfully, this::onProfileUpdatedError));
+    }
+
+    private void onProfileUpdatedError(Throwable throwable) {
+        mIsUpdating.setValue(false);
+        mIsProfileUpdated.setValue(false);
+        Log.e(getClass().getSimpleName(), throwable.getLocalizedMessage());
+    }
+
+    private void onProfileUpdatedSuccessfully() {
+        mIsUpdating.setValue(false);
+        mIsProfileUpdated.setValue(true);
+    }
+
+    public LiveData<List<TagSubCategory>> getTagSubCategoriesLiveData() {
+        tagSubCategoriesLiveData = new MutableLiveData<>();
+        fetchTagSubCategories();
+        return tagSubCategoriesLiveData;
+    }
+
+    private void fetchTagSubCategories() {
+        mIsUpdating.setValue(true);
+        Disposable observable = tagsRepository.getAllTagSubCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::subCategoriesFetchSuccess, this::tagSubcategoriesFetchError);
+        mCompositeDisposable.add(observable);
+    }
+
+    private void subCategoriesFetchSuccess(List<TagSubCategory> tagSubCategories) {
+        tagSubCategoriesLiveData.setValue(tagSubCategories);
+        mIsUpdating.setValue(false);
+        mError.setValue(null);
+    }
+
+    private void tagSubcategoriesFetchError(Throwable throwable) {
+        mIsUpdating.setValue(false);
+        mError.setValue(throwable.getLocalizedMessage());
+        Log.e(getClass().getSimpleName(), throwable.getLocalizedMessage());
     }
 
     public LiveData<Boolean> isUpdating() {

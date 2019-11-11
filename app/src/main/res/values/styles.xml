@@ -65,13 +65,15 @@
         <item name="colorControlHighlight">@color/secondary</item>
     </style>
 
-    <style name="AlertDialogRemoveTag" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
-        <item name="android:textColor">@color/primary</item>
+    <style name="AppTheme.AlertDialogRemoveTag" parent="Theme.MaterialComponents.Dialog">
+        <item name="colorAccent">@color/primary</item>
+        <item name="android:textColorPrimary">@color/other_info_color</item>
         <item name="android:typeface">normal</item>
         <item name="android:fontFamily">roboto-bold</item>
         <item name="android:background">@color/white</item>
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textSize">12sp</item>
+        <item name="android:windowBackground">@drawable/confirmation_dialog_background</item>
     </style>
 
     <style name="TagCategoryContainerStyle">

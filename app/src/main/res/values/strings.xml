@@ -56,6 +56,8 @@
     <string name="filter_button_text">Filters</string>
     <string name="multiple_search">MULTIPLE SEARCH</string>
     <string name="show_people">SHOW PEOPLE</string>
+    <string name="tag_remove_success">Tag successfully removed</string>
+    <string name="tag_remove_error">There has been an error while removing the tag</string>
 
     <!--    calendar screen-->
     <string name="calendar_switch_text">MY EVENTS</string>
@@ -78,4 +80,8 @@
     <string name="tag_suggestion_success">Tag successfully submitted</string>
     <string name="tag_suggestion_error">There has been an error while submitting the suggestion</string>
     <string name="please_fill_all_the_fields">Please choose a category and fill all the fields in order to submit a tag</string>
+    <string name="tag_group_placeholder">Press the add button in order to add tags</string>
+
+    <string name="profile_update_success">Profile successfully updated</string>
+    <string name="profile_update_error">There has been an error while updating the profile</string>
 </resources>

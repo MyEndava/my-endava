@@ -100,7 +100,7 @@
                 android:layout_marginLeft="@dimen/profile_screen_other_info_margin"
                 android:layout_marginTop="@dimen/user_screen_tag_recycle_view_margin_top"
                 android:layout_marginRight="@dimen/profile_screen_other_info_margin"
-                android:background="@drawable/about_me_shape"
+                android:background="@drawable/white_tag_group_shape"
                 android:paddingLeft="@dimen/user_screen_padding_item_user"
                 android:paddingTop="@dimen/user_screen_padding_item_user"
                 android:paddingRight="@dimen/user_screen_padding_item_user"

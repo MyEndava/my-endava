@@ -23,8 +23,8 @@ public class TagColorManager {
         }
     }
 
-    public static int getTextChipColor(String tagGroup) {
-        switch (tagGroup) {
+    public static int getChipTextColor(String tagSubCategory) {
+        switch (tagSubCategory) {
             case "Technical":
                 return R.color.technical_text_color;
             case "Soft":
@@ -35,13 +35,15 @@ public class TagColorManager {
                 return R.color.colorPrimary;
             case "Project":
                 return R.color.white;
+            case "Logistics":
+                return R.color.white;
             default:
-                return R.color.colorPrimary;
+                return R.color.white;
         }
     }
 
-    public static int getBackgroundColor(String tagGroup) {
-        switch (tagGroup) {
+    public static int getChipBackgroundColor(String tagSubCategory) {
+        switch (tagSubCategory) {
             case "Technical":
                 return R.color.white;
             case "Soft":
@@ -52,10 +54,13 @@ public class TagColorManager {
                 return R.color.contact_tags;
             case "Project":
                 return R.color.colorPrimary;
+            case "Logistics":
+                return R.color.colorPrimaryDark;
             default:
                 return R.color.colorPrimaryDark;
         }
     }
+
     public static int getBackgroundColorProject(String subcategory) {
         switch (subcategory) {
             case "Technical":
@@ -70,6 +75,21 @@ public class TagColorManager {
                 return R.color.colorPrimary;
             default:
                 return R.color.colorPrimaryDark;
+        }
+    }
+
+    public static int getTagGroupBackgroundColor(String subcategory) {
+        switch (subcategory){
+            case "Technical":
+                return R.drawable.orange_tag_group_shape;
+            case "Soft":
+                return R.drawable.blue_tag_group_shape;
+            case "Project":
+                return R.drawable.white_tag_group_shape;
+            case "Logistics":
+                return R.drawable.white_tag_group_shape;
+            default:
+                return R.drawable.white_tag_group_shape;
         }
     }
 }

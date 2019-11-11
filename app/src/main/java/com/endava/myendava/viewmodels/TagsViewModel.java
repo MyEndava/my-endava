@@ -72,6 +72,7 @@ public class TagsViewModel extends ViewModel {
     }
 
     private void onTagSuggested() {
+        mIsUpdating.setValue(false);
         mIsTagSuggested.setValue(true);
     }
 
@@ -149,9 +150,7 @@ public class TagsViewModel extends ViewModel {
         Disposable observable = tagsRepository.getAllTagCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(tagCategories -> {
-                    tagCategoriesLiveData.setValue(tagCategories);
-                });
+                .subscribe(tagCategories -> tagCategoriesLiveData.setValue(tagCategories));
         mCompositeDisposable.add(observable);
     }
 
