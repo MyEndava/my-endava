@@ -17,6 +17,7 @@ import com.endava.myendava.R;
 import com.endava.myendava.adapters.ChipsAdapter;
 import com.endava.myendava.listeners.OnChipClickedListener;
 import com.endava.myendava.listeners.OnProfileEditedListener;
+import com.endava.myendava.models.AddTagRequest;
 import com.endava.myendava.models.Profile;
 import com.endava.myendava.models.RemoveTagRequest;
 import com.endava.myendava.models.Tag;
@@ -37,7 +38,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ProfileFragment extends BaseFragment implements OnChipClickedListener, OnProfileEditedListener {
+public class ProfileFragment extends BaseFragment implements OnChipClickedListener,
+        OnProfileEditedListener, AddTagsDialogFragment.OnTagsAddedListener {
 
     @Inject
     MySharedPreferences mSharedPreferences;
@@ -62,7 +64,7 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     private static final String ARG_EMAIL = "arg_email";
     private static final String ARG_IS_USER_PROFILE = "arg_is_user_profile";
 
-    private OnProfileFragmentInteractionListener listener;
+    private OnProfileFragmentInteractionListener onProfileEditedListener;
     private ChipsAdapter adapter;
     private Unbinder unbinder;
     private boolean isProfileEditable = false;
@@ -152,22 +154,22 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnProfileFragmentInteractionListener) {
-            listener = (OnProfileFragmentInteractionListener) context;
+            onProfileEditedListener = (OnProfileFragmentInteractionListener) context;
         }
     }
 
     @Override
     public void onDetach() {
-        listener = null;
+        onProfileEditedListener = null;
         super.onDetach();
     }
 
     @Override
     public void onChipClicked(Tag tag) {
-        if (listener != null) {
+        if (onProfileEditedListener != null) {
             List<Tag> tagList = new ArrayList<>();
             tagList.add(tag);
-            listener.onTagsSearch(tagList, R.id.navigation_profile);
+            onProfileEditedListener.onTagsSearch(tagList, R.id.navigation_profile);
         }
     }
 
@@ -200,6 +202,47 @@ public class ProfileFragment extends BaseFragment implements OnChipClickedListen
                 Toast.makeText(getActivity(), getResources().getString(R.string.tag_remove_error), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onAddTag(String subcategory) {
+        profileViewModel.getFilteredTags(getCurrentEmail()).observe(this, tags -> {
+            filterTags(tags, subcategory);
+        });
+    }
+
+    private void filterTags(List<Tag> tags, String subcategory) {
+        List<Tag> filteredTags = new ArrayList<>();
+        for (Tag tag : tags) {
+            if (tag.getSubcategory().equals(subcategory)) {
+                filteredTags.add(tag);
+            }
+        }
+        displayAddTagDialog(filteredTags, subcategory);
+    }
+
+    private void displayAddTagDialog(List<Tag> tags, String subcategory) {
+        AddTagsDialogFragment.newInstance(new ArrayList<>(tags), subcategory, this)
+                .show(getActivity().getSupportFragmentManager(), AddTagsDialogFragment.TAG);
+    }
+
+    @Override
+    public void onTagsAdded(List<Tag> tags) {
+        for (Tag tag : tags) {
+            profileViewModel.addTag(new AddTagRequest(tag.getTagId(), 1,
+                    mSharedPreferences.getUserEmail())).observe(this, aBoolean -> {
+                if (aBoolean) {
+                    if (tags.size() == 1) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.tag_added_success), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.tags_added_success), Toast.LENGTH_SHORT).show();
+                    }
+                    profileViewModel.loadData(getCurrentEmail());
+                } else {
+                    Toast.makeText(getActivity(), getResources().getString(R.string.tags_added_error), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     public interface OnProfileFragmentInteractionListener {

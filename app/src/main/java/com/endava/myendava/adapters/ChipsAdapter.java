@@ -1,7 +1,6 @@
 package com.endava.myendava.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
-import com.endava.myendava.activities.FilteredTagsActivity;
 import com.endava.myendava.listeners.OnChipClickedListener;
 import com.endava.myendava.listeners.OnProfileEditedListener;
 import com.endava.myendava.models.Profile;
@@ -185,8 +183,7 @@ public class ChipsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     addTagTextView.setVisibility(View.GONE);
                 } else {
                     addTagTextView.setOnClickListener(view -> {
-                        Intent intent = new Intent(context, FilteredTagsActivity.class);
-                        context.startActivity(intent);
+                        onEditedListener.onAddTag(tagSubCategoryName);
                     });
                 }
             }

@@ -1,6 +1,5 @@
 package com.endava.myendava.fragments;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
 import com.endava.myendava.adapters.TagsAdapter;
+import com.endava.myendava.models.SuggestTagRequest;
 import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.TagCategory;
 import com.endava.myendava.utils.KeyboardHelper;
@@ -40,7 +41,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 
-public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClickListener {
+public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClickListener,
+        SuggestDialogFragment.OnTagSuggestedListener {
 
     @Inject
     TagsViewModel mTagsViewModel;
@@ -58,13 +60,10 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     @BindView(R.id.suggest_tag_button)
     FloatingActionButton mSuggestTagButton;
 
+    private boolean mIsMultiSearchClicked;
     private TagsAdapter mAdapter;
     private OnTagsFragmentInteractionListener listener;
-
     private Unbinder mUnbinder;
-
-    private boolean mIsMultiSearchClicked;
-
     private List<Tag> mSelectedTagsList;
     private List<Tag> mTagsList;
 
@@ -79,7 +78,6 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeStatusBarColor(R.color.secondary);
         setHasOptionsMenu(true);
     }
 
@@ -192,8 +190,8 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
         mTagsViewModel.getTagCategoriesLiveData().observe(this, this::displaySuggestTagDialog);
     }
 
-    private void displaySuggestTagDialog(List<TagCategory> tagCategories){
-        SuggestDialogFragment.newInstance(new ArrayList<>(tagCategories))
+    private void displaySuggestTagDialog(List<TagCategory> tagCategories) {
+        SuggestDialogFragment.newInstance(new ArrayList<>(tagCategories), this)
                 .show(getActivity().getSupportFragmentManager(), SuggestDialogFragment.TAG);
     }
 
@@ -252,6 +250,18 @@ public class TagsFragment extends BaseFragment implements TagsAdapter.OnTagClick
     @Override
     public boolean isMultiSearchClicked() {
         return mIsMultiSearchClicked;
+    }
+
+    @Override
+    public void onTagSuggested(SuggestTagRequest suggestedTag) {
+        mTagsViewModel.suggestTag(suggestedTag)
+                .observe(this, aBoolean -> {
+                    if (aBoolean) {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.tag_suggestion_success), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), getResources().getString(R.string.tag_suggestion_error), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public interface OnTagsFragmentInteractionListener {

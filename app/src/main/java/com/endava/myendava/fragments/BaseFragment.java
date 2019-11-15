@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -15,7 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.endava.myendava.app.ApplicationServiceLocator;
 
 
-public abstract class BaseFragment<T> extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     protected ApplicationServiceLocator locator;
 
@@ -34,12 +32,6 @@ public abstract class BaseFragment<T> extends Fragment {
     public abstract int getLayoutId();
 
     public abstract void setupModule();
-
-    void changeStatusBarColor(int colorId) {
-        Window window = getActivity().getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(colorId));
-    }
 
     void displayError(String error) {
         if (error != null) {

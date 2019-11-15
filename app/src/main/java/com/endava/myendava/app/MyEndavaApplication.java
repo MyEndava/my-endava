@@ -8,16 +8,6 @@ import com.endava.myendava.activities.SignInAsGuestActivity;
 import com.endava.myendava.activities.SplashActivity;
 import com.endava.myendava.activities.UsersActivity;
 import com.endava.myendava.di.DaggerMyEndavaApplicationComponent;
-import com.endava.myendava.di.fragments.CalendarComponent;
-import com.endava.myendava.di.fragments.CalendarModule;
-import com.endava.myendava.di.fragments.FaqComponent;
-import com.endava.myendava.di.fragments.FaqModule;
-import com.endava.myendava.di.fragments.GuestInfoComponent;
-import com.endava.myendava.di.fragments.GuestInfoModule;
-import com.endava.myendava.di.fragments.ProfileComponent;
-import com.endava.myendava.di.fragments.ProfileModule;
-import com.endava.myendava.di.fragments.TagsComponent;
-import com.endava.myendava.di.fragments.TagsModule;
 import com.endava.myendava.di.MyEndavaApplicationModule;
 import com.endava.myendava.di.activities.MainComponent;
 import com.endava.myendava.di.activities.MainModule;
@@ -29,12 +19,20 @@ import com.endava.myendava.di.activities.SplashComponent;
 import com.endava.myendava.di.activities.SplashModule;
 import com.endava.myendava.di.activities.UsersComponent;
 import com.endava.myendava.di.activities.UsersModule;
+import com.endava.myendava.di.fragments.CalendarComponent;
+import com.endava.myendava.di.fragments.CalendarModule;
+import com.endava.myendava.di.fragments.FaqComponent;
+import com.endava.myendava.di.fragments.FaqModule;
+import com.endava.myendava.di.fragments.GuestInfoComponent;
+import com.endava.myendava.di.fragments.GuestInfoModule;
+import com.endava.myendava.di.fragments.ProfileComponent;
+import com.endava.myendava.di.fragments.ProfileModule;
+import com.endava.myendava.di.fragments.TagsComponent;
+import com.endava.myendava.di.fragments.TagsModule;
 import com.endava.myendava.fragments.CalendarFragment;
 import com.endava.myendava.fragments.FaqFragment;
-import com.endava.myendava.fragments.FilteredTagsFragment;
 import com.endava.myendava.fragments.GuestInfoFragment;
 import com.endava.myendava.fragments.ProfileFragment;
-import com.endava.myendava.fragments.SuggestDialogFragment;
 import com.endava.myendava.fragments.TagsFragment;
 import com.facebook.stetho.Stetho;
 
@@ -151,20 +149,6 @@ public class MyEndavaApplication extends Application implements ApplicationServi
 
     @Override
     public TagsComponent getTagsComponent(TagsFragment fragment) {
-        return mTagsComponentProvider.get()
-                .tagsBuilder(new TagsModule(fragment))
-                .build();
-    }
-
-    @Override
-    public TagsComponent getTagsComponent(FilteredTagsFragment fragment) {
-        return mTagsComponentProvider.get()
-                .tagsBuilder(new TagsModule(fragment))
-                .build();
-    }
-
-    @Override
-    public TagsComponent getTagsComponent(SuggestDialogFragment fragment) {
         return mTagsComponentProvider.get()
                 .tagsBuilder(new TagsModule(fragment))
                 .build();

@@ -6,10 +6,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.endava.myendava.models.AddTagRequest;
 import com.endava.myendava.models.Profile;
-import com.endava.myendava.models.UpdateProfileRequest;
 import com.endava.myendava.models.RemoveTagRequest;
+import com.endava.myendava.models.Tag;
 import com.endava.myendava.models.TagSubCategory;
+import com.endava.myendava.models.UpdateProfileRequest;
 import com.endava.myendava.repositories.ProfileRepository;
 import com.endava.myendava.repositories.TagsRepository;
 
@@ -32,12 +34,28 @@ public class ProfileViewModel extends ViewModel {
     private MutableLiveData<String> mError = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsTagRemoved = new MutableLiveData<>();
     private MutableLiveData<Boolean> mIsProfileUpdated = new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsTagAdded = new MutableLiveData<>();
     private MutableLiveData<List<TagSubCategory>> tagSubCategoriesLiveData;
+    private MutableLiveData<List<Tag>> mFilteredTags;
 
     @Inject
     public ProfileViewModel(ProfileRepository profileRepository, TagsRepository tagsRepository) {
         this.profileRepository = profileRepository;
         this.tagsRepository = tagsRepository;
+    }
+
+    public LiveData<List<Tag>> getFilteredTags(String email) {
+        mFilteredTags = new MutableLiveData<>();
+        loadFilteredTagsData(email);
+        return mFilteredTags;
+    }
+
+    private void loadFilteredTagsData(String email) {
+        Disposable observable = tagsRepository.getFilteredTags(email)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(filteredTags -> mFilteredTags.setValue(filteredTags));
+        mCompositeDisposable.add(observable);
     }
 
     public LiveData<Profile> getProfile(String email) {
@@ -68,6 +86,24 @@ public class ProfileViewModel extends ViewModel {
         mProfile.setValue(profile);
         mIsUpdating.setValue(false);
         mError.setValue(null);
+    }
+
+    public LiveData<Boolean> addTag(AddTagRequest addTagRequest) {
+        insertTag(addTagRequest);
+        return mIsTagAdded;
+    }
+
+    private void insertTag(AddTagRequest addTagRequest) {
+        mIsUpdating.setValue(true);
+        mCompositeDisposable.add(tagsRepository.addTagToProfile(addTagRequest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onTagAdded));
+    }
+
+    private void onTagAdded() {
+        mIsUpdating.setValue(false);
+        mIsTagAdded.setValue(true);
     }
 
     public LiveData<Boolean> removeTag(RemoveTagRequest removeTagRequest) {
