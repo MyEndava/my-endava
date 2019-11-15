@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
@@ -19,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
 import com.endava.myendava.adapters.FaqsAdapter;
-import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.listeners.OnChipClickedListener;
 import com.endava.myendava.models.Faq;
 import com.endava.myendava.models.Tag;

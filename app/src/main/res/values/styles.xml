@@ -94,5 +94,4 @@
     <style name="BottomSheetDialogStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/bottom_sheet_dialog_background</item>
     </style>
-
 </resources>

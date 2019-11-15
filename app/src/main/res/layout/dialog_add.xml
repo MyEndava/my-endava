@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tag_group_name_text_view"
+        style="@style/SuggestTagTitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_tag_group_start_margin"
+        android:layout_marginTop="@dimen/suggest_dialog_tag_group_top_margin"
+        android:text="@string/tag_group_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="24dp"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:background="@drawable/add_tags_search_background"
+        android:drawableStart="@drawable/icons_24_px_search"
+        android:drawablePadding="@dimen/search_drawable_padding"
+        android:paddingStart="@dimen/search_start_padding"
+        android:paddingEnd="@dimen/search_start_padding"
+        android:fontFamily="@font/sf_pro_text_regular"
+        android:hint="@string/tag_search_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tag_group_name_text_view" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/tags_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/suggest_dialog_recycler_margins"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/search" />
+
+    <android.widget.Button
+        android:id="@+id/add_tag_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/suggest_dialog_button_horizontal_margins"
+        android:layout_marginTop="@dimen/suggest_dialog_button_vertical_margins"
+        android:layout_marginEnd="@dimen/suggest_dialog_button_horizontal_margins"
+        android:layout_marginBottom="@dimen/suggest_dialog_button_vertical_margins"
+        android:text="@string/add_tag_label"
+        android:textColor="@color/white"
+        android:background="@drawable/suggest_tag_button_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tags_recycler_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

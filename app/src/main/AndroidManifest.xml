@@ -17,9 +17,6 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".activities.FilteredTagsActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/FullScreenTheme">

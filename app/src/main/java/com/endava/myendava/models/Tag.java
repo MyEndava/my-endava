@@ -1,11 +1,12 @@
 package com.endava.myendava.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class Tag implements Serializable {
+public class Tag implements Parcelable {
 
     @SerializedName("tag_category")
     @Expose
@@ -49,6 +50,36 @@ public class Tag implements Serializable {
         this.tagName = tagName;
         this.tagDescription = tagDescription;
     }
+
+    protected Tag(Parcel in) {
+        category = in.readString();
+        subcategory = in.readString();
+        tagData = in.readString();
+        if (in.readByte() == 0) {
+            tagId = null;
+        } else {
+            tagId = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            userTagId = null;
+        } else {
+            userTagId = in.readInt();
+        }
+        tagName = in.readString();
+        tagDescription = in.readString();
+    }
+
+    public static final Creator<Tag> CREATOR = new Creator<Tag>() {
+        @Override
+        public Tag createFromParcel(Parcel in) {
+            return new Tag(in);
+        }
+
+        @Override
+        public Tag[] newArray(int size) {
+            return new Tag[size];
+        }
+    };
 
     public String getCategory() {
         return category;
@@ -117,5 +148,31 @@ public class Tag implements Serializable {
                 ", tagName='" + tagName + '\'' +
                 ", tagDescription='" + tagDescription + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(category);
+        parcel.writeString(subcategory);
+        parcel.writeString(tagData);
+        if (tagId == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(tagId);
+        }
+        if (userTagId == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(userTagId);
+        }
+        parcel.writeString(tagName);
+        parcel.writeString(tagDescription);
     }
 }

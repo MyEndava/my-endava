@@ -84,4 +84,9 @@
 
     <string name="profile_update_success">Profile successfully updated</string>
     <string name="profile_update_error">There has been an error while updating the profile</string>
+    <string name="add_tag_label">Add Tags</string>
+    <string name="add_tags_placeholder">No tags have been found</string>
+    <string name="tags_added_success">Tags added successfully</string>
+    <string name="tag_added_success">Tag added successfully</string>
+    <string name="tags_added_error">There has been an error while adding the tags</string>
 </resources>

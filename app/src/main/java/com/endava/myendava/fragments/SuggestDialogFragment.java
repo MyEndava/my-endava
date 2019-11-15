@@ -15,16 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.endava.myendava.R;
 import com.endava.myendava.adapters.TagCategoriesAdapter;
-import com.endava.myendava.app.ApplicationServiceLocator;
 import com.endava.myendava.models.SuggestTagRequest;
 import com.endava.myendava.models.TagCategory;
-import com.endava.myendava.viewmodels.TagsViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,9 +34,6 @@ public class SuggestDialogFragment extends BottomSheetDialogFragment {
     public static final String TAG = "SuggestDialogFragment";
     private static final String ARG_TAG_CATEGORIES = "arg_tag_categories";
 
-    @Inject
-    TagsViewModel tagsViewModel;
-
     @BindView(R.id.suggest_tag_button)
     Button suggestTagButton;
     @BindView(R.id.tag_title_edit_text)
@@ -48,19 +41,21 @@ public class SuggestDialogFragment extends BottomSheetDialogFragment {
     @BindView(R.id.tag_description_edit_text)
     EditText tagDescription;
 
-    Unbinder unbinder;
-    TagCategoriesAdapter tagCategoriesAdapter;
+    private Unbinder unbinder;
+    private TagCategoriesAdapter tagCategoriesAdapter;
+    private OnTagSuggestedListener onTagSuggestedListener;
 
-    public static SuggestDialogFragment newInstance(ArrayList<TagCategory> tagCategories) {
+    public SuggestDialogFragment() {
+        // required empty constructor
+    }
+
+    public static SuggestDialogFragment newInstance(ArrayList<TagCategory> tagCategories, OnTagSuggestedListener listener) {
         SuggestDialogFragment suggestDialogFragment = new SuggestDialogFragment();
+        suggestDialogFragment.onTagSuggestedListener = listener;
         Bundle arguments = new Bundle();
         arguments.putParcelableArrayList(ARG_TAG_CATEGORIES, tagCategories);
         suggestDialogFragment.setArguments(arguments);
         return suggestDialogFragment;
-    }
-
-    public SuggestDialogFragment() {
-        // required empty constructor
     }
 
     @Nullable
@@ -74,13 +69,7 @@ public class SuggestDialogFragment extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         unbinder = ButterKnife.bind(this, view);
-        setupModule();
         setViews(view);
-    }
-
-    private void setupModule() {
-        ApplicationServiceLocator locator = (ApplicationServiceLocator) getActivity().getApplicationContext();
-        locator.getTagsComponent(this).inject(this);
     }
 
     private void setViews(View view) {
@@ -101,15 +90,8 @@ public class SuggestDialogFragment extends BottomSheetDialogFragment {
 
     private void suggestTag() {
         if (validateFields()) {
-            tagsViewModel.suggestTag(new SuggestTagRequest(getTagName(), getTagDescription(), getTagCategoryId(), 1))
-                    .observe(this, aBoolean -> {
-                        if (aBoolean) {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.tag_suggestion_success), Toast.LENGTH_SHORT).show();
-                            dismiss();
-                        } else {
-                            Toast.makeText(getActivity(), getResources().getString(R.string.tag_suggestion_error), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            onTagSuggestedListener.onTagSuggested(new SuggestTagRequest(getTagName(), getTagDescription(), getTagCategoryId(), 1));
+            dismiss();
         } else {
             Toast.makeText(getActivity(), getResources().getString(R.string.please_fill_all_the_fields), Toast.LENGTH_SHORT).show();
         }
@@ -130,6 +112,11 @@ public class SuggestDialogFragment extends BottomSheetDialogFragment {
 
     private int getTagCategoryId() {
         return tagCategoriesAdapter.getSelectedTag().getId();
+    }
+
+    public interface OnTagSuggestedListener {
+
+        void onTagSuggested(SuggestTagRequest suggestedTag);
     }
 
     @Override

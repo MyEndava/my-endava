@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/profile_screen_other_info_margin"
+    android:layout_marginRight="@dimen/profile_screen_other_info_margin"
+    android:layout_marginBottom="@dimen/profile_screen_item_chips_margin"
+    android:paddingBottom="@dimen/profile_screen_other_info_vertical_padding"
+    android:background="@drawable/white_tag_group_shape"
+    android:orientation="vertical">
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/tags_chip_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/profile_screen_vertical_margins"
+        android:layout_marginBottom="@dimen/profile_screen_vertical_margins"
+        android:paddingEnd="@dimen/profile_screen_other_info_horizontal_padding"
+        android:paddingStart="@dimen/profile_screen_other_info_horizontal_padding"
+        app:chipSpacing="@dimen/chip_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </com.google.android.material.chip.ChipGroup>
+
+    <TextView
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/profile_screen_vertical_margins"
+        android:layout_marginBottom="@dimen/profile_screen_vertical_margins"
+        android:paddingEnd="@dimen/profile_screen_other_info_horizontal_padding"
+        android:paddingStart="@dimen/profile_screen_other_info_horizontal_padding"
+        android:fontFamily="@font/roboto_medium_italic"
+        android:text="@string/add_tags_placeholder"
+        android:textColor="@color/technical_text_color"
+        app:chipSpacing="@dimen/chip_margin"
+        android:gravity="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
